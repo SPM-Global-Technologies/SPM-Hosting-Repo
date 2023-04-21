@@ -1,0 +1,294 @@
+#main-section {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+  margin-top: 175px;
+}
+
+.section {
+  width: 100%;
+}
+
+.sectionDiv {
+  display: grid;
+  grid-template-columns: 0.25fr 0.5fr 10fr 0.5fr 0.5fr 0.75fr 1fr;
+  align-items: center;
+  margin-bottom: 10px;
+  color: #216c98;
+  height: 60px;
+  border: 1px solid #ccc;
+}
+
+#sectionIcon {
+  color: #216c98;
+  font-size: 20px;
+  position: relative;
+  right: -10px;
+  cursor: pointer;
+  /* padding-top: 18px; */
+  /* height: 100%;
+     width: 100%; */
+}
+
+#section-number {
+  padding-left: 10px;
+  cursor: pointer;
+  /* height: 100%;
+     width: 100%; */
+  /* position: relative; */
+  /* padding-top: 18px; */
+}
+
+#inputField {
+  height: 100%;
+  width: 100%;
+  font-size: medium;
+  font-weight: lighter;
+  font-size: 15px;
+  outline: none;
+  border: none;
+  border-left: 3px solid #216c98;
+  padding-left: 9px;
+}
+
+.question {
+  display: grid;
+  grid-template-columns: 0.5fr 5fr 1fr 1fr 4fr 1fr 1.1fr 0.25fr 0.25fr;
+  align-items: center;
+  color: #216c98;
+  height: 50px;
+  border: 1px solid #ccc;
+}
+
+.question {
+  font-weight: bold;
+}
+
+.question input[type="text"] {
+  height: 48px;
+  width: 100%;
+  font-size: medium;
+  font-weight: lighter;
+  font-size: 15px;
+  outline: none;
+  border: none;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+
+.question input[type="checkbox"],
+.question button.icon-btn {
+  font-size: 16px;
+  padding: 6px 8px;
+  border: none;
+  border-radius: 4px;
+}
+
+.question input[type="text"]::placeholder {
+  color: #aaa;
+}
+
+.question label {
+  align-items: center;
+  height: 100%;
+  text-align: center;
+  border-left: 1px solid #ccc;
+}
+
+.question label input[type="checkbox"] {
+  margin-left: 6px;
+  margin-right: 5px;
+  margin-top: 6px;
+}
+
+.deletesection {
+  font-size: 22px;
+  color: #ff0000;
+  border: none;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+}
+
+.subSection {
+  text-align: center;
+}
+
+.infoicon-btn {
+  font-size: 20px;
+  cursor: pointer;
+  border: none;
+  background-color: white;
+  margin-left: 5px;
+  color: #216c98;
+}
+
+.copyicon-btn {
+  font-size: 20px;
+  cursor: pointer;
+  border: none;
+  background-color: white;
+  margin-left: 25px;
+  color: #216c98;
+}
+
+.delete-btn {
+  font-size: 20px;
+  cursor: pointer;
+  border: none;
+  background-color: white;
+  margin-left: 25px;
+  color: red;
+  height: 100%;
+  border-left: 1px solid #ccc;
+}
+
+#question {
+  width: 100px;
+  height: 30px;
+  background: none;
+  border-right: none;
+  border: 1px solid gray;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  margin-left: 40%;
+  margin-bottom: 10px;
+}
+
+#rule {
+  width: 100px;
+  height: 30px;
+  background: none;
+  border: 1px solid gray;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.addQuestion {
+  background: none;
+  border: none;
+  font-size: 11px;
+  color: #216c98;
+  padding-left: 50px;
+  position: relative;
+  margin-top: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.addRule {
+  background: none;
+  border: none;
+  font-size: 11px;
+  color: #216c98;
+  padding-left: 50px;
+  position: relative;
+  margin-top: 15px;
+  display: none;
+  font-weight: bold;
+}
+
+.questionSelect {
+  height: 48px;
+  border: 1px solid #ccc;
+  outline: none;
+  border-top: none;
+  border-bottom: none;
+  background-color: white;
+  border-radius: 0px;
+}
+
+.add-question-section {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #eee;
+  border-radius: 4px;
+}
+
+.add-question-section input[type="text"],
+.add-question-section input[type="checkbox"],
+.add-question-section button {
+  font-size: 16px;
+  padding: 6px 8px;
+  border: none;
+  border-radius: 4px;
+}
+
+.add-question-section input[type="text"] {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.add-question-section input[type="text"]::placeholder {
+  color: #aaa;
+}
+
+.add-question-section label {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.add-question-section label input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.add-question-section button.add-btn {
+  background-color: #4caf50;
+  color: #fff;
+  cursor: pointer;
+}
+
+.add-question-section button.add-btn:hover {
+  background-color: #3e8e41;
+}
+
+#add-section-btn {
+  cursor: pointer;
+  margin-top: 20px;
+  margin-left: 45%;
+  border: none;
+  background-color: white;
+  color: #216c98;
+  font-weight: bold;
+  margin-top: 7px;
+}
+
+.highlight {
+  background-color: #f00202;
+  color: white;
+  height: 40px;
+  margin-left: 9px;
+  margin-right: 24px;
+  padding: 7px;
+  height: 100%;
+  width: 87%;
+}
+
+#hidecheckbox {
+  margin-left: 18px;
+  width: 15px;
+}
+
+#hlabel {
+  padding-left: 10px;
+}
+
+
+/* QUESTION HIGHLIGHT */
+#qDel {
+  width: 100%;
+  height: 80%;
+  padding-top: 13px;
+}
+
+#qDel.highlighted {
+  background-color: red;
+  color: white;
+  width: 100%;
+  height: 100%;
+  padding-top: 13px;
+}

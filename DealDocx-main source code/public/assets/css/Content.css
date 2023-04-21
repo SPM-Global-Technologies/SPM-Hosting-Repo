@@ -1,0 +1,248 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.rowcontent {
+  display: flex;
+  padding-left: 66px;
+  padding-top: 65px;
+  background-color: white;
+}
+
+/* -------left content---------- */
+
+.leftcontent {
+  flex: 25%;
+  background-color: white;
+  border-right: 1px solid black;
+  /* border-left: 1px solid black; */
+  width: 20%;
+}
+
+.inboxcontent {
+  width: 100%;
+  height: 50px;
+  background-color: white;
+  display: flex;
+  border-radius: 0;
+  border-bottom: 1px solid black;
+  padding-top: 12px;
+  padding-left: 5px;
+}
+
+.inboxcontent>i {
+  font-size: 20px;
+  color: #0f6b93;
+}
+
+.inboxcontent input[type="text"] {
+  height: 20px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  font-weight: larger;
+  padding-left: 10px;
+  width: 100px;
+}
+
+.dividecontent {
+  overflow-y: scroll;
+  height: 430px;
+}
+
+#myMenucontent {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#myMenucontent li a {
+  padding: 18px;
+  text-decoration: none;
+  color: black;
+  display: block;
+}
+
+#myMenucontent li a:hover {
+  background-color: #045679;
+  color: white;
+  padding-left: 30px;
+}
+
+/* --------showmore in content---------- */
+#morecontent {
+  display: none;
+}
+
+#myBTNcontent {
+  border: none;
+  height: 40px;
+  width: 100%;
+}
+
+/* -----------plus icon in content--------------------- */
+.plusiconcontent {
+  padding: 15px;
+  margin-left: 40%;
+}
+
+.plusiconcontent a {
+  color: #0f6b93;
+  text-decoration: none;
+}
+
+/* --------right content-------- */
+.rightcontent {
+  flex: 75%;
+  padding-left: 3px;
+  margin-left: 21%;
+  background-color: white;
+  /* z-index: -1; */
+  padding-right: 3px;
+
+}
+
+#headercontent {
+  padding-top: 20px;
+  height: 60px;
+  width: 100%;
+  background: rgb(231, 231, 231);
+  text-align: center;
+  font-weight: bold;
+  color: rgb(9, 9, 9);
+  border: 1px solid rgb(83, 83, 83);
+  border-radius: 1px;
+}
+
+.containercontent1 {
+  margin-top: 10px;
+  display: grid;
+  height: 60px;
+  grid-template-columns: 1fr 0.5fr 0.5fr 0.75fr 0.25fr;
+}
+
+.containercontent1 label {
+  color: #216c98;
+  top: -20px;
+  left: 5px;
+  font-size: small;
+  font-weight: bold;
+  font-size: 11px;
+  position: relative;
+}
+
+#cc5 {
+  height: 60px;
+  border-top: 0.1px solid rgb(218, 217, 217);
+  border-right: 0.1px solid rgb(218, 217, 217);
+  border-bottom: 0.1px solid rgb(218, 217, 217);
+}
+
+#cc5 label {
+  color: #216c98;
+  top: 16px;
+  left: 15px;
+  font-size: small;
+  font-weight: bold;
+  font-size: 11px;
+  position: relative;
+}
+
+#cc1 input[type="text"],
+#cc3 input[type="number"],
+#cc4 input[type="text"] {
+  padding-left: 7px;
+  border: 0.1px solid rgb(218, 217, 217);
+  border-radius: 1px;
+  height: 60px;
+  width: 100%;
+  font-size: medium;
+  font-weight: lighter;
+  font-size: 14px;
+  outline-color: #216c98;
+}
+
+#cc5 input[type="checkbox"] {
+  margin-top: 3px;
+  vertical-align: middle;
+  margin-left: 25px;
+  height: 20px;
+  width: 20px;
+}
+
+#cc3,
+input[type="number"]::-webkit-outer-spin-button,
+#cc3,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#cc2 select {
+  padding-left: 7px;
+  border: 0.1px solid rgb(218, 217, 217);
+  border-radius: 1px;
+  height: 60px;
+  width: 100%;
+  font-size: medium;
+  font-weight: lighter;
+  font-size: 14px;
+  outline-color: #216c98;
+  background-color: white;
+}
+
+/* -------wordpad------ */
+#toolbar {
+  display: flex;
+  margin-top: 10px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  background-color: rgb(222, 222, 222);
+  border-bottom: 1px solid rgb(13, 13, 13);
+}
+
+#toolbar button {
+  padding: 4px 8px;
+  font-size: 16px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+/* --------cancel and save new item content-------- */
+.saveandcancelcontent {
+  margin-top: 3%;
+  margin-left: 35%;
+  height: 100px;
+}
+
+#resetcontent {
+  width: 70px;
+  padding: 8px;
+  color: maroon;
+  border-radius: 20px;
+  border-color: red;
+  font-size: 11px;
+}
+
+#savecontent {
+  width: 110px;
+  padding: 8px;
+  color: green;
+  border-radius: 20px;
+  border-color: green;
+  font-size: 11px;
+}
+
+#color-picker {
+  /* size: 10px; */
+  width: 20px;
+  border: none;
+  margin-left: 5px;
+  background-color:rgb(222, 222, 222) ;
+}

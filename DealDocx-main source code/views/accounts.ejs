@@ -1,0 +1,482 @@
+<%- include('header') %>
+<div class="bread">
+    <ul class="breadcrumbs" style="padding-top: 0;padding-bottom: 0;">
+        <li class="breadcrumbs--item">
+            <a href="/" class="breadcrumbs--link breadcrumbs"
+                style="display:inline;text-decoration:none">HOME</a>
+
+        <li class="breadcrumbs--item">
+            <a href="<%= base_url %>accounts" class="breadcrumbs--link breadcrumbs--link--active">ACCOUNTS</a>
+
+            <!-- </li> <li class="breadcrumbs--item">
+    <a href="#" class="breadcrumbs--link">QUOTES</a>
+</li> -->
+
+            <a href="#"><i class="fa fa-pen"
+                    style="margin-left:1048px;border:1px solid black;padding:7px;background-color: #216c98;font-size: 17px; border: none;color: white;"></i></a>
+
+            <a href="<%= base_url %>accoutslistings" style="text-decoration: none;color: black;"><i class="fa fa-table"
+                    style="border:1px solid black;padding:7px;font-size: 17px;border: none;"></i></a>
+        </li>
+    </ul>
+    <hr class="hr" style="height:1.5px;">
+</div>
+</div>
+<div class="content-bar" style="top:68px;">
+<ul>
+    <a href="<%= base_url %>">
+        <li>
+            <span class="icon"><i class="fas fa-home"></i></span>
+            <span class="item">HOME</span>
+        </li>
+    </a>
+    <a href="<%= base_url %>accounts">
+        <li class="active1">
+            <span class="icon"><i class="fa-solid fa-book-open"></i></span>
+            <span class="item">ACCOUNTS</span>
+        </li>
+    </a>
+    <a href="Quotes.html">
+        <li>
+            <span class="icon"><i class="fa fa-dollar"></i></span>
+            <span class="item">QUOTES</span>
+        </li>
+    </a>
+    <a href="Demand.html">
+        <li>
+            <span class="icon"><i class="fa fa-user"></i></span>
+            <span class="item">DEMAND</span>
+        </li>
+    </a>
+    <a href="Forecast.html">
+        <li>
+            <span class="icon"><i class="fa fa-line-chart"></i></span>
+            <span class="item">FORECAST</span>
+        </li>
+    </a>
+    <a href="<%= base_url %>catalog">
+        <li>
+            <span class="icon"><i class="fa fa-eye"></i></span>
+            <span class="item">CATALOG</span>
+        </li>
+    </a>
+    <a href="Admin.html">
+        <li>
+            <span class="icon"><i class="fa fa-cog"></i></span>
+            <span class="item">ADMIN</span>
+        </li>
+    </a>
+</ul>
+</div>
+<!-- end header -->
+
+<div>
+    <div class="row">
+
+        <div class="left" style="position: fixed;">
+
+            <div class="inbox">
+                <i class="fa fa-search" aria-hidden="true"></i>
+                <input type="text" id="mySearch" onkeyup="myFunction2()" title="type in a chategory">
+            </div>
+
+            <div class="divide">
+                <ul id="myMenu">
+                    <span id="dots">
+                        <% if(!accounts || accounts.length == 0) { %>
+                            <li><a>No Accounts found</a></li>
+                        <% } else {
+                           var num = 0;
+                            accounts.forEach(function(data, i){ 
+                               if(num==0){ 
+                                   num++;%>
+                                <li><a href="<%= base_url %>account/edit/<%= data.access_key %>" ><%= data.accounts %></a></li>
+                                <script>
+                                   window.location.href="<%= base_url %>account/edit/<%= data.access_key %>";
+                                </script>
+                               <% }else{ %>
+                                   <li><a href="<%= base_url %>account/edit/<%= data.access_key %>"><%= data.accounts %></a></li>
+
+                           <%  }
+                            })
+                        } %>
+                        
+                    </span>
+                    <!-- <span id="more">
+                        <li><a href="#">Accenture S.p.A</a></li>
+                        
+                    </span>
+                    <button onclick="myFunction3()" id="myBTN">VIEW MORE</button> -->
+                </ul>
+            </div>
+            <div class="plusicon">
+                <a href="<%= base_url %>createaccount"><i class="fa fa-plus"></i></a>
+            </div>
+        </div><%= base_url %>createaccount">
+
+        <div class="right">
+            <div id="header"><a>ACCOUNTS</a></div>
+            <div>
+                <form>
+                    <div class="containerA1">
+                        <div id="content1">
+                            <input class="inputTextA1" type="text" placeholder="">
+                            <label>ACCOUNTS</label>
+                        </div>
+                        <div id="content2">
+                            <input class="inputTextA1" type="text" placeholder="">
+                            <label>OWNER</label>
+                        </div>
+                    </div>
+
+                    <div class="containerA2">
+                        <div id="content3">
+                            <input type="text" class="inputTextA1" placeholder="Please enter 3 or more charecters">
+                            <label>PARENT ACCOUNT</label>
+                        </div>
+                    </div>
+                    <div class="containerA3">
+                        <div id="content4">
+                            <input type="text" class="inputTextA1" placeholder="">
+                            <label>DESCRIPTION</label>
+                        </div>
+                    </div>
+                    <div class="containerA4">
+                        <div id="content5">
+                            <select>
+                                <option selected disabled></option>
+                                <option value="AP">AP</option>
+                                <option value="EMEA">EMEA</option>
+                                <option value="LA">LA</option>
+                                <option value="NA">NA</option>
+                            </select>
+                            <label>REGION</label>
+                        </div>
+                        <div id="content6">
+                            <select>
+                                <option selected disabled></option>
+                                <option value="BUSINESS SERVICE">BUSINESS SERVICES</option>
+                                <option value="FINANCE AND INSURENC">FINANCE AND INSURENCE</option>
+                                <option value="MANUFACTURING">MANUFACTURING</option>
+                                <option value="MEDIA,ENTERTAINMENT,& LEISURE">MEDIA,ENTERTAINMENT,& LEISURE</option>
+                                <option value="PUBLIC SECTOR">PUBLIC SECTOR</option>
+                                <option value="RETAIL & WHOLESALE TRADE">RETAIL & WHOLESALE TRADE</option>
+                                <option value="UTILITIES & TELECOMMUNICATION">UTILITIES & TELECOMMUNICATION</option>
+                                <option value="OTHER">OTHER</option>
+                            </select>
+                            <label>INDUSTRY</label>
+                        </div>
+                    </div>
+                    <div class="containerA5">
+                        <div id="content7"> <select>
+                                <option selected disabled></option>
+                                <option value="BANKING">BANKING</option>
+                                <option value="CHEMICALS">CHEMICALS</option>
+                                <option value="CONSTRUCTION & ENGG">CONSTRUCTION & ENGG</option>
+                                <option value="COSULTING SERVICES">COSULTING SERVICES</option>
+                                <option value="CONSUMER PRODUCTS">CONSUMER PRODUCTS</option>
+                                <option value="EDUCATION">EDUCATION</option>
+                                <option value="ENTERTAINMENT & LEISURE">ENTERTAINMENT & LEISURE</option>
+                                <option value="FINANCIAL SERVICES">FINANCIAL SERVICES</option>
+
+                            </select>
+                            <label>VERTICAL</label>
+                        </div>
+                        <div id="content8">
+                            <select>
+                                <option selected disabled></option>
+                                <option value="CUSTOMER">CUSTOMER</option>
+                                <option value="PROSPECT">PROSPECT</option>
+                                <option value="INTERNAL">INTERNAL</option>
+                                <option value="GENERIC">GENERIC</option>
+                            </select>
+                            <label>TYPE</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- tables -->
+
+            <!-- BILLING ADDRESS -->
+            <div class="containerA6">
+                <div class="left1" onclick="myFunctionA()"> <button type="button" class="bbtn" id="clickme">
+                        <b>BILLING ADDRESS &nbsp; <span class="fa fa-angle-down"></span></b></button>
+                    <div id="billOne" class="hidden">
+                        <div class="content9">
+                            <div class="street1">
+                                <input class="billing" type="text" placeholder="">
+                                <label>STREET-1</label>
+                            </div>
+
+                            <!-- </div>  <div class="content9"> -->
+                            <div class="street2">
+                                <input class="billing" type="text" placeholder="">
+                                <label>STREET-2</label>
+                            </div>
+                        </div>
+                        <div class="content9">
+                            <div class="street1">
+                                <input class="billing" type="text" placeholder=""> <label>CITY</label>
+                            </div>
+                            <!-- </div>  <div class="content9"> -->
+                            <div class="street2">
+                                <input class="billing" type="text" placeholder="">
+                                <label>STATE</label>
+                            </div>
+                        </div>
+                        <div class="content9">
+                            <div class="street1">
+                                <input class="billing" type="text" placeholder=""> <label>ZIP</label>
+                            </div>
+                            <!-- </div>  <div class="content9"> -->
+                            <div class="street2">
+                                <input class="billing" type="text" placeholder="">
+                                <label>COUNTRY</label>
+                            </div>
+                        </div>
+                        <div class="content9"> <input class="billing" type="text" placeholder=""
+                                style="margin-left: 0.9%;">
+                            <label>PHONE</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="right1"> <button type="button" onclick="myfunctionB()" class="sbtn" id="clikhere">
+                        <b>SHIPPING ADDRESS &nbsp;<span class="fa fa-angle-down"></span></b></button>
+                    <div id="ship" class="hidden">
+                        <div class="content10">
+                            <div class="street1">
+                                <input class="billing" type="text" placeholder="">
+                                <label id="l1">STREET-1</label>
+                            </div>
+                            <!-- <div class="content10"> -->
+                            <div class="street2"> <input class="billing" type="text" placeholder="">
+                                <label>STREET-2</label>
+                            </div>
+                        </div>
+                        <div class="content10">
+                            <div class="street1">
+                                <input class="billing" type="text" placeholder=""> <label>CITY</label>
+                            </div>
+                            <!-- </div>  <div class="content10"> -->
+                            <div class="street2">
+                                <input class="billing" type="text" placeholder="">
+                                <label>STATE</label>
+                            </div>
+                        </div>
+                        <div class="content10">
+                            <div class="street1">
+                                <input class="billing" type="text" placeholder=""> <label>ZIP</label>
+                            </div>
+                            <!-- </div>  <div class="content10"> -->
+                            <div class="street2">
+                                <input class="billing" type="text" placeholder="">
+                                <label>COUNTRY</label>
+                            </div>
+                        </div>
+                        <div class="content10"> <input class="billing" type="text" placeholder=""
+                                style="margin-left: 0.9%;">
+                            <label>PHONE</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <!-- --------------------additional info--------------------- -->
+            <div class="addInfo">
+                <form action="#">
+                    <button type="button" onclick="myfunctionC()" id="clikhere3" class="aInfo">
+                        <b>ADDITIONAL INFO &nbsp;</b>
+                        <span class="fa fa-angle-down"></span></button>
+                    <div id="displaytable3" class="placeholder hidden">
+                        <div class="container-info">
+                            <div id="content-info1">
+                                <input type="text" placeholder="">
+                                <label>EXCELRATE PARTNER</label>
+                            </div>
+                            <div id="content-info2">
+                                <input type="text" placeholder="">
+                                <label>COMERCIAL REGION</label>
+                            </div>
+                            <div id="content-info3">
+                                <input type="text" placeholder="">
+                                <label>COMERCIAL SUBREGION</label>
+                            </div>
+                            <div id="content-info4">
+                                <input type="text" placeholder="">
+                                <label>VAT NUMBER</label>
+                            </div>
+                            <div id="content-info5">
+                                <input type="text" placeholder="">
+                                <label>DELIVERY AREA</label>
+                            </div>
+                            <div id="content-info6">
+                                <input type="text" placeholder="">
+                                <label></label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- <div class="savcanc">
+                <button id="reset" type="reset" style="color:red;">CANCEL</button>
+                <button id="save" type="submit" style="color:green;">SAVE</button>
+            </div> -->
+            <!-- --------------opportunities----------------- -->
+
+            <div class="opportunities">
+                <form action="#">
+                    <b>OPPORTUNITIES</b>
+
+                    <table id="myTable">
+                        <tr>
+                            <th>OPPORTUNITIES</th>
+                            <th>QUOTE</th>
+                            <th>STATUS</th>
+                            <th>CLOSE DATE</th>
+                            <th>OWNER</th>
+                            <th>REVENUE</th>
+                            <th>MARGIN</th>
+                        </tr>
+                        <tr>
+                            <td>row #1</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>row #2</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>row #3 </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>row #4</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>row #5</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>row #6</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>row #7</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>row #8</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>row #9</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>row #10</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                       
+                    </table>
+
+
+
+                </form>
+            </div>
+            <!-- ----------pagination----------- -->
+            <!-- <div class="pagination">
+                <a href="#">&laquo;</a>
+                <a href="#">page 1 of 1</a>
+                <a href="#">&raquo;</a>
+            </div> -->
+            <div class="plus-oppertunities">
+                <a href="#"><i class="fa fa-plus"></i></a>
+            </div>
+
+
+            <!-- <div class="savcanc">
+                <button id="reset" type="reset" style="color:red;">CANCEL</button>
+                <button id="save" type="submit" style="color:green;">SAVE</button>
+            </div> -->
+            <!-- ------------delete account------------- -->
+            <div class="deleteacc">
+                <div class="project">
+                    <b>PROJECTS</b>
+
+                    <p>No Projects</p>
+                </div>
+                <a class="delete" href="#">DELETE ACCOUNT</a>
+            </div>
+
+        </div>
+        <div class="slide">
+            <div id="mySidebar" class="sidebar1">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">x</a>
+                <a href="#">about</a>
+                <a href="#">services</a>
+                <a href="#">clients</a>
+                <a href="#">contact</a>
+            </div>
+            <div id="main">
+                <button class="openbtn" onclick="openNav()">=</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('footer') %>

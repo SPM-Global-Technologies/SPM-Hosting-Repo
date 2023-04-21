@@ -1,0 +1,1060 @@
+<%- include('header') %>
+
+    <link rel="stylesheet" href="<%= base_url %>css/GuidedSelling.css">
+    <link rel="stylesheet" href="<%= base_url %>css/GuidedSellingLeftSideBar.css">
+    <link rel="stylesheet" href="<%= base_url %>css/GuideSellingQuestion.css">
+
+    <div class="bread">
+        <ul class="breadcrumbs" style="padding: 9px;">
+            <li class="breadcrumbs--item">
+                <a href="<%= base_url %>" class="breadcrumbs--link breadcrumbs"
+                    style="display:inline;text-decoration:none">HOME</a>
+            </li>
+            <li class="breadcrumbs--item">
+                <a href="<%= base_url %>account/edit/<%= accid %>" class="breadcrumbs--link breadcrumbs--link--active">
+                    <%= accounts.accounts %>
+                </a>
+            </li>
+            <li class="breadcrumbs--item">
+                <a href="<%= base_url %>opportunities/opportunitydata/<%= accid %>/<%= oppid %>"
+                    class="breadcrumbs--link breadcrumbs--link--active">
+                    <%= opp_data.opportunity_name %>
+                </a>
+            </li>
+
+            <li class="breadcrumbs--item">
+                <a class="breadcrumbs--link breadcrumbs--link--active">
+                    <%= quotes %>
+                </a>
+            </li>
+            <!-- </li> <li class="breadcrumbs--item">
+    <a href="#" class="breadcrumbs--link">QUOTES</a>
+</li> -->
+            </li>
+            <div style="float: right;">
+                <a href="<%= base_url %>"
+                    style="padding:14px;padding-bottom:6px; background-color: #216c98;z-index:3;"><i class="fa fa-pen"
+                        style="font-size: 15px; border: none;color: white;"></i></a>
+                <a href="<%= base_url %>guidedselling/sow/<%= accid %>/<%= oppid %>/<%= template_type %>"
+                    style="text-decoration: none;color: lightslategray;padding:14px;padding-bottom:6px;"><i
+                        class="fa fa-scroll" style="border:1px solid black;font-size: 17px;border: none;"></i></a>
+                <a href="<%= base_url %>" style="text-decoration: none;color: black;padding:14px;padding-bottom:6px;"><i
+                        class="fa fa-table" style="border:1px solid black;font-size: 17px;border: none;"></i></a>
+
+            </div>
+        </ul>
+        <hr class="hr" style="height:1.5px;">
+    </div>
+    </div>
+    <div class="content-bar" style="top:68px;">
+        <ul>
+            <a href="<%= base_url %>">
+                <li>
+                    <span class="icon"><i class="fas fa-home"></i></span>
+                    <span class="item">HOME</span>
+                </li>
+            </a>
+            <a href="<%= base_url %>accounts">
+                <li class="active1">
+                    <span class="icon"><i class="fa-solid fa-book-open"></i></span>
+                    <span class="item">ACCOUNTS</span>
+                </li>
+            </a>
+            <a href="<%= base_url %>">
+                <li>
+                    <span class="icon"><i class="fa fa-dollar"></i></span>
+                    <span class="item">QUOTES</span>
+                </li>
+            </a>
+            <a href="<%= base_url %>">
+                <li>
+                    <span class="icon"><i class="fa fa-user"></i></span>
+                    <span class="item">DEMAND</span>
+                </li>
+            </a>
+            <a href="<%= base_url %>">
+                <li>
+                    <span class="icon"><i class="fa fa-line-chart"></i></span>
+                    <span class="item">FORECAST</span>
+                </li>
+            </a>
+            <a href="<%= base_url %>catalog">
+                <li>
+                    <span class="icon"><i class="fa fa-eye"></i></span>
+                    <span class="item">CATALOG</span>
+                </li>
+            </a>
+            <a href="<%= base_url %>">
+                <li>
+                    <span class="icon"><i class="fa fa-cog"></i></span>
+                    <span class="item">ADMIN</span>
+                </li>
+            </a>
+        </ul>
+    </div>
+
+
+    <div class="grid-container">
+        <div class="sidebarguide" id="leftsideguide">
+            <button class="btnguide" onclick="guideOpen()">></button>
+            <div class="guidedselling">
+                <b>GUIDED SELLING</b>
+            </div>
+            <div class="guideSelling">
+                <h3>
+                    <%= catalog_data.title %><i class="fa fa-cog" onclick="expandFullWidth()"
+                            style="float: right; font-size: 30px; color: lightgray;"></i>
+                </h3>
+                <div class="pencil">
+                    <i class="fa fa-pencil" onclick="strinkwidth()" id="pencil" style="display: none;"></i>
+                    <label for="pencil" id="answer" style="font-size: 10px; display: none;">ANSWER &nbsp; CONFIG</label>
+                </div>
+            </div>
+            <div class="guideLabel">
+                <label>CPQ</label>
+                <label style="float: right; padding-right: 10px;" id="config">CONFIG</label>
+            </div>
+            <!-- <form action=""> -->
+            <div id="hideOnExpand">
+                <% sections.forEach(function(data, i){ if(data.catalog_section_status !=1){ %>
+                    <div class="navside">
+
+                        <button class="dropdown-btn redBtn<%= i %>" id="sidetoggle4">
+                            <%= data.catalog_section_number %>. <%= data.catalog_section_title %><i
+                                        class="fa fa-angle-down"
+                                        style="color: 1px solid black; font-size: 20px; float: right;"></i>
+                        </button>
+                        <div class="dropdown-container">
+
+                            <!-- <div class="txt">
+                    <p id="text-to-copy" style="border-left: none;"></p>
+                    <p id="guidedFieldsHead">Details</p>
+                </div> -->
+
+                            <% questions.forEach(function(questionsdata, i){
+                                if(data.catalog_section_key==questionsdata.catalog_section_key){ const
+                                ques_num=questionsdata.catalog_questions_num.split(".");%>
+
+                                <div class="txt">
+                                    <p id="text-to-copy">
+                                        <%= data.catalog_section_number %>.<%= ques_num[1] %>
+                                    </p>
+                                    <p id="guidedFields">
+                                        <%= questionsdata.catalog_questions_name %>
+                                    </p>
+                                    <input id="billingCustomer<%= data.catalog_section_number %>.<%= ques_num[1] %>"
+                                        class="billing_customer_name" type="text"
+                                        name="billing_customer_name<%= ques_num[1] %>" onclick="inputControll(event)"
+                                        value="" <% if(questionsdata.catalog_questions_required==1){ %>style =
+                                    "border-left: 3px
+                                    solid red;" required <% } %> >
+
+                                        <% if(questionsdata.catalog_questions_required==1){ %>
+                                            <style>
+                                                .redBtn<%=i %> {
+                                                    border-left: 3px solid red;
+                                                }
+                                            </style>
+                                            <script>
+
+                                                if (document.getElementById('billingCustomer<%= data.catalog_section_number %>.<%= ques_num[1] %>').value.trim() === '' && document.getElementById('billingCustomer<%= data.catalog_section_number %>.<%= ques_num[1] %>').required) {
+                                                    document.querySelector('.redBtn<%= i %>').style.borderLeft = '3px solid red';
+                                                } else {
+                                                    // document.getElementById('billingCustomer<%= data.catalog_section_number %>.<%= ques_num[1] %>').style.borderLeft = "1px solid gray";
+                                                    document.querySelector('.redBtn<%= i %>').style.borderLeft = "1px solid gray";
+                                                }
+
+                                                document.getElementById('billingCustomer<%= data.catalog_section_number %>.<%= ques_num[1] %>').addEventListener("input", function () {
+                                                    if (document.getElementById('billingCustomer<%= data.catalog_section_number %>.<%= ques_num[1] %>').value.trim() === "" && document.getElementById('billingCustomer<%= data.catalog_section_number %>.<%= ques_num[1] %>').required) {
+                                                        // this.style.borderLeft = "3px solid red";
+                                                        document.querySelector('.redBtn<%= i %>').style.borderLeft = "3px solid red";
+                                                        // requirefield.style.outline = "none";
+                                                    } else {
+                                                        // this.style.borderLeft = "1px solid gray";
+                                                        document.querySelector('.redBtn<%= i %>').style.borderLeft = "1px solid gray";
+
+                                                    }
+                                                });
+                                            </script>
+                                            <% } %>
+
+                                </div>
+                                <% } }) %>
+                                    <!-- <div class="txt">
+                    <p id="text-to-copy">1.3</p>
+                    <p id="guidedFields">End Customer Name</p>
+                    <input id="billingCustomer" type="text" name="end customer name" value="" readonly>
+                </div>
+                <div class="txt">
+                    <p id="text-to-copy">1.4</p>
+                    <p id="guidedFields">Customer Address</p>
+                    <button id="floderOpen" hidden onclick="myfunctionBill('address')"></button>
+                    <label for="floderOpen" id="folderIcon"><i class="fa-regular fa-folder"></i></label>
+                </div>
+                <div id="address">
+                    <div class="address1">
+                        <button class="addressBtn" onclick="myfunctionShipOne('shipTable')"><i
+                                class="fa fa-angle-down"
+                                style="float: left; padding-left: 10px; font-size: 20px;"></i> Shipping
+                            Address</button>
+                        <div id="shipTable">
+                            <div id="shipAdd">
+                                <input id="read" type="text" value="STREET" readonly>
+                                <input id="edit" type="text" name="street" value="">
+                                <button type="reset" id="erase" name="erase" value="rub"></button>
+
+                                <input id="read" type="text" value="CITY" readonly>
+                                <input id="edit" type="text" name="city" value="">
+                                <button type="reset" id="erase" name="erase" value="rub"></button>
+
+                                <input id="read" type="text" value="STATE" readonly>
+                                <input id="edit" type="text" name="state" value="">
+                                <button type="reset" id="erase" name="erase" value="rub"></button>
+
+                                <input id="read" type="text" value="ZIP CODE" readonly>
+                                <input id="edit" type="text" name="zip" value="">
+                                <button type="reset" id="erase" name="erase" value="rub"></button>
+
+                                <input id="read" type="text" value="COUNTRY" readonly>
+                                <input id="edit" type="text" name="country" value="">
+                                <button type="reset" id="erase" name="erase" value="rub"></button>
+
+                                <input id="read" type="text" value="PHONE #" readonly>
+                                <input id="edit" type="text" name="phonenumber" value="">
+                                <button type="reset" id="erase" name="erase" value="rub"></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="address2">
+                        <button class="addressBtn" onclick="myfunctionBillOne('billTable')"><i
+                                class="fa fa-angle-down"
+                                style="float: left; padding-left: 10px; font-size: 20px;"></i>Billing
+                            Address</button>
+                        <div id="billTable">
+                            <div class="billAdd">
+                                <input id="read" type="text" value="STREET" readonly>
+                                <input id="edit" type="text" name="street" value="">
+                                <input type="reset" id="erase" name="erase" value="rub"></button>
+
+                                <input id="read" type="text" value="CITY" readonly>
+                                <input id="edit" type="text" name="city" value="">
+                                <button type="reset" id="erase" name="erase" value="rub"></button>
+
+                                <input id="read" type="text" value="STATE" readonly>
+                                <input id="edit" type="text" name="state" value="">
+                                <button type="reset" id="erase" name="erase" value="rub"></button>
+
+                                <input id="read" type="text" value="ZIP CODE" readonly>
+                                <input id="edit" type="text" name="zip" value="">
+                                <button type="reset" id="erase" name="erase" value="rub"></button>
+
+                                <input id="read" type="text" value="COUNTRY" readonly>
+                                <input id="edit" type="text" name="country" value="">
+                                <button type="reset" id="erase" name="erase" value="rub"></button>
+
+                                <input id="read" type="text" value="PHONE #" readonly>
+                                <input id="edit" type="text" name="phonenumber" value="">
+                                <button type="reset" id="erase" name="erase" value="rub"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="txt">
+                    <p id="text-to-copy" style="border-left: none;"></p>
+                    <p id="guidedFieldsHead">Opportunity Details</p>
+                </div>
+                <div class="txt">
+                    <p id="text-to-copy">1.6</p>
+                    <p id="guidedFields">Opportunity ID</p>
+                    <input id="billingCustomer" type="text" name="oppId" value="" readonly>
+                </div>
+                <div class="txt">
+                    <p id="text-to-copy">1.7</p>
+                    <p id="guidedFields">Opportunity Name</p>
+                    <input id="billingCustomer" type="text" name="oppName" value="" readonly>
+                </div>
+                <div class="txt">
+                    <p id="text-to-copy">1.8</p>
+                    <p id="guidedFields">Opportunity Owner Details</p>
+                    <button id="oppData" hidden onclick="openCSAM('opportunity')"></button>
+                    <label for="oppData" id="oppIcon"><i class="fa-regular fa-folder"></i></label>
+                </div>
+                <div id="opportunity">
+                    <button id="oppBtn" onclick="myOpportunity('csamData')"><i class="fa fa-angle-down"
+                            style="float: left; padding-left: 10px; font-size: 20px;"></i>CSAM Details</button>
+                    <div id="csamData">
+                        <div class="csamForm">
+                            <input id="read" type="text" value="NAME" readonly>
+                            <input id="edit" type="text" name="csname" value="">
+                            <button type="reset" id="erase" name="erase" value="rub"></button>
+
+
+                            <input id="read" type="text" value="EMAIL ADDRESS" readonly>
+                            <input id="edit" type="text" name="email" value="">
+                            <button type="reset" id="erase" name="erase" value="rub"></button>
+
+                            <input id="read" type="text" value="PHONE" readonly>
+                            <input id="edit" type="text" name="phnumber" value="">
+                            <button type="reset" id="erase" name="erase" value="rub"></button>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="txt">
+                    <p id="text-to-copy">1.9</p>
+                    <p id="guidedFields">Stage</p>
+                    <input id="billingCustomer" type="text" value="" name="stage" readonly>
+                </div>
+                <div class="txt">
+                    <p id="text-to-copy">1.10</p>
+                    <p id="guidedFields">Region</p>
+                    <input id="billingCustomer" type="text" name="region" value="" readonly>
+                </div>
+                <div class="txt">
+                    <p id="text-to-copy">1.11</p>
+                    <p id="guidedFields">Currency</p>
+                    <input id="billingCustomer" type="text" name="currency" value="" readonly>
+                </div>
+                <div class="txt">
+                    <p id="text-to-copy">1.12</p>
+                    <p id="guidedFields">Project Start Date</p>
+                    <input id="billingCustomer" type="text" name="startDate" value="" readonly>
+                </div>
+                <div class="txt">
+                    <p id="text-to-copy">1.13</p>
+                    <p id="guidedFields">Engagement ID</p>
+                    <input id="billingCustomer" type="text" name="engagementId" value="" readonly>
+                </div>
+                <div class="txt">
+                    <p id="text-to-copy">1.14</p>
+                    <p id="guidedFields">Project Type</p>
+                    <input id="billingCustomer" type="text" name="projectType" value="" readonly>
+                </div>
+                <div class="txt">
+                    <p id="text-to-copy">1.15</p>
+                    <p id="guidedFields">Opportunity Type</p>
+                    <input id="billingCustomer" type="text" name="opportunityType" value="" readonly>
+                </div>
+                <div class="txt">
+                    <p id="text-to-copy">1.16</p>
+                    <p id="guidedFields">Customer VAT Number</p>
+                    <input id="billingCustomer" type="text" name="vatNumber" value="" readonly>
+                </div>
+                <div class="txt">
+                    <p id="text-to-copy">1.17</p>
+                    <p id="guidedFields">Product Line</p>
+                    <input id="billingCustomer" type="text" name="productLine" value="" readonly>
+                </div>
+                <div class="txt">
+                    <p id="text-to-copy">1.18</p>
+                    <p id="guidedFields">Product Interest</p>
+                    <input id="billingCustomer" type="text" name="productInterest" value="" readonly>
+                </div> -->
+                        </div>
+                    </div>
+
+                    <% } }) %>
+                        <!-- END OF CUSTOMER DETAILS -->
+                        <!-- START OF QUOTE DETAILS -->
+                        <!-- <div class="navside">
+            <button class="dropdown-btn" id="sidetoggle4">2. Quote Type <i class="fa fa-angle-down"
+                    style="color: 1px solid black; font-size: 20px; float: right;"></i>
+            </button>
+            <div class="dropdown-container">
+                <div class="txt">
+                    <p id="text-to-copy">2.1</p>
+                    <p id="guidedFields">Select Quote Type</p>
+                    <button id="quoteData" onclick="myQuote('quote')" hidden></button>
+                    <label for="quoteData" id="quoteIcon"><i class="fa-regular fa-folder"></i></label>
+                </div>
+                <div id="quote">
+                    <button id="quoteAngleBtn" onclick="myQuoteData('tScope')">
+                        <i class="fa fa-angle-down"
+                            style="float: left; padding-left: 10px; font-size: 20px;"></i></i></button>
+                    <div id="tScope">
+                        <div class="type">
+                            <p id="guidedFieldsQuote">Quote Type</p>
+                            <select name="quoteType" id="quoteSelect" style="text-align: left;">
+                                <option value="" selected></option>
+                                <option value="sow">SOW</option>
+                                <option value="cco">CCO</option>
+                                <option value="ms">NON-DD MS DEAL APPROVAL</option>
+                                <option value="ps">NON-DD PS DEAL APPROVAL</option>
+                            </select>
+                            <button type="reset">erase</button>
+                        </div>
+                        <div class="scope">
+                            <p id="guidedFieldsQuote">DD Scoping Config</p>
+                            <select name="scopeType" id="quoteSelect" style="text-align: left;">
+                                <option value="" selected></option>
+                                <option value="zimit scope">ZIMIT SCOPING</option>
+                                <option value="expert services">EXPERT SERVICES</option>
+                                <option value="multi quote">MULTI QUOTE</option>
+                            </select>
+                            <button type="reset">erase</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+                        <!-- END OF QUOTE TYPE HTML CODE -->
+                        <!-- START OF BID/PRICING DETAILS -->
+
+                        <!-- <div class="navside">
+            <button class="dropdown-btn" id="sidetoggle4">3.Bid/Pricing Details<i class="fa fa-angle-down"
+                    style="color: 1px solid black; font-size: 20px; float: right;"></i>
+            </button>
+            <div class="dropdown-container">
+                <div class="txt">
+                    <p id="text-to-copy" style="border-left: none;"></p>
+                    <p id="guidedFieldsHead">Contract Details</p>
+                </div>
+                <div class="txt">
+                    <p id="text-to-copy">3.2</p>
+                    <p id="guidedFields">Quote Creation Date</p>
+                    <input id="billingCustomer" name="qcreatedDate" type="text" value="" readonly>
+                </div>
+                <div class="txt">
+                    <p id="text-to-copy">3.3</p>
+                    <p id="guidedFields">Bid Expires On</p>
+                    <input id="billingCustomer" name="bidExpiryDate" type="text" value="" readonly>
+                </div>
+                <div class="txt">
+                    <p id="text-to-copy">3.4</p>
+                    <p id="guidedFields">Contract Type</p>
+                    <input id="billingCustomer" type="text" name="contractType" value="Time & Material"
+                        readonly>
+                </div>
+                <div class="txt">
+                    <p id="text-to-copy" style="border-left: none;"></p>
+                    <p id="guidedFieldsHead">Pricing Details</p>
+                </div>
+                <div class="txt">
+                    <p id="text-to-copy">3.5</p>
+                    <p id="guidedFields">Price List (Country Of Delivery)</p>
+                    <input id="billingCustomer" type="text" name="priceList" value="" readonly>
+                </div>
+                <div class="txt">
+                    <p id="text-to-copy">3.6</p>
+                    <p id="guidedFields">Price List Currency</p>
+                    <input id="billingCustomer" type="text" name="currency" value="" readonly>
+                </div>
+                <div class="txt">
+                    <p id="text-to-copy">3.7</p>
+                    <p id="guidedFields">Contract Currency to be used</p>
+                    <input id="billingCustomer" type="text" name="currencytobeUsed" value="" readonly>
+                </div>
+                <div class="txt">
+                    <p id="text-to-copy"></p>
+                    <p id="guidedFields" style="font-size: 13px;">Prepaid Deposits/Partner Discounts</p>
+                    <button id="oppData" hidden></button>
+                    <label for="oppData" id="oppIcon"></label>
+                </div>
+
+                <div class="txt">
+                    <p id="text-to-copy">3.8</p>
+                    <p id="guidedFields">Is BMC Subcontracting?</p>
+                    <input id="billingCustomer" type="text" name="Subcontracting" value="" readonly>
+                </div>
+                <div class="txt">
+                    <p id="text-to-copy">3.9</p>
+                    <p id="guidedFields">Delivery Area(Approval Flow)</p>
+                    <input id="billingCustomer" type="text" name="deliveryArea" value="" readonly>
+                </div>
+
+                <div class="txt">
+                    <p id="text-to-copy" style="border-left: none;"></p>
+                    <p id="guidedFieldsHead">Rate Card Details</p>
+                </div>
+                <div class="txt">
+                    <p id="text-to-copy">3.10</p>
+                    <p id="guidedFields">Rate Card Version</p>
+                    <input id="billingCustomer" type="text" name="rateCardVersion" value="" readonly>
+                </div>
+            </div>
+        </div> -->
+                        <!-- <div class="navside">
+            <button class="dropdown-btn" id="sidetoggle4">4. Bid Estimation<i class="fa fa-angle-down"
+                    style="color: 1px solid black; font-size: 20px; float: right;"></i>
+            </button>
+            <div class="dropdown-container">
+                <div class="txt">
+                    <p id="text-to-copy">4.1</p>
+                    <p id="guidedFields">Bid Estimation Details</p>
+                    <button id="bidData" onclick="openPopup()" hidden></button>
+                    <label for="bidData" id="bidIcon"><i class="fa-regular fa-folder"></i></label>
+                    <div class="popup-backdrop" id="myPopupBackdrop"></div>
+                </div>
+                <div class="popup" id="myPopup">
+                    <div class="popupBackground">
+                        <input id="readPopupHead" type="text" value="BID ESTIMATION DETAILS" readonly>
+                        <button id="popupIcon" onclick="closePopup()"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                    <div class="popupBtn">
+                        <button class="generalBtn" id="sidetoggle4" style="color: gray;"
+                            onclick="hiddenPopup('containerPopup')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            General Details<i class="fa fa-angle-down"
+                                style="font-size: 20px; float: left; color: #045679;"></i>
+                        </button>
+                        <div id="containerPopup">
+                            <div class="txtPopup">
+                                <input id="readPopup" type="text" value="DETAILS" readonly>
+                                <input id="readPopup" type="text" value="OUTPUT" readonly>
+
+                                <input id="readPopup" type="text" value="PROJECT START DATE" readonly>
+                                <input id="editPopup" type="date" name="projectStartDate" value="" />
+
+                                <input id="readPopup" type="text" value="PROJECT END DATE" readonly />
+                                <input id="editPopup" type="date" name="estimated projectDuration" value="">
+
+                                <input id="readPopup" type="text" value="WORK HOURS/DAY(DEFAULT)" readonly />
+                                <input id="editPopup" type="text" name="workHoursDay" value="8" readonly />
+
+                                <input id="readPopup" type="text" value="WORK HOURS/DAY(OVERRIDE)" readonly />
+                                <input id="editPopup" type="text" name="workHoursOverride" value="0" />
+                                <input id="readPopup" type="text"
+                                    value="TYPE OF RATE USED TO DISPLAY UOM IN QUOTE GRID" readonly />
+                                <input id="editPopup" type="text" name="typeOfRate" value="Hours" readonly />
+
+                                <input id="readPopup" type="text"
+                                    value="TRAVEL AND LIVING EXPENSES ARE NOT INCLUDED IN THE" readonly>
+                                <input id="editPopup" type="text" name="expenses" value="">
+                            </div>
+                        </div>
+                        <button id="gddata" onclick="hiddenPopupTable('tbvalue')"><i class="fa fa-angle-down"
+                                style="font-size: 20px; color: #216c98;"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bid
+                            Estimation Table (Professional Services)</button>
+
+                        <div id="tbvalue">
+                            <table style="border-left: 1px solid lightgray;">
+                                <thead>
+                                    <tr>
+                                        <th>ROLES</th>
+                                        <th>UNIT PRICE (HOURLY)</th>
+                                        <th>BID PRICE(HOURLY)</th>
+                                        <th>WORKLOAD (IN HOURLY)</th>
+                                        <th>CSP WORKLOAD (IN HOURLY)</th>
+                                        <th>CSP AVG COST(HOURLY)</th>
+                                        <th>NON-BILLABLE CATEGORIES</th>
+                                        <th>INTERCO-COUNTRY</th>
+                                        <th>INTERCO-ROLE</th>
+                                        <th>ROLE DESCRIPTION</th>
+                                        <th>NOTES</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <% var i=0;
+                                for(i=0; i<5; i++){ 
+                                    if(bid_estimation.bid_data.length > 0){ %>
+                                    <tr>
+                                        <td>
+                                            <select name="level<%= i %>" id="level<%= i %>" class="guideRole">
+                                                <option value="<%= bid_estimation.bid_data[i].unit_price %>" selected><%= bid_estimation.bid_data[i].level %></option>
+                                                <option value="<%= calc_data.B1 %>"><%= calc_data.A1 %></option>
+                                                <option value="<%= calc_data.B2 %>"><%= calc_data.A2 %></option>
+                                                <option value="<%= calc_data.B3 %>"><%= calc_data.A3 %></option>
+                                                <option value="<%= calc_data.B4 %>"><%= calc_data.A4 %></option>
+                                                <option value="<%= calc_data.B5 %>"><%= calc_data.A5 %></option>
+                                                <option value="<%= calc_data.B6 %>"><%= calc_data.A6 %></option>
+                                                <option value="<%= calc_data.B7 %>"><%= calc_data.A7 %></option>
+                                                <option value="<%= calc_data.B8 %>"><%= calc_data.A8 %></option>
+                                                <option value="<%= calc_data.B9 %>"><%= calc_data.A9 %></option>
+                                                <option value="<%= calc_data.B10 %>"><%= calc_data.A10 %></option>
+                                                <option value="<%= calc_data.B11 %>"><%= calc_data.A11 %></option>
+                                                <option value="<%= calc_data.B12 %>"><%= calc_data.A12 %></option>
+                                                <option value="<%= calc_data.B13 %>"><%= calc_data.A13 %></option>
+                                                
+                                            </select>
+                                        </td>
+                                        <td id="col2">
+                                            <input type="text" name="unitPrice<%= i %>" id="unitPrice<%= i %>" value="<%= bid_estimation.bid_data[i].unit_price %>"/></td>
+                                        <td><input type="text" name="bid_price<%= i %>" id="bid_price<%= i %>" value="<%= bid_estimation.bid_data[i].bid_price %>" /></td>
+                                        <td><input type="text" name="workload<%= i %>" id="workload<%= i %>" value="<%= bid_estimation.bid_data[i].workload %>" /></td>
+                                        <td><input type="text" name="csp_workload<%= i %>" id="csp_workload<%= i %>" value="<%= bid_estimation.bid_data[i].csp_workload %>" /></td>
+                                        <td><input type="text" name="csp_avg_cost<%= i %>" id="csp_avg_cost<%= i %>" value="<%= bid_estimation.bid_data[i].csp_avg_cost %>" /></td>
+                                        <td><input type="text" name="non_billable<%= i %>" id="non_billable<%= i %>" value="<%= bid_estimation.bid_data[i].non_billable %>" /></td>
+                                        <td><input type="text" name="country<%= i %>" id="country<%= i %>" value="<%= bid_estimation.bid_data[i].country %>" /></td>
+                                        <td><input type="text" name="role<%= i %>" id="role<%= i %>" value="<%= bid_estimation.bid_data[i].role %>" /></td>
+                                        <td><input type="text" name="role_description<%= i %>" id="role_description<%= i %>" value="<%= bid_estimation.bid_data[i].role_description %>" /></td>
+                                        <td><input type="text" name="notes<%= i %>" id="notes<%= i %>" value="<%= bid_estimation.bid_data[i].notes %>" /></td>
+                                    </tr>
+                                <%   }else{ %>
+                                    <tr>
+                                        <td>
+                                            <select name="level<%= i %>" id="level<%= i %>" class="guideRole">
+                                                <option selected></option>
+                                                <option value="<%= calc_data.B1 %>"><%= calc_data.A1 %></option>
+                                                <option value="<%= calc_data.B2 %>"><%= calc_data.A2 %></option>
+                                                <option value="<%= calc_data.B3 %>"><%= calc_data.A3 %></option>
+                                                <option value="<%= calc_data.B4 %>"><%= calc_data.A4 %></option>
+                                                <option value="<%= calc_data.B5 %>"><%= calc_data.A5 %></option>
+                                                <option value="<%= calc_data.B6 %>"><%= calc_data.A6 %></option>
+                                                <option value="<%= calc_data.B7 %>"><%= calc_data.A7 %></option>
+                                                <option value="<%= calc_data.B8 %>"><%= calc_data.A8 %></option>
+                                                <option value="<%= calc_data.B9 %>"><%= calc_data.A9 %></option>
+                                                <option value="<%= calc_data.B10 %>"><%= calc_data.A10 %></option>
+                                                <option value="<%= calc_data.B11 %>"><%= calc_data.A11 %></option>
+                                                <option value="<%= calc_data.B12 %>"><%= calc_data.A12 %></option>
+                                                <option value="<%= calc_data.B13 %>"><%= calc_data.A13 %></option>
+                                                
+                                            </select>
+                                        </td>
+                                        <td id="col2">
+                                            <input type="text" name="unitPrice<%= i %>" id="unitPrice<%= i %>"/></td>
+                                        <td><input type="text" name="bid_price<%= i %>" id="bid_price<%= i %>" /></td>
+                                        <td><input type="text" name="workload<%= i %>" id="workload<%= i %>"/></td>
+                                        <td><input type="text" name="csp_workload<%= i %>" id="csp_workload<%= i %>"/></td>
+                                        <td><input type="text" name="csp_avg_cost<%= i %>" id="csp_avg_cost<%= i %>"/></td>
+                                        <td><input type="text" name="non_billable<%= i %>" id="non_billable<%= i %>" /></td>
+                                        <td><input type="text" name="country<%= i %>" id="country<%= i %>"/></td>
+                                        <td><input type="text" name="role<%= i %>" id="role<%= i %>"/></td>
+                                        <td><input type="text" name="role_description<%= i %>" id="role_description<%= i %>"/></td>
+                                        <td><input type="text" name="notes<%= i %>" id="notes<%= i %>"/></td>
+                                    </tr>
+                                <%   }
+                                } %>
+                                </tbody>
+                            </table>
+                        </div> -->
+
+                        <!-- Managed Services Table -->
+
+                        <!-- <button id="gddata" onclick="hiddenPopupServiceTable('servicevalue')"><i
+                                class="fa fa-angle-down"
+                                style="font-size: 20px; color: #216c98;"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bid
+                            Estimation Table (Managed Services)</button>
+
+                        <div id="servicevalue" style="display: none;">
+                            <table style="border-left: 1px solid lightgray; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>SERVICES</th>
+                                        <th>MONTHLY FEE</th>
+                                        <th>ENVIRONMENTS</th>
+                                        <th>TERM IN MONTHS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><select name="level" id="">
+                                                <option value="" selected></option>
+                                                <option value="aws">AWS</option>
+                                                <option value="1">1</option>
+                                                <option value="1">1</option>
+                                            </select></td>
+                                        <td><input type="text" name="" id="bord" /></td>
+                                        <td><input type="text" name="" id="bord" /></td>
+                                        <td><input type="text" name="" id="bord" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td><select name="level" id="">
+                                                <option value="" selected></option>
+                                                <option value="aws">AWS</option>
+                                                <option value="1">1</option>
+                                                <option value="1">1</option>
+                                            </select></td>
+                                        <td><input type="text" name="" id="bord" /></td>
+                                        <td><input type="text" name="" id="bord" /></td>
+                                        <td><input type="text" name="" id="bord" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td><select name="level" id="">
+                                                <option value="" selected></option>
+                                                <option value="aws">AWS</option>
+                                                <option value="1">1</option>
+                                                <option value="1">1</option>
+                                            </select></td>
+                                        <td><input type="text" name="" id="bord" /></td>
+                                        <td><input type="text" name="" id="bord" /></td>
+                                        <td><input type="text" name="" id="bord" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+                        <!-- Services Section Start -->
+                        <!-- <div class="navside">
+            <button class="dropdown-btn" id="sidetoggle1">5.Services
+                <i class="fa fa-angle-down" style="color: black; font-size: 20px; float: right;"></i>
+            </button>
+            <div class="dropdown-container">
+                <form action="">
+                    <div class="servicecont">
+                        <div class="servicelabel">
+                            <label
+                                style="padding-left: 30px; padding-top: 11px; font-size: 11px; border-right: 2px solid lightgray;">Professional
+                                Services</label>
+                            <input type="checkbox" name="profServices" id="proffessional" hidden />
+                            <label for="proffessional" id="proffessionalCircle"><i class="fa fa-circle-thin"
+                                    style="font-size: 30px; color:#6291a5; margin-top:5px; font-weight: 100; opacity: 0.7;"></i></label>
+
+                        </div>
+                        <div class="servicebox">
+                            <label
+                                style="padding-left: 29px; padding-top: 11px; font-size: 11px; border-right: 2px solid lightgray;">Management
+                                Services</label>
+                            <input type="checkbox" name="manageServices" id="management" hidden />
+                            <label for="management" id="managementCircle"><i class="fa fa-circle-thin"
+                                    style="font-size:30px; color: #6291a5; margin-top:5px; font-weight: 100; opacity: 0.6;"></i></label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div> -->
+                        <!-- Project Setup Start Section-->
+                        <!-- <div class="navside">
+            <button class="dropdown-btn" id="sidetoggle1">6.Project Setup Details
+                <i class="fa fa-angle-down" style="color: black; font-size: 20px; float: right;"></i>
+            </button> -->
+                        <!-- <div class="dropdown-container">
+                           <form action=""><input type="text" name="new" id="send"
+                                   placeholder="Type your Note" /><button id="sent"><i class='fa fa-send-o blue-color'
+                                       style="color: #045679;"></i></button> </form>
+                       </div> -->
+                        <!-- </div> -->
+
+                        <!-- Learning Pass Start Section-->
+                        <!-- <div class="navside">
+            <button class="dropdown-btn" id="sidetoggle1">7.Learning Pass Credits Details
+                <i class="fa fa-angle-down" style="color: black; font-size: 20px; float: right;"></i>
+            </button> -->
+                        <!-- <div class="dropdown-container">
+                               <form action=""><input type="text" name="new" id="send"
+                                       placeholder="Type your Note" /><button id="sent"><i class='fa fa-send-o blue-color'
+                                           style="color: #045679;"></i></button> </form>
+                           </div> -->
+                        <!-- </div> -->
+                        <button type="" class="guideApply">APPLY</button>
+            </div>
+            <!-- </form> -->
+
+            <div id="questions" style="display: none;">
+                <div id="section-container"></div>
+                <button id="add-section-btn">Add Section</button>
+
+            </div>
+        </div>
+        <div class="main-content" id="mainContent">
+            <div class="guidedheader">
+                <div class="downloadguide">
+                    <button class="xlbutton2" onclick="">
+                        <span class="fa fa-file-excel-o"></span></button>
+                    <div>
+                        <label>DOWNLOAD</label>
+                    </div>
+                </div>
+                <div class="guideapprove">
+                    <a class="approveguide" href="#">&nbsp;&nbsp;SUBMIT FOR APPROVAL&nbsp;&nbsp;</a>
+                </div>
+                <!-- <div class="quotedetails">
+            <a href="#"><button class="product active">Price</button></a>
+            <a href="#"><button class="product">Cost</button></a>
+            <a href="#"><button class="product">Quantity</button></a>
+            <a href="#"><button class="product">FTE</button></a>
+        </div> -->
+            </div>
+            <div class="guidedetails">
+                <button type="button" class="guidebbtn" id="clickmeguide" onclick="myFunctionguide()">
+                    <span class="fa fa-angle-up"></span></button>
+                <div id="guideid" class="">
+                    <div class="guideleft">
+                        <div class="containerGA">
+                            <div id="contentG1">
+                                <input class="" type="text" value="<%= quotes %>">
+                                <label>QUOTE NAME</label>
+                            </div>
+                            <div id="contentG2">
+                                <input class="" type="text" placeholder="">
+                                <label>PRICE MODEL</label>
+                            </div>
+                        </div>
+                        <div class="containerGB">
+                            <div id="contentG3">
+                                <input class="" type="text">
+                                <label>SALES ORG</label>
+                            </div>
+                            <div id="contentG4">
+                                <input class="" type="text" placeholder="">
+                                <label>CURRENCY</label>
+                            </div>
+                            <div id="contentG5">
+                                <input class="" type="text">
+                                <label>DURATION</label>
+                            </div>
+                            <div id="contentG6">
+                                <input class="" type="text" placeholder="">
+                                <label>AVG RATE</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="guideright">
+                        <div class="containerGC">
+                            <div id="contentG7">
+                                <input class="" type="number" name="list_price" id="list_price"
+                                    value="<%= bid_estimation.excel.total_listprice %>" />
+                                <label>LIST PRICE</label>
+                            </div>
+
+                            <div id="contentG8">
+                                <input class="" type="number" id="discount" placeholder=""
+                                    value="<%= bid_estimation.excel.discount_listprice %>" />
+                                <label>DISCOUNT</label>
+                            </div>
+                            <div id="contentG9">
+                                <input class="" type="number" id="net_price" placeholder=""
+                                    value="<%= bid_estimation.excel.total_netprice %>" />
+                                <label>NET PRICE</label>
+                            </div>
+                        </div>
+                        <div class="containerGD">
+                            <div id="contentG10">
+                                <input class="" type="number">
+                                <label>EXPENSES</label>
+                            </div>
+
+                            <div id="contentG11">
+                                <input class="" type="number" id="margin" placeholder=""
+                                    value="<%= bid_estimation.excel.total_margin %>" />
+                                <label>MARGIN</label>
+                            </div>
+                            <div id="contentG12">
+                                <input class="" type="number" id="cost" placeholder=""
+                                    value="<%= bid_estimation.excel.total_cost %>" />
+                                <label>COST</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="contentG13">
+                        <textarea name="" id="" cols="" rows=""></textarea>
+                        <label>DESCRIPTION</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- rightsidebar -->
+        <div>
+            <div class="slide">
+                <div id="mySidebar" class="sidebar1">
+                    <!-- <a href="javascript:void(0)" >x</a> -->
+                    <div class="navside">
+                        <button class="dropdown-btn" id="sidetoggle1">BID TEAM <i class="fa fa-angle-down"
+                                style="color: black; font-size: 20px; float: right;"></i>
+                        </button>
+                        <!-- <div class="dropdown-container">
+                   <p>${model}-ownerName</p>
+                   <form action="">
+                       <input type="search" name="ownerName" id="oname" placeholder="Enter Name to be searched" required />
+                       <input type="submit" id="search" hidden>
+                       <label for="search"><i class="fa-solid fa-check"></i></label>
+                   </form>
+               </div> -->
+                    </div>
+                    <div class="navside">
+                        <button class="dropdown-btn" id="sidetoggle">FILES <i class="fa fa-angle-down"
+                                style="color: black; font-size: 20px; float: right;"></i>
+                        </button>
+                        <!-- <div class="dropdown-container">
+                    <form action=""><input type="file" id="upload" name="doc" hidden />
+                        <label id="upl"    for="upload">+</label>
+                    </form>
+                </div> -->
+                    </div>
+                    <div class="navside">
+                        <button class="dropdown-btn" id="sidetoggle1">NOTES <i class="fa fa-angle-down"
+                                style="color: black; font-size: 20px; float: right;"></i>
+                        </button>
+                        <!-- <div class="dropdown-container">
+                    <form action=""><input type="text" name="new" id="send"placeholder="Type your Note" />
+                            <button id="sent1ss"><i class='fa fa-send-o blue-color'
+                                style="color: #045679;"></i></button> </form>
+                </div> -->
+                    </div>
+                    <div class="navside">
+                        <button class="dropdown-btn" id="sidetoggle2">EXTERNAL REFERENCES
+                            <i class="fa fa-angle-down" style="color: black; font-size: 20px; float: right;"></i>
+
+                        </button>
+                        <!-- <div class="dropdown-container">
+                    <form action=""><input type="text" name="id" id="eid" value="$model"><label for=""
+                            id="lab">EXTERNAL
+                            REFERENCES ID</label><br>
+                        <input type="text" name="id" id="eid2" value="$model">
+                        <label for="" id="lab">EXTERNAL REFERENCES ID 2</label>
+                        <br><input type="text" name="id" id="cfid" value="$model"><label for="" id="lab">CRM
+                            REFERENCE</label>
+                    </form>
+                </div> -->
+                    </div>
+                    <div class="navside">
+                        <button class="dropdown-btn" id="sidetoggle1">CUSTOM FIELDS
+                            <i class="fa fa-angle-down" style="color: black; font-size: 20px; float: right;"></i>
+                        </button>
+                        <!-- <div class="dropdown-container">
+                   <form action=""><input type="text" name="new" id="send"
+                           placeholder="Type your Note" /><button id="sent1ss"><i class='fa fa-send-o blue-color'
+                               style="color: #045679;"></i></button> </form>
+               </div> -->
+                    </div>
+                    <div class="navside">
+                        <button class="dropdown-btn" id="sidetoggle3">TIMESTAMP
+                            <i class="fa fa-angle-down" style="color: black; font-size: 20px; float: right;"></i>
+
+                        </button>
+                        <!-- <div class="side-container"> <span id="time">CREATED BY:</span><span
+                        id="time1">${model}</span><br>
+
+                    <hr id="lhr"> <span id="time">CREATED:</span><span id="time1">${model}</span><br>
+                    <hr id="lhr"> <span id="time">LAST MODIFIED BY:</span><span id="time1">${model}</span><br>
+
+                    <hr id="lhr"> <span id="time">LAST MODIFIED</span><span id="time1">${model}</span><br>
+                    <hr id="lhr"> <span id="time">REVISION</span><span id="time1">${model}</span><br>
+                </div> -->
+                    </div>
+                    <div class="navside">
+                        <button class="dropdown-btn" id="sidetoggle1">EXCHANGE RATES <i class="fa fa-angle-down"
+                                style="color: black; font-size: 20px; float: right;"></i>
+                        </button>
+                        <!-- <div class="dropdown-container">
+                   <form action=""><input type="text" name="new" id="send"
+                           placeholder="Type your Note" /><button id="sent1ss"><i class='fa fa-send-o blue-color'
+                               style="color: #045679;"></i></button> </form>
+               </div> -->
+                    </div>
+                    <div class="navside">
+                        <button class="dropdown-btn" id="sidetoggle1">DOC TYPES <i class="fa fa-angle-down"
+                                style="color: black; font-size: 20px; float: right;"></i>
+                        </button>
+                        <!-- <div class="dropdown-container">
+               <form action=""><input type="text" name="new" id="send"
+                       placeholder="Type your Note" /><button id="sent1ss"><i class='fa fa-send-o blue-color'
+                           style="color: #045679;"></i></button> </form>
+           </div> -->
+                    </div>
+                    <div class="navside">
+                        <button class="dropdown-btn" id="sidetoggle1">DOCUMENT EXPORT NAME <i class="fa fa-angle-down"
+                                style="color: black; font-size: 20px; float: right;"></i>
+                        </button>
+                        <!-- <div class="dropdown-container">
+           <form action=""><input type="text" name="new" id="send"
+                   placeholder="Type your Note" /><button id="sent1ss"><i class='fa fa-send-o blue-color'
+                       style="color: #045679;"></i></button> </form>
+       </div>-->
+                    </div>
+                    <div class="navside">
+                        <button class="dropdown-btn" id="sidetoggle4">GENERATE WORD DOCS<i class="fa fa-angle-down"
+                                style="color: 1px solid black; font-size: 20px; float: right;"></i>
+                        </button>
+                        <!--   <div class="dropdown-container">
+                    <div class="txt">
+                        <p id="text-to-copy"><a href="https://chat.openai.com/chat" style="font-size: 13px;"
+                                target="_blank">file:///C:/Usfyugfgsyugfsgfgsdugfdyusfdhfdhdhfchdrfdhjavxjvgsugdguzlivdshiuvdhlihvihvjhvhdasdddsfegesrhytryu6trdujiy</a>
+                        </p>
+                    </div>
+                    <div class="bnt"><button id="cpbtn" onclick="copyText()"><i class="fa fa-clone"
+                                style="font-size:15px; z-index: 2;"></i></button>
+                    </div>
+                </div> -->
+                    </div>
+                    <div class="navside"> <button class="dropdown-btn" id="sidetoggle5">GENERATES PDFS
+                            <i class="fa fa-angle-down" style="color: black; font-size: 20px; float: right;"></i>
+                        </button>
+                        <div class="dropdown-container">
+                            <!-- <div class="txt">
+                        <p id="link-to-copy"><a href="https://chat.openai.com/chat" style="font-size: 13px;"
+                                target="_blank">file:///C:/Usfyugfgsyugfsgfgsdugfdyusfdhfdhdhfchdrfdhjavxjvgsugdguzlivdshiuvdhlihvihvjhvhdasdddsfegesrhytryu6trdujiy</a>
+                        </p>
+                    </div>
+                    <div class="bnt"></div> <button id="linkbtn" onclick="copyLink()"><i
+                            class="fa fa-clone"></i></button> -->
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div><button id="main" class="openbtn" onclick="openClose()">
+                    <i class="fa-light fa-less-than"></i></button></div>
+        </div>
+        <!-- ------------ -->
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+    <script src="<%= base_url %>js/GuidedSellingleftbar.js"></script>
+    <script src="<%= base_url %>js/Guidedsellingjs.js"></script>
+    <script src="<%= base_url %>js/AccountsSlideBar.js"> </script>
+    <script src="<%= base_url %>js/serachicon.js"></script>
+    <script src="<%= base_url %>js/profile dropdown.js"></script>
+    <script src="<%= base_url %>js/sideBar.js"></script>
+    <script src="<%= base_url %>js/GuidedSellingQuestions.js"></script>
+
+    <script>
+        document.getElementById("popupIcon").addEventListener("click", submitFunction);
+
+        function submitFunction() {
+
+            var subdata = [];
+            for (var i = 0; i < 5; i++) {
+                var sel = document.getElementById(`level${i}`);
+                var text = sel.options[sel.selectedIndex].text;
+                console.log(text)
+
+                const oppid = "<%= oppid %>";
+                const accid = "<%= accid %>";
+                const template_type = "<%= template_type %>";
+
+                const level = text;
+                const unit_price = document.getElementById(`level${i}`).value;
+                const bid_price = document.getElementById(`bid_price${i}`).value;
+                const workload = document.getElementById(`workload${i}`).value;
+                const csp_workload = document.getElementById(`csp_workload${i}`).value;
+                const csp_avg_cost = document.getElementById(`csp_avg_cost${i}`).value;
+                const non_billable = document.getElementById(`non_billable${i}`).value;
+                const country = document.getElementById(`country${i}`).value;
+                const role = document.getElementById(`role${i}`).value;
+                const role_description = document.getElementById(`role_description${i}`).value;
+                const notes = document.getElementById(`notes${i}`).value;
+                subdata.push({ "opportunity_id": oppid, "account_id": accid, "template_type": template_type, "level": level, "unit_price": unit_price, "bid_price": bid_price, "workload": workload, "csp_workload": csp_workload, "csp_avg_cost": csp_avg_cost, "non_billable": non_billable, "country": country, "role": role, "role_description": role_description, "notes": notes });
+
+
+            }
+            console.log(JSON.stringify(subdata));
+
+            fetch("/api/bid_estimation_calc", {
+                method: "POST",
+                body: JSON.stringify({ data: subdata }),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then(res => res.json())
+                .then(data => {
+                    if (data.status == "error") {
+                        alert(data.error)
+                        // console.log(data.error);
+
+                        // success.style.display = "none"  
+                        // error.style.display = "block" 
+                        // error.innerText = data.error
+                    } else {
+                        alert(data.success);
+                        document.getElementById("list_price").value = data.total.total_listprice;
+                        document.getElementById("discount").value = data.total.discount_listprice;
+                        document.getElementById("net_price").value = data.total.total_netprice;
+                        document.getElementById("cost").value = data.total.total_cost;
+                        document.getElementById("margin").value = data.total.total_margin;
+
+                        // console.log(data.error);
+
+                    }
+                })
+
+        }
+    </script>
+    <div>
+
+        </body>

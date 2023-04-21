@@ -1,0 +1,870 @@
+<%- include('header') %>
+
+<link rel="stylesheet" href="<%= base_url %>css/Sow.css">
+
+
+
+<div class="bread">
+    <ul class="breadcrumbs" style="padding: 9px;">
+        <li class="breadcrumbs--item">
+            <a href="<%= base_url %>" class="breadcrumbs--link breadcrumbs"
+                style="display:inline;text-decoration:none">HOME</a>
+
+        <li class="breadcrumbs--item">
+            <a href="#" class="breadcrumbs--link breadcrumbs--link--active">ACCOUNTS</a>
+
+            <!-- </li> <li class="breadcrumbs--item">
+    <a href="#" class="breadcrumbs--link">QUOTES</a>
+</li> -->
+        </li>
+        <div style="float: right;">
+            <a href="" style="padding:14px;padding-bottom:6px; z-index:3;"><i
+                    class="fa fa-pen" style="font-size: 15px; border: none;color: black;"></i></a>
+            <a href="#"
+                style="text-decoration: none;color: white;padding:14px;padding-bottom:6px;background-color: #216c98;"><i
+                    class="fa fa-scroll" style="border:1px solid black;font-size: 17px;border: none;"></i></a>
+            <a href="" style="text-decoration: none;color: black;padding:14px;padding-bottom:6px;"><i
+                    class="fa fa-table" style="border:1px solid black;font-size: 17px;border: none;"></i></a>
+
+        </div>
+    </ul>
+    <hr class="hr" style="height:1.5px;">
+</div>
+</div>
+<div class="content-bar" style="top:68px;">
+<ul>
+    <a href="<%= base_url %>">
+        <li>
+            <span class="icon"><i class="fas fa-home"></i></span>
+            <span class="item">HOME</span>
+        </li>
+    </a>
+    <a href="<%= base_url %>accounts">
+        <li class="active1">
+            <span class="icon"><i class="fa-solid fa-book-open"></i></span>
+            <span class="item">ACCOUNTS</span>
+        </li>
+    </a>
+    <a href="Quotes.html">
+        <li>
+            <span class="icon"><i class="fa fa-dollar"></i></span>
+            <span class="item">QUOTES</span>
+        </li>
+    </a>
+    <a href="Demand.html">
+        <li>
+            <span class="icon"><i class="fa fa-user"></i></span>
+            <span class="item">DEMAND</span>
+        </li>
+    </a>
+    <a href="Forecast.html">
+        <li>
+            <span class="icon"><i class="fa fa-line-chart"></i></span>
+            <span class="item">FORECAST</span>
+        </li>
+    </a>
+    <a href="<%= base_url %>catalog">
+        <li>
+            <span class="icon"><i class="fa fa-eye"></i></span>
+            <span class="item">CATALOG</span>
+        </li>
+    </a>
+    <a href="People.html">
+        <li>
+            <span class="icon"><i class="fa fa-cog"></i></span>
+            <span class="item">ADMIN</span>
+        </li>
+    </a>
+</ul>
+</div>
+<div>
+<div class="helpbox" style="z-index: 2;">
+    <button><a href="#divOne" class="button1"><img src="HelpIcon.png" alt="Icon"
+                style="height:35px;width:35px;"></a></button>
+</div>
+<div class="overlay" id="divOne">
+    <div class="wrapper">
+        <p class="head">LOG A SUPPORT REQUEST</p><br>
+        <a href="#" class="close">&times;</a>
+        <div class="content">
+            <div class="container1">
+                <form>
+
+                    <label>Summary:</label>
+                    <input type="text" class="help">
+                    <label>Description:</label>
+                    <textarea rows="8" cols=""></textarea>
+                    <label>Priority(0ptional):</label><br>
+                    <select name="format" id="format">
+                        <option selected disabled>Select..</option>
+                        <option value="critical">Critical</option>
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                        <option value="lowest">Lowest</option>
+                    </select><br><br>
+                    <label>Attachment(optional):</label><br>
+                    <input type="file"><br><br>
+                    <label>Your contact e-mail:</label><br>
+                    <input type="email" class="em"><br><br>
+                    <input type="submit" value="Send">
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="grid-container">
+<div class="sidebarguide">
+    <button class="btnguide">></button>
+    <div class="guidedselling">
+        <b>GUIDED SELLING</b>
+    </div>
+    <div class="guideSelling">
+        <h3>Consulting<i class="fa fa-cog" style="float: right; font-size: 30px; color: lightgray;"></i></h3>
+    </div>
+    <div class="guideLabel">
+        <label>CPQ</label>
+        <label style="float: right; padding-right: 10px;">CONFIG</label>
+    </div>
+    <!-- <form action=""> -->
+    <div class="navside">
+        <button class="dropdown-btn" id="sidetoggle4">1. Customer Details<i class="fa fa-angle-down"
+                style="color: 1px solid black; font-size: 20px; float: right;"></i>
+        </button>
+        <div class="dropdown-container">
+            <div class="txt">
+                <p id="text-to-copy" style="border-left: none;"></p>
+                <p id="guidedFieldsHead">Account Details</p>
+            </div>
+            <div class="txt">
+                <p id="text-to-copy">1.2</p>
+                <p id="guidedFields">Billing Customer Name</p>
+                <input id="billingCustomer" type="text" value="" readonly>
+            </div>
+            <div class="txt">
+                <p id="text-to-copy">1.3</p>
+                <p id="guidedFields">End Customer Name</p>
+                <input id="billingCustomer" type="text" value="" readonly>
+            </div>
+            <div class="txt">
+                <p id="text-to-copy">1.4</p>
+                <p id="guidedFields">Customer Address</p>
+                <button id="floderOpen" hidden onclick="myfunctionBill('address')"></button>
+                <label for="floderOpen" id="folderIcon"><i class="fa-regular fa-folder"></i></label>
+            </div>
+            <div id="address">
+                <div class="address1">
+                    <button class="addressBtn" onclick="myfunctionShipOne('shipTable')"><i
+                            class="fa fa-angle-down"
+                            style="float: left; padding-left: 10px; font-size: 20px;"></i> Shipping
+                        Address</button>
+                    <div id="shipTable">
+                        <div id="shipAdd">
+                            <input id="read" type="text" value="STREET" readonly>
+                            <input id="edit" type="text" value="">
+
+                            <input id="read" type="text" value="CITY" readonly>
+                            <input id="edit" type="text" value="">
+
+                            <input id="read" type="text" value="STATE" readonly>
+                            <input id="edit" type="text" value="">
+
+                            <input id="read" type="text" value="ZIP CODE" readonly>
+                            <input id="edit" type="text" value="">
+
+                            <input id="read" type="text" value="COUNTRY" readonly>
+                            <input id="edit" type="text" value="">
+
+                            <input id="read" type="text" value="PHONE #" readonly>
+                            <input id="edit" type="text" value="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="address2">
+                    <button class="addressBtn" onclick="myfunctionBillOne('billTable')"><i
+                            class="fa fa-angle-down"
+                            style="float: left; padding-left: 10px; font-size: 20px;"></i>Billing
+                        Address</button>
+                    <div id="billTable">
+                        <div class="billAdd">
+                            <input id="read" type="text" value="STREET" readonly>
+                            <input id="edit" type="text" value="">
+
+                            <input id="read" type="text" value="CITY" readonly>
+                            <input id="edit" type="text" value="">
+
+                            <input id="read" type="text" value="STATE" readonly>
+                            <input id="edit" type="text" value="">
+
+                            <input id="read" type="text" value="ZIP CODE" readonly>
+                            <input id="edit" type="text" value="">
+
+                            <input id="read" type="text" value="COUNTRY" readonly>
+                            <input id="edit" type="text" value="">
+
+                            <input id="read" type="text" value="PHONE #" readonly>
+                            <input id="edit" type="text" value="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="txt">
+                <p id="text-to-copy" style="border-left: none;"></p>
+                <p id="guidedFieldsHead">Opportunity Details</p>
+            </div>
+            <div class="txt">
+                <p id="text-to-copy">1.6</p>
+                <p id="guidedFields">Opportunity ID</p>
+                <input id="billingCustomer" type="text" value="" readonly>
+            </div>
+            <div class="txt">
+                <p id="text-to-copy">1.7</p>
+                <p id="guidedFields">Opportunity Name</p>
+                <input id="billingCustomer" type="text" value="" readonly>
+            </div>
+            <div class="txt">
+                <p id="text-to-copy">1.8</p>
+                <p id="guidedFields">Opportunity Owner Details</p>
+                <button id="oppData" hidden onclick="openCSAM('opportunity')"></button>
+                <label for="oppData" id="oppIcon"><i class="fa-regular fa-folder"></i></label>
+            </div>
+            <div id="opportunity">
+                <button id="oppBtn" onclick="myOpportunity('csamData')"><i class="fa fa-angle-down"
+                        style="float: left; padding-left: 10px; font-size: 20px;"></i>CSAM Details</button>
+                <div id="csamData">
+                    <div class="csamForm">
+                        <input id="read" type="text" value="NAME" readonly>
+                        <input id="edit" type="text" value="">
+
+                        <input id="read" type="text" value="EMAIL ADDRESS" readonly>
+                        <input id="edit" type="text" value="">
+
+                        <input id="read" type="text" value="PHONE" readonly>
+                        <input id="edit" type="text" value="">
+
+                    </div>
+                </div>
+            </div>
+            <div class="txt">
+                <p id="text-to-copy">1.9</p>
+                <p id="guidedFields">Stage</p>
+                <input id="billingCustomer" type="text" value="" readonly>
+            </div>
+            <div class="txt">
+                <p id="text-to-copy">1.10</p>
+                <p id="guidedFields">Region</p>
+                <input id="billingCustomer" type="text" value="" readonly>
+            </div>
+            <div class="txt">
+                <p id="text-to-copy">1.11</p>
+                <p id="guidedFields">Currency</p>
+                <input id="billingCustomer" type="text" value="" readonly>
+            </div>
+            <div class="txt">
+                <p id="text-to-copy">1.12</p>
+                <p id="guidedFields">Project Start Date</p>
+                <input id="billingCustomer" type="text" value="" readonly>
+            </div>
+            <div class="txt">
+                <p id="text-to-copy">1.13</p>
+                <p id="guidedFields">Engagement ID</p>
+                <input id="billingCustomer" type="text" value="" readonly>
+            </div>
+            <div class="txt">
+                <p id="text-to-copy">1.14</p>
+                <p id="guidedFields">Project Type</p>
+                <input id="billingCustomer" type="text" value="" readonly>
+            </div>
+            <div class="txt">
+                <p id="text-to-copy">1.15</p>
+                <p id="guidedFields">Opportunity Type</p>
+                <input id="billingCustomer" type="text" value="" readonly>
+            </div>
+            <div class="txt">
+                <p id="text-to-copy">1.16</p>
+                <p id="guidedFields">Customer VAT Number</p>
+                <input id="billingCustomer" type="text" value="" readonly>
+            </div>
+            <div class="txt">
+                <p id="text-to-copy">1.17</p>
+                <p id="guidedFields">Product Line</p>
+                <input id="billingCustomer" type="text" value="" readonly>
+            </div>
+            <div class="txt">
+                <p id="text-to-copy">1.18</p>
+                <p id="guidedFields">Product Interest</p>
+                <input id="billingCustomer" type="text" value="" readonly>
+            </div>
+        </div>
+    </div>
+    <!-- END OF CUSTOMER DETAILS -->
+    <!-- START OF QUOTE DETAILS -->
+    <div class="navside">
+        <button class="dropdown-btn" id="sidetoggle4">2. Quote Type <i class="fa fa-angle-down"
+                style="color: 1px solid black; font-size: 20px; float: right;"></i>
+        </button>
+        <div class="dropdown-container">
+            <div class="txt">
+                <p id="text-to-copy">2.1</p>
+                <p id="guidedFields">Select Quote Type</p>
+                <button id="quoteData" onclick="myQuote('quote')" hidden></button>
+                <label for="quoteData" id="quoteIcon"><i class="fa-regular fa-folder"></i></label>
+            </div>
+            <div id="quote">
+                <button id="quoteAngleBtn" onclick="myQuoteData('tScope')">
+                    <i class="fa fa-angle-down"
+                        style="float: left; padding-left: 10px; font-size: 20px;"></i></i></button>
+                <div id="tScope">
+                    <div class="type">
+                        <p id="guidedFieldsQuote">Quote Type</p>
+                        <select name="" id="quoteSelect" style="text-align: left;">
+                            <option value="" selected></option>
+                            <option value="sow">SOW</option>
+                            <option value="cco">CCO</option>
+                            <option value="ms">NON-DD MS DEAL APPROVAL</option>
+                            <option value="ps">NON-DD PS DEAL APPROVAL</option>
+                        </select>
+                    </div>
+                    <div class="scope">
+                        <p id="guidedFieldsQuote">DD Scoping Config</p>
+                        <select name="" id="quoteSelect" style="text-align: left;">
+                            <option value="" selected></option>
+                            <option value="zimit scope">DD SCOPING</option>
+                            <option value="expert services">EXPERT SERVICES</option>
+                            <option value="multi quote">MULTI QUOTE</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END OF QUOTE TYPE HTML CODE -->
+    <!-- START OF BID/PRICING DETAILS -->
+
+    <div class="navside">
+        <button class="dropdown-btn" id="sidetoggle4">3.Bid/Pricing Details<i class="fa fa-angle-down"
+                style="color: 1px solid black; font-size: 20px; float: right;"></i>
+        </button>
+        <div class="dropdown-container">
+            <div class="txt">
+                <p id="text-to-copy" style="border-left: none;"></p>
+                <p id="guidedFieldsHead">Contract Details</p>
+            </div>
+            <div class="txt">
+                <p id="text-to-copy">3.2</p>
+                <p id="guidedFields">Quote Creation Date</p>
+                <input id="billingCustomer" type="text" value="" readonly>
+            </div>
+            <div class="txt">
+                <p id="text-to-copy">3.3</p>
+                <p id="guidedFields">Bid Expires On</p>
+                <input id="billingCustomer" type="text" value="" readonly>
+            </div>
+            <div class="txt">
+                <p id="text-to-copy">3.4</p>
+                <p id="guidedFields">Contract Type</p>
+                <input id="billingCustomer" type="text" value="" readonly>
+            </div>
+            <div class="txt">
+                <p id="text-to-copy" style="border-left: none;"></p>
+                <p id="guidedFieldsHead">Pricing Details</p>
+            </div>
+            <div class="txt">
+                <p id="text-to-copy">3.5</p>
+                <p id="guidedFields">Price List (Country Of Delivery)</p>
+                <input id="billingCustomer" type="text" value="" readonly>
+            </div>
+            <div class="txt">
+                <p id="text-to-copy">3.6</p>
+                <p id="guidedFields">Price List Currency</p>
+                <input id="billingCustomer" type="text" value="" readonly>
+            </div>
+            <div class="txt">
+                <p id="text-to-copy">3.7</p>
+                <p id="guidedFields">Contract Currency to be used</p>
+                <input id="billingCustomer" type="text" value="" readonly>
+            </div>
+            <div class="txt">
+                <p id="text-to-copy"></p>
+                <p id="guidedFields" style="font-size: 13px;">Prepaid Deposits/Partner Discounts</p>
+                <button id="oppData" hidden></button>
+                <label for="oppData" id="oppIcon"></label>
+            </div>
+
+            <div class="txt">
+                <p id="text-to-copy">3.8</p>
+                <p id="guidedFields">Is BMC Subcontracting?</p>
+                <input id="billingCustomer" type="text" value="" readonly>
+            </div>
+            <div class="txt">
+                <p id="text-to-copy">3.9</p>
+                <p id="guidedFields">Delivery Area(Approval Flow)</p>
+                <input id="billingCustomer" type="text" value="" readonly>
+            </div>
+
+            <div class="txt">
+                <p id="text-to-copy" style="border-left: none;"></p>
+                <p id="guidedFieldsHead">Rate Card Details</p>
+            </div>
+            <div class="txt">
+                <p id="text-to-copy">3.10</p>
+                <p id="guidedFields">Rate Card Version</p>
+                <input id="billingCustomer" type="text" value="" readonly>
+            </div>
+        </div>
+    </div>
+
+    <div class="navside">
+        <button class="dropdown-btn" id="sidetoggle4">4. Bid Estimation<i class="fa fa-angle-down"
+                style="color: 1px solid black; font-size: 20px; float: right;"></i>
+        </button>
+        <div class="dropdown-container">
+            <div class="txt">
+                <p id="text-to-copy">4.1</p>
+                <p id="guidedFields">Bid Estimation Details</p>
+                <button id="bidData" onclick="openPopup()" hidden></button>
+                <label for="bidData" id="bidIcon"><i class="fa-regular fa-folder"></i></label>
+                <div class="popup-backdrop" id="myPopupBackdrop"></div>
+            </div>
+            <div class="popup" id="myPopup">
+                <div class="popupBackground">
+                    <input id="readPopupHead" type="text" value="BID ESTIMATION DETAILS" readonly>
+                    <button id="popupIcon" onclick="closePopup()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="popupBtn">
+                    <button class="generalBtn" id="sidetoggle4" style="color: gray;"
+                        onclick="hiddenPopup('containerPopup')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        General Details<i class="fa fa-angle-down"
+                            style="font-size: 20px; float: left; color: #045679;"></i>
+                    </button>
+                    <div id="containerPopup">
+                        <div class="txtPopup">
+                            <input id="readPopup" type="text" value="DETAILS" readonly>
+                            <input id="readPopup" type="text" value="OUTPUT" readonly>
+
+                            <input id="readPopup" type="text" value="PROJECT START DATE" readonly>
+                            <input id="editPopup" type="date" name="projectStartDate" value="" />
+
+                            <input id="readPopup" type="text" value="PROJECT END DATE" readonly />
+                            <input id="editPopup" type="date" name="estimated projectDuration" value="">
+
+                            <input id="readPopup" type="text" value="WORK HOURS/DAY(DEFAULT)" readonly />
+                            <input id="editPopup" type="text" name="workHoursDay" value="8" readonly />
+
+                            <input id="readPopup" type="text" value="WORK HOURS/DAY(OVERRIDE)" readonly />
+                            <input id="editPopup" type="text" name="workHoursOverride" value="0" />
+                            <input id="readPopup" type="text"
+                                value="TYPE OF RATE USED TO DISPLAY UOM IN QUOTE GRID" readonly />
+                            <input id="editPopup" type="text" name="typeOfRate" value="Hours" readonly />
+
+                            <input id="readPopup" type="text"
+                                value="TRAVEL AND LIVING EXPENSES ARE NOT INCLUDED IN THE" readonly>
+                            <input id="editPopup" type="text" name="expenses" value="">
+                        </div>
+                    </div>
+                    <button id="gddata" onclick="hiddenPopupTable('tbvalue')"><i class="fa fa-angle-down"
+                            style="font-size: 20px; color: #216c98;"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bid
+                        Estimation Table (Professional Services)</button>
+
+                    <div id="tbvalue">
+                        <table style="border-left: 1px solid lightgray;">
+                            <thead>
+                                <tr>
+                                    <th>ROLES</th>
+                                    <th>UNIT PRICE (HOURLY)</th>
+                                    <th>BID PRICE(HOURLY)</th>
+                                    <th>WORKLOAD (IN HOURLY)</th>
+                                    <th>CSP WORKLOAD (IN HOURLY)</th>
+                                    <th>CSP AVG COST(HOURLY)</th>
+                                    <th>NON-BILLABLE CATEGORIES</th>
+                                    <th>INTERCO-COUNTRY</th>
+                                    <th>INTERCO-ROLE</th>
+                                    <th>ROLE DESCRIPTION</th>
+                                    <th>NOTES</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <select name="level" class="guideRole">
+                                            <option value="" selected></option>
+                                            <option value="37.5">L2 GRADUATE CONSULTANT</option>
+                                            <option value="52.5">L3 ASSOCIATE CONSULTANT</option>
+                                            <option value="52.5">L3 CONSULTANT</option>
+                                            <option value="60">L4 PROJECT MANAGER</option>
+                                            <option value="60">L4 SENIOR CONSULTANT</option>
+                                            <option value="68.75">L5 GLOBAL PROGRAM MANAGER </option>
+                                            <option value="68.75">L5 PRINCIPAL CONSULTANT</option>
+                                            <option value="68.75">L5 SOLUTION ARCHITECT</option>
+                                            <option value="52.5">L3 GSD ASSOCIATE CONSULTANT</option>
+                                            <option value="52.5">L3 GSD CONSULTANT</option>
+                                            <option value="60">L4 GSD PROJECT MANAGER</option>
+                                            <option value="60">L4 GSD SENIOR CONSULTANT</option>
+                                            <option value="68.75">L5 GSD GLOBAL PROGRAM MANAGER</option>
+                                        </select>
+                                    </td>
+                                    <td id="col2"><input type="text" name="unitPrice" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <select name="level" class="guideRole">
+                                            <option value="" selected></option>
+                                            <option value="37.5">L2 GRADUATE CONSULTANT</option>
+                                            <option value="52.5">L3 ASSOCIATE CONSULTANT</option>
+                                            <option value="52.5">L3 CONSULTANT</option>
+                                            <option value="60">L4 PROJECT MANAGER</option>
+                                            <option value="60">L4 SENIOR CONSULTANT</option>
+                                            <option value="68.75">L5 GLOBAL PROGRAM MANAGER </option>
+                                            <option value="68.75">L5 PRINCIPAL CONSULTANT</option>
+                                            <option value="68.75">L5 SOLUTION ARCHITECT</option>
+                                            <option value="52.5">L3 GSD ASSOCIATE CONSULTANT</option>
+                                            <option value="52.5">L3 GSD CONSULTANT</option>
+                                            <option value="60">L4 GSD PROJECT MANAGER</option>
+                                            <option value="60">L4 GSD SENIOR CONSULTANT</option>
+                                            <option value="68.75">L5 GSD GLOBAL PROGRAM MANAGER</option>
+                                        </select>
+                                    </td>
+                                    <td id="col2"><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <select name="level" class="guideRole">
+                                            <option value="" selected></option>
+                                            <option value="37.5">L2 GRADUATE CONSULTANT</option>
+                                            <option value="52.5">L3 ASSOCIATE CONSULTANT</option>
+                                            <option value="52.5">L3 CONSULTANT</option>
+                                            <option value="60">L4 PROJECT MANAGER</option>
+                                            <option value="60">L4 SENIOR CONSULTANT</option>
+                                            <option value="68.75">L5 GLOBAL PROGRAM MANAGER </option>
+                                            <option value="68.75">L5 PRINCIPAL CONSULTANT</option>
+                                            <option value="68.75">L5 SOLUTION ARCHITECT</option>
+                                            <option value="52.5">L3 GSD ASSOCIATE CONSULTANT</option>
+                                            <option value="52.5">L3 GSD CONSULTANT</option>
+                                            <option value="60">L4 GSD PROJECT MANAGER</option>
+                                            <option value="60">L4 GSD SENIOR CONSULTANT</option>
+                                            <option value="68.75">L5 GSD GLOBAL PROGRAM MANAGER</option>
+                                        </select>
+                                    </td>
+                                    <td id="col2"><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <select name="level" class="guideRole">
+                                            <option value="" selected></option>
+                                            <option value="37.5">L2 GRADUATE CONSULTANT</option>
+                                            <option value="52.5">L3 ASSOCIATE CONSULTANT</option>
+                                            <option value="52.5">L3 CONSULTANT</option>
+                                            <option value="60">L4 PROJECT MANAGER</option>
+                                            <option value="60">L4 SENIOR CONSULTANT</option>
+                                            <option value="68.75">L5 GLOBAL PROGRAM MANAGER </option>
+                                            <option value="68.75">L5 PRINCIPAL CONSULTANT</option>
+                                            <option value="68.75">L5 SOLUTION ARCHITECT</option>
+                                            <option value="52.5">L3 GSD ASSOCIATE CONSULTANT</option>
+                                            <option value="52.5">L3 GSD CONSULTANT</option>
+                                            <option value="60">L4 GSD PROJECT MANAGER</option>
+                                            <option value="60">L4 GSD SENIOR CONSULTANT</option>
+                                            <option value="68.75">L5 GSD GLOBAL PROGRAM MANAGER</option>
+                                        </select>
+                                    </td>
+                                    <td id="col2"><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <select name="level" class="guideRole">
+                                            <option value="" selected></option>
+                                            <option value="37.5">L2 GRADUATE CONSULTANT</option>
+                                            <option value="52.5">L3 ASSOCIATE CONSULTANT</option>
+                                            <option value="52.5">L3 CONSULTANT</option>
+                                            <option value="60">L4 PROJECT MANAGER</option>
+                                            <option value="60">L4 SENIOR CONSULTANT</option>
+                                            <option value="68.75">L5 GLOBAL PROGRAM MANAGER </option>
+                                            <option value="68.75">L5 PRINCIPAL CONSULTANT</option>
+                                            <option value="68.75">L5 SOLUTION ARCHITECT</option>
+                                            <option value="52.5">L3 GSD ASSOCIATE CONSULTANT</option>
+                                            <option value="52.5">L3 GSD CONSULTANT</option>
+                                            <option value="60">L4 GSD PROJECT MANAGER</option>
+                                            <option value="60">L4 GSD SENIOR CONSULTANT</option>
+                                            <option value="68.75">L5 GSD GLOBAL PROGRAM MANAGER</option>
+                                        </select>
+                                    </td>
+                                    <td id="col2"><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Managed Services Table -->
+
+                    <button id="gddata" onclick="hiddenPopupServiceTable('servicevalue')"><i
+                            class="fa fa-angle-down"
+                            style="font-size: 20px; color: #216c98;"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bid
+                        Estimation Table (Managed Services)</button>
+
+                    <div id="servicevalue">
+                        <table style="border-left: 1px solid lightgray; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>SERVICES</th>
+                                    <th>MONTHLY FEE</th>
+                                    <th>ENVIRONMENTS</th>
+                                    <th>TERM IN MONTHS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><select name="level" id="">
+                                            <option value="" selected></option>
+                                            <option value="aws">AWS</option>
+                                            <option value="1">1</option>
+                                            <option value="1">1</option>
+                                        </select></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                </tr>
+                                <tr>
+                                    <td><select name="level" id="">
+                                            <option value="" selected></option>
+                                            <option value="aws">AWS</option>
+                                            <option value="1">1</option>
+                                            <option value="1">1</option>
+                                        </select></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                </tr>
+                                <tr>
+                                    <td><select name="level" id="">
+                                            <option value="" selected></option>
+                                            <option value="aws">AWS</option>
+                                            <option value="1">1</option>
+                                            <option value="1">1</option>
+                                        </select></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                    <td><input type="text" name="" id="bord" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Services Section Start -->
+    <div class="navside">
+        <button class="dropdown-btn" id="sidetoggle1">5.Services
+            <i class="fa fa-angle-down" style="color: black; font-size: 20px; float: right;"></i>
+        </button>
+        <div class="dropdown-container">
+            <form action="">
+                <div class="servicecont">
+                    <div class="servicelabel">
+                        <label style="padding-left: 30px; padding-top: 11px; font-size: 11px; border-right: 2px solid lightgray;">Professional Services</label>
+                        <input type="checkbox" name="profServices" id="proffessional" hidden />
+                        <label for="proffessional" id="proffessionalCircle" ><i class="fa fa-circle-thin" style="font-size: 30px; color:#6291a5; margin-top:5px; font-weight: 100; opacity: 0.7;"></i></label>
+
+                    </div>
+                    <div class="servicebox">
+                        <label style="padding-left: 29px; padding-top: 11px; font-size: 11px; border-right: 2px solid lightgray;">Management Services</label>
+                        <input type="checkbox" name="manageServices" id="management" hidden/>
+                        <label for="management" id="managementCircle" ><i class="fa fa-circle-thin" style="font-size:30px; color: #6291a5; margin-top:5px; font-weight: 100; opacity: 0.6;"></i></label>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Project Setup Start Section-->
+    <div class="navside">
+        <button class="dropdown-btn" id="sidetoggle1">6.Project Setup Details
+            <i class="fa fa-angle-down" style="color: black; font-size: 20px; float: right;"></i>
+        </button>
+        <!-- <div class="dropdown-container">
+                           <form action=""><input type="text" name="new" id="send"
+                                   placeholder="Type your Note" /><button id="sent"><i class='fa fa-send-o blue-color'
+                                       style="color: #045679;"></i></button> </form>
+                       </div> -->
+    </div>
+
+    <!-- Learning Pass Start Section-->
+    <div class="navside">
+        <button class="dropdown-btn" id="sidetoggle1">7.Learning Pass Credits Details
+            <i class="fa fa-angle-down" style="color: black; font-size: 20px; float: right;"></i>
+        </button>
+        <!-- <div class="dropdown-container">
+                               <form action=""><input type="text" name="new" id="send"
+                                       placeholder="Type your Note" /><button id="sent"><i class='fa fa-send-o blue-color'
+                                           style="color: #045679;"></i></button> </form>
+                           </div> -->
+    </div>
+    <button type="" class="guideApply">APPLY</button>
+    <!-- </form> -->
+</div>
+<div class="main-content">
+    <div class="guidedheader">
+        <div class="downloadguide">
+            <button class="xlbutton2" onclick="">
+                <span class="fa fa-file-pdf-o"></span></button>
+            <div>
+                <label>GENERATE</label>
+            </div>
+            <button class="xlbutton3" onclick="">
+                <span class="fa fa-file-word-o"></span></button>
+            <div class="label2">
+                <label>GENERATE</label>
+            </div>
+        </div>
+        <div class="guideapprove" style="margin-left: 27%;">
+            <a class="approveguide" href="#">SUBMIT FOR APPROVAL&nbsp;&nbsp;</a>
+        </div>
+        <!-- <div class="quotedetails">
+            <a href="#"><button class="product active">Price</button></a>
+            <a href="#"><button class="product">Cost</button></a>
+            <a href="#"><button class="product">Quantity</button></a>
+            <a href="#"><button class="product">FTE</button></a>
+        </div> -->
+        <div>
+            <form action="">
+                <label style="top: 20px; margin-left:25px">DOC TYPE:</label>
+                <select name="docType" id="dctype">
+                    <option value="sow">SOW</option>
+                    <option value="cco">CCO</option>
+                </select>
+            </form>
+        </div>
+    </div>
+    
+    <div id="section-container">
+
+    </div>
+    <a href="#" id="openBtn"><i class="fa fa-plus"></i>&nbsp;&nbsp; FROM CATALOG</a>
+    <a href="#" id="add-section-btn"><i class="fa fa-plus"></i>&nbsp;&nbsp; NEW</a>
+    <div id="popupContainer">
+        <div id="popupCatalog">
+            <button class="closeBtn" id="closeBtn"><i class="fa fa-close"></i></button>
+            <div id="sowPopup">
+                    <div>
+                        <h4 style="margin-bottom: 0px; color:gray;">ADD FROM CATALOG</h4>
+                        <div class="inbox1">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                            <input type="text" id="mySearch1" onkeyup="myFunctionSearch()"
+                                title="type in a chategory">
+                        </div>
+
+                        <div class="divide1">
+                            <ul id="myMenu1">
+                                <% contentcatalog.forEach(function(data, i){ %>
+                                    <li><a onclick="myContentarea('<%= data.content_key %>','<%= data.content_description %>')"><%= data.content_title %></a></li>
+                                <% }) %>
+                                
+                            </ul>
+                        </div>
+                        <br>
+                        <div>
+                            <textarea name="contentsData" id="contentArea" cols="29" rows="10"></textarea>
+                        </div>
+                        <div class="ressub">
+                            <button type="reset" id="revert">CANCEL</button>
+                            <button type="submit" onclick="generatePdf()" id="snt">ADD</button>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin: 40px;padding:40px;" id="pdfviewer"></div>
+</div>
+</div>
+
+<script src="<%= base_url %>js/Sow.js"></script>
+
+<script>
+    var id=0;
+    function myContentarea(content_id, description){
+        id=content_id;
+        document.getElementById('contentArea').innerHTML = "";
+        document.getElementById('contentArea').innerHTML = description;
+    }
+
+    function generatePdf()
+    {
+      if(id!=0){
+        const content_data = {
+            id: id,
+            description: document.getElementById('contentArea').value,
+        }
+        fetch("/api/pdfcreatecatalogcontent", {
+            method :"POST",
+            body: JSON.stringify(content_data),
+            headers : {
+                "Content-Type": "application/json"
+            }
+        }).then(res => res.json())
+          .then(data => {
+                if(data.status == "error"){
+                    alert(data.error)
+                } else{
+                    // alert(data.success);
+                    document.getElementById("popupContainer").style.display = "none";
+                    document.getElementById("pdfviewer").innerHTML = `<object data="<%= base_url %>`+data.path+`" type="application/pdf" width="360px" height="520px">
+							   <embed src="<%= base_url %>`+data.path+`" type="application/pdf" width=360px" height="520px" />
+						    </object>`;
+                }
+            })
+      }else{
+        alert("click on any content")
+      }
+    }
+</script>
+<%- include('sowpdfjs') %>
+
+<%- include('footer') %>

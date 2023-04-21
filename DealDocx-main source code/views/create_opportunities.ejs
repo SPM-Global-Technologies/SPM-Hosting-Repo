@@ -1,0 +1,425 @@
+
+<%- include('header') %>
+<div class="bread" style="height: 35px;">
+    <ul class="breadcrumbs" style="padding-top: 0;padding-bottom: 0;">
+        <li class="breadcrumbs--item" style="margin-top: 12px;">
+            <a href="<%= base_url %>" class="breadcrumbs--link breadcrumbs"
+                style="display:inline;text-decoration:none">HOME</a>
+        </li>
+        <li class="breadcrumbs--item">
+            <a href="<%= base_url %>account/edit/<%= id %>" class="breadcrumbs--link breadcrumbs--link--active"><%= account_data.accounts %></a>
+        </li>
+        <li class="breadcrumbs--item">
+            <a href="<%= base_url %>opportunities/add/<%= id %>" class="breadcrumbs--link breadcrumbs--link--active">opportunitydata</a>
+        </li>
+            <!-- </li> <li class="breadcrumbs--item">
+    <a href="#" class="breadcrumbs--link">QUOTES</a>
+</li> -->
+        <li class="breadcrumbs--item">
+
+            <a href="#"><i class="fa fa-pen"
+                    style="margin-left:1173px;border:1px solid black;padding:7px;background-color: #216c98;font-size: 17px; border: none;color: white; position: relative; top: -24px;"></i></a>
+
+            <a href="<%= base_url %>accoutslistings" style="text-decoration: none;color: black;"><i class="fa fa-table"
+                    style="border:1px solid black;padding:7px;font-size: 17px;border: none; position: relative; top: -24px;"></i></a>
+        </li>
+    </ul>
+    <hr class="hr" style="height:1.5px;">
+</div>
+</div>
+<div class="content-bar" style="top:68px;">
+<ul>
+    <a href="<%= base_url %>">
+        <li>
+            <span class="icon"><i class="fas fa-home"></i></span>
+            <span class="item">HOME</span>
+        </li>
+    </a>
+    <a href="<%= base_url %>accounts">
+        <li class="active1">
+            <span class="icon"><i class="fa-solid fa-book-open"></i></span>
+            <span class="item">ACCOUNTS</span>
+        </li>
+    </a>
+    <a href="Quotes.html">
+        <li>
+            <span class="icon"><i class="fa fa-dollar"></i></span>
+            <span class="item">QUOTES</span>
+        </li>
+    </a>
+    <a href="Demand.html">
+        <li>
+            <span class="icon"><i class="fa fa-user"></i></span>
+            <span class="item">DEMAND</span>
+        </li>
+    </a>
+    <a href="Forecast.html">
+        <li>
+            <span class="icon"><i class="fa fa-line-chart"></i></span>
+            <span class="item">FORECAST</span>
+        </li>
+    </a>
+    <a href="<%= base_url %>catalog">
+        <li>
+            <span class="icon"><i class="fa fa-eye"></i></span>
+            <span class="item">CATALOG</span>
+        </li>
+    </a>
+    <a href="Admin.html">
+        <li>
+            <span class="icon"><i class="fa fa-cog"></i></span>
+            <span class="item">ADMIN</span>
+        </li>
+    </a>
+</ul>
+</div>
+<div>
+<div class="helpbox" style="z-index: 2;">
+    <button><a href="#divOne" class="button1"><img src="<%= base_url %>images/HelpIcon.png" alt="Icon"
+                style="height:35px;width:35px;"></a></button>
+</div>
+<div class="overlay" id="divOne">
+    <div class="wrapper">
+        <p class="head">LOG A SUPPORT REQUEST</p><br>
+        <a href="#" class="close">&times;</a>
+        <div class="content">
+            <div class="container1">
+                <form>
+
+                    <label>Summary:</label>
+                    <input type="text" class="help">
+                    <label>Description:</label>
+                    <textarea rows="8" cols=""></textarea>
+                    <label>Priority(0ptional):</label><br>
+                    <select name="format" id="format">
+                        <option selected disabled>Select..</option>
+                        <option value="critical">Critical</option>
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                        <option value="lowest">Lowest</option>
+                    </select><br><br>
+                    <label>Attachment(optional):</label><br>
+                    <input type="file"><br><br>
+                    <label>Your contact e-mail:</label><br>
+                    <input type="email" class="em"><br><br>
+                    <input type="submit" value="Send">
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<!--new opportunities -->
+<div class="oppo">
+    <div id="opportunitiesheader"><a>NEW OPPORTUNITY</a></div>
+    <form action="<%= base_url %>api/create_opportunity/<%= id %>" method="POST">
+        <div class="containerO1">
+            <div id="contentO1">
+                <input name="opp_name" type="text" required>
+                <label>OPPORTUNITY</label>
+            </div>
+        </div>
+        <div class="containerO2">
+            <div id="contentO2">
+                <input class="" name="net_price" type="number" min="0" placeholder="$0.00" >
+                <label>NET PRICE</label>
+            </div>
+            <div id="contentO2">
+                <input class="" name="margin" type="number" min="0%" placeholder="0%">
+                <label>MARGIN</label>
+            </div>
+            <div id="contentO2">
+                <input class="" name="cost" type="number" min="0" placeholder="$0.00" >
+                <label>COST</label>
+            </div>
+        </div>
+        <div class="containerO3">
+            <div id="contentO3">
+                <select name="stage">
+                    <option selected disabled></option>
+                    <option>QUALIFY</option>
+                    <option>SCOPE</option>
+                    <option>GO NO-GO</option>
+                    <option>VALIDATE SOLUTION</option>
+                    <option>BUSINESS CASE</option>
+                    <!-- <option>NEGOTIATE & CLOSE</option> -->
+                    <option>DISCOVERY</option>
+                    <!-- <option>CLOSED-NO SALE</option> -->
+                </select>
+                <label>STAGE</label>
+            </div>
+            <div id="contentO3">
+                <input class="" name="probability" type="number" min="0" placeholder="0%" >
+                <label>PROBABILITY</label>
+            </div>
+            <div id="contentO3">
+                <input class="" name="hours" type="number" min="0" >
+                <label>HOURS</label>
+            </div>
+        </div>
+        <div class="containerO4">
+            <div id="contentO4">
+                <input class="" name="close" type="text" onfocus="(this.type='date')" required>
+                <label>CLOSE</label>
+            </div>
+            <div id="contentO4">
+                <input class="" name="start" type="text" onfocus="(this.type='date')" required>
+                <label>START</label>
+            </div>
+            <div id="contentO4">
+                <input class="" name="duration_weeks" type="number" min="1" >
+                <label>DURATION WEEKS</label>
+            </div>
+        </div>
+
+           <b>GENERAL</b>
+         
+           <div class="containerO5">
+            <div id="contentO5">
+            
+                <img class="avatar__image" src="<%= base_url %>images/avtar.jpg" />
+                <input type="text" name="owner" >
+                <label>OWNER</label>
+        
+            </div>
+            <div id="contentO5">
+                <select name="region" >
+                    <option selected disabled></option>
+                    <option value="critical">AP</option>
+                    <option value="high">EMEA</option>
+                    <option value="medium">LA</option>
+                    <option value="low">NA</option>
+                </select>
+                <label>REGION</label>
+            </div>
+            <div id="contentO5">
+                <select name="vertical" >
+                    <option selected disabled></option>
+                    <option value="">BANKING</option>
+                    <option value="">CHEMICALS</option>
+                    <option value="">CONSTRUCTION & ENGG</option>
+                    <option value="">COSULTING SERVICES</option>
+                    <option value="">CONSUMER PRODUCTS</option>
+                    <option value="">EDUCATION</option>
+                    <option value="">ENTERTAINMENT & LEISURE</option>
+                    <option value="">FINANCIAL SERVICES</option>
+                </select>
+                <label>VERTICAL</label>
+            </div>
+            <div id="contentO5">
+                <select name="practice" >
+                    <option selected></option>
+                    <option>DBA</option>
+                    <option>DSOM</option>
+                    <option>EDUCATION</option>
+                    <option>IZOT</option>
+                </select>
+                <label>PRACTICE</label>
+            </div>
+        </div>
+        <div class="containerO6">
+            <div id="contentO6">
+                <select id="currency" name="currency">
+                    <option selected disabled></option>
+                    <option value="AFN">Afghan Afghani</option>
+                    <option value="ALL">Albanian Lek</option>
+                    <option value="DZD">Algerian Dinar</option>
+                    <option value="AOA">Angolan Kwanza</option>
+                    <option value="ARS">Argentine Peso</option>
+                    <option value="AMD">Armenian Dram</option>
+                    <option value="AWG">Aruban Florin</option>
+                    <option value="AUD">Australian Dollar</option>
+                    <option value="AZN">Azerbaijani Manat</option>
+                    <option value="BSD">Bahamian Dollar</option>
+                    <option value="BHD">Bahraini Dinar</option>
+                    <option value="BDT">Bangladeshi Taka</option>
+                    <option value="BBD">Barbadian Dollar</option>
+                    <option value="BYR">Belarusian Ruble</option>
+                    <option value="BEF">Belgian Franc</option>
+                    <option value="BZD">Belize Dollar</option>
+                    <option value="BMD">Bermudan Dollar</option>
+                    <option value="BTN">Bhutanese Ngultrum</option>
+                    <option value="BTC">Bitcoin</option>
+                    <option value="BOB">Bolivian Boliviano</option>
+                    <option value="BAM">Bosnia-Herzegovina Convertible Mark</option>
+                    <option value="BWP">Botswanan Pula</option>
+                    <option value="BRL">Brazilian Real</option>
+                    <option value="GBP">British Pound Sterling</option>
+                    <option value="BND">Brunei Dollar</option>
+                    <option value="BGN">Bulgarian Lev</option>
+                    <option value="BIF">Burundian Franc</option>
+                    <option value="KHR">Cambodian Riel</option>
+                    <option value="CAD">Canadian Dollar</option>
+                    <option value="CVE">Cape Verdean Escudo</option>
+                    <option value="KYD">Cayman Islands Dollar</option>
+                    <option value="XOF">CFA Franc BCEAO</option>
+                    <option value="XAF">CFA Franc BEAC</option>
+                    <option value="XPF">CFP Franc</option>
+                    <option value="CLP">Chilean Peso</option>
+                    <option value="CNY">Chinese Yuan</option>
+                    <option value="COP">Colombian Peso</option>
+                    <option value="KMF">Comorian Franc</option>
+                    <option value="CDF">Congolese Franc</option>
+                    <option value="CRC">Costa Rican ColÃ³n</option>
+                    <option value="HRK">Croatian Kuna</option>
+                    <option value="CUC">Cuban Convertible Peso</option>
+                    <option value="CZK">Czech Republic Koruna</option>
+                    <option value="DKK">Danish Krone</option>
+                    <option value="DJF">Djiboutian Franc</option>
+                    <option value="DOP">Dominican Peso</option>
+                    <option value="XCD">East Caribbean Dollar</option>
+                    <option value="EGP">Egyptian Pound</option>
+                    <option value="ERN">Eritrean Nakfa</option>
+                    <option value="EEK">Estonian Kroon</option>
+                    <option value="ETB">Ethiopian Birr</option>
+                    <option value="EUR">Euro</option>
+                    <option value="FKP">Falkland Islands Pound</option>
+                    <option value="FJD">Fijian Dollar</option>
+                    <option value="GMD">Gambian Dalasi</option>
+                    <option value="GEL">Georgian Lari</option>
+                    <option value="DEM">German Mark</option>
+                    <option value="GHS">Ghanaian Cedi</option>
+                    <option value="GIP">Gibraltar Pound</option>
+                    <option value="GRD">Greek Drachma</option>
+                    <option value="GTQ">Guatemalan Quetzal</option>
+                    <option value="GNF">Guinean Franc</option>
+                    <option value="GYD">Guyanaese Dollar</option>
+                    <option value="HTG">Haitian Gourde</option>
+                    <option value="HNL">Honduran Lempira</option>
+                    <option value="HKD">Hong Kong Dollar</option>
+                    <option value="HUF">Hungarian Forint</option>
+                    <option value="ISK">Icelandic KrÃ³na</option>
+                    <option value="INR">Indian Rupee</option>
+                    <option value="IDR">Indonesian Rupiah</option>
+                    <option value="IRR">Iranian Rial</option>
+                    <option value="IQD">Iraqi Dinar</option>
+                    <option value="ILS">Israeli New Sheqel</option>
+                    <option value="ITL">Italian Lira</option>
+                    <option value="JMD">Jamaican Dollar</option>
+                    <option value="JPY">Japanese Yen</option>
+                    <option value="JOD">Jordanian Dinar</option>
+                    <option value="KZT">Kazakhstani Tenge</option>
+                    <option value="KES">Kenyan Shilling</option>
+                    <option value="KWD">Kuwaiti Dinar</option>
+                    <option value="KGS">Kyrgystani Som</option>
+                    <option value="LAK">Laotian Kip</option>
+                    <option value="LVL">Latvian Lats</option>
+                    <option value="LBP">Lebanese Pound</option>
+                    <option value="LSL">Lesotho Loti</option>
+                    <option value="LRD">Liberian Dollar</option>
+                    <option value="LYD">Libyan Dinar</option>
+                    <option value="LTL">Lithuanian Litas</option>
+                    <option value="MOP">Macanese Pataca</option>
+                    <option value="MKD">Macedonian Denar</option>
+                    <option value="MGA">Malagasy Ariary</option>
+                    <option value="MWK">Malawian Kwacha</option>
+                    <option value="MYR">Malaysian Ringgit</option>
+                    <option value="MVR">Maldivian Rufiyaa</option>
+                    <option value="MRO">Mauritanian Ouguiya</option>
+                    <option value="MUR">Mauritian Rupee</option>
+                    <option value="MXN">Mexican Peso</option>
+                    <option value="MDL">Moldovan Leu</option>
+                    <option value="MNT">Mongolian Tugrik</option>
+                    <option value="MAD">Moroccan Dirham</option>
+                    <option value="MZM">Mozambican Metical</option>
+                    <option value="MMK">Myanmar Kyat</option>
+                    <option value="NAD">Namibian Dollar</option>
+                    <option value="NPR">Nepalese Rupee</option>
+                    <option value="ANG">Netherlands Antillean Guilder</option>
+                    <option value="TWD">New Taiwan Dollar</option>
+                    <option value="NZD">New Zealand Dollar</option>
+                    <option value="NIO">Nicaraguan CÃ³rdoba</option>
+                    <option value="NGN">Nigerian Naira</option>
+                    <option value="KPW">North Korean Won</option>
+                    <option value="NOK">Norwegian Krone</option>
+                    <option value="OMR">Omani Rial</option>
+                    <option value="PKR">Pakistani Rupee</option>
+                    <option value="PAB">Panamanian Balboa</option>
+                    <option value="PGK">Papua New Guinean Kina</option>
+                    <option value="PYG">Paraguayan Guarani</option>
+                    <option value="PEN">Peruvian Nuevo Sol</option>
+                    <option value="PHP">Philippine Peso</option>
+                    <option value="PLN">Polish Zloty</option>
+                    <option value="QAR">Qatari Rial</option>
+                    <option value="RON">Romanian Leu</option>
+                    <option value="RUB">Russian Ruble</option>
+                    <option value="RWF">Rwandan Franc</option>
+                    <option value="SVC">Salvadoran ColÃ³n</option>
+                    <option value="WST">Samoan Tala</option>
+                    <option value="SAR">Saudi Riyal</option>
+                    <option value="RSD">Serbian Dinar</option>
+                    <option value="SCR">Seychellois Rupee</option>
+                    <option value="SLL">Sierra Leonean Leone</option>
+                    <option value="SGD">Singapore Dollar</option>
+                    <option value="SKK">Slovak Koruna</option>
+                    <option value="SBD">Solomon Islands Dollar</option>
+                    <option value="SOS">Somali Shilling</option>
+                    <option value="ZAR">South African Rand</option>
+                    <option value="KRW">South Korean Won</option>
+                    <option value="XDR">Special Drawing Rights</option>
+                    <option value="LKR">Sri Lankan Rupee</option>
+                    <option value="SHP">St. Helena Pound</option>
+                    <option value="SDG">Sudanese Pound</option>
+                    <option value="SRD">Surinamese Dollar</option>
+                    <option value="SZL">Swazi Lilangeni</option>
+                    <option value="SEK">Swedish Krona</option>
+                    <option value="CHF">Swiss Franc</option>
+                    <option value="SYP">Syrian Pound</option>
+                    <option value="STD">São Tomé and Príncipe Dobra</option>
+                    <option value="TJS">Tajikistani Somoni</option>
+                    <option value="TZS">Tanzanian Shilling</option>
+                    <option value="THB">Thai Baht</option>
+                    <option value="TOP">Tongan pa'anga</option>
+                    <option value="TTD">Trinidad & Tobago Dollar</option>
+                    <option value="TND">Tunisian Dinar</option>
+                    <option value="TRY">Turkish Lira</option>
+                    <option value="TMT">Turkmenistani Manat</option>
+                    <option value="UGX">Ugandan Shilling</option>
+                    <option value="UAH">Ukrainian Hryvnia</option>
+                    <option value="AED">United Arab Emirates Dirham</option>
+                    <option value="UYU">Uruguayan Peso</option>
+                    <option value="USD">US Dollar</option>
+                    <option value="UZS">Uzbekistan Som</option>
+                    <option value="VUV">Vanuatu Vatu</option>
+                    <option value="VEF">Venezuelan BolÃ­var</option>
+                    <option value="VND">Vietnamese Dong</option>
+                    <option value="YER">Yemeni Rial</option>
+                    <option value="ZMK">Zambian Kwacha</option>
+                </select>
+                <label>CURRENCY</label>
+            </div>
+            <div id="contentO6">
+                <select name="org" >
+                    <option selected disabled></option>
+                    <option>AFRICA</option>
+                    <option>ALL OTHER AP</option>
+                    <option>AP-ALL OTHER</option>
+                    <option>AP-AUS/JP</option>
+                    <option>AP-CHINA</option>
+                    <option>AP-INDIA</option>
+                    <option>ARGENTINA</option>
+                    <option>AUSTRALIA</option>
+                </select>
+                <label>ORG</label>
+            </div>
+            <div id="contentO6">
+                <select name="type">
+                    <option selected></option>
+                    <option>CONSULTING SERVICES OPPORTUNITY</option>
+                    <option>EDUCATIONAL SERVICES OPPORTUNITY</option>
+                </select>
+                <label>OPPRTUNITY TYPE</label>
+            </div>    
+        </div>
+        <div class="saveandcancel">
+                    <button id="reset1" type="reset" style="color:red;">CANCEL</button>
+                    <button id="save1" type="submit" style="color:green;">SAVE</button>
+                </div>
+          </form>
+   </div>
+
+<%- include('footer') %>

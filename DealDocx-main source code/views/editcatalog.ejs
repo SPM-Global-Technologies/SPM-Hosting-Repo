@@ -1,0 +1,633 @@
+<%- include('header') %>
+
+    <link rel="stylesheet" href="<%= base_url %>css/Catalog.css">
+    <link rel="stylesheet" href="<%= base_url %>css/CatalogQuestionAndRules.css">
+
+    <style>
+        .rightsurvey {
+            height: 600px;
+            overflow-y: scroll;
+        }
+    </style>
+    <div class="bread">
+        <ul class="breadcrumbs">
+            <li class="breadcrumbs--item">
+                <a href="<%= base_url %>" class="breadcrumbs--link breadcrumbs">HOME</a>
+            </li>
+            <li class="breadcrumbs--item">
+                <a href="<%= base_url %>catalog" class="breadcrumbs--link breadcrumbs--link--active">CATALOG</a>
+            </li>
+            <li class="breadcrumbs--item">
+                <a class="breadcrumbs--link breadcrumbs--link--active">GUIDED SELLING</a>
+            </li>
+            <li style="float: right;list-style: none;">
+                <a href="#" class="breadcrumbs--link breadcrumbs--link--active"><i class="fa fa-pen"
+                        style="font-size: 15px;margin-right: 10px;"></i></a>
+                <a href="#" class="breadcrumbs--link breadcrumbs--link--active"><i class="fa fa-table"
+                        style="font-size: 15px;margin-right: 10px;"></i></a>
+            </li>
+        </ul>
+        <hr class="hr">
+    </div>
+    <div class="content-bar" style="position:fixed;">
+        <ul>
+            <a href="<%= base_url %>">
+                <li>
+                    <span class="icon"><i class="fas fa-home"></i></span>
+                    <span class="item">HOME</span>
+                </li>
+            </a>
+            <a href="<%= base_url %>">
+                <li>
+                    <span class="icon"><i class="fa-solid fa-stamp"></i></span>
+                    <span class="item">ROLES</span>
+                </li>
+            </a>
+            <a href="<%= base_url %>">
+                <li>
+                    <span class="icon"><i class="fa-solid fa-cart-shopping"></i></span>
+                    <span class="item">ITEMS</span>
+                </li>
+            </a>
+            <a href="<%= base_url %>catalogcontent">
+                <li>
+                    <span class="icon"><i class="fa fa-eye"></i></span>
+                    <span class="item">CONTENT</span>
+                </li>
+            </a>
+            <a href="<%= base_url %>">
+                <li>
+                    <span class="icon"><i class="fa-solid fa-clipboard-list"></i></span>
+                    <span class="item">ASSET</span>
+                </li>
+            </a>
+            <a href="<%= base_url %>">
+                <li>
+                    <span class="icon"><i class="fa-sharp fa-regular fa-clone"></i></span>
+                    <span class="item">TEMPLATES</span>
+                </li>
+            </a>
+            <a href="<%= base_url %>catalog">
+                <li class="active1">
+                    <span class="icon"><i class="fa-solid fa-pen-to-square"></i></span>
+                    <span class="item">SURVEYS</span>
+                </li>
+            </a>
+            <a href="<%= base_url %>">
+                <li class="active1">
+                    <span class="icon"></span>
+                    <span class="item">SETUP</span>
+                </li>
+            </a>
+            <a href="<%= base_url %>">
+                <li class="">
+                    <span class="icon"></span>
+                    <span class="item">WHERE USED</span>
+                </li>
+            </a>
+
+            <a href="<%= base_url %>">
+                <li>
+                    <span class="icon"><i class="fa-solid fa-book"></i></span>
+                    <span class="item">DOCTYPES</span>
+                </li>
+            </a>
+        </ul>
+    </div>
+
+    <div>
+        <form action="<%= base_url %>api/copycatalog/<%= catalog_data.catalog_key %>" method="post">
+
+            <div class="rowsurvey" style="padding-top: 0px">
+
+                <div class="leftsurvey" style="position: fixed;">
+
+                    <div class="inboxsurvey">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                        <input type="text" id="mySearchsurvey" onkeyup="myFunctionSurvey()" title="type in a chategory">
+                    </div>
+                    <div class="dividesurvey">
+                        <ul id="myMenusurvey">
+                            <span id="dotssurvey">
+
+                                <% if(!catalog || catalog.length==0) { %>
+                                    <li><a>No catalogs found</a></li>
+                                    <% } else { var num=0; catalog.forEach(function(data, i){ if(num==0){ num++;%>
+                                        <li><a class="<% if(data.catalog_key == id){%> <%= 'active' %> <% } %>"
+                                                href="<%= base_url %>catalog/edit/<%= data.catalog_key %>">
+                                                <%= data.title %>
+                                            </a></li>
+
+                                        <% }else{ %>
+                                            <li><a class="<% if(data.catalog_key == id){%> <%= 'active' %> <% } %>"
+                                                    href="<%= base_url %>catalog/edit/<%= data.catalog_key %>">
+                                                    <%= data.title %>
+                                                </a></li>
+
+                                            <% } }) } %>
+                            </span>
+                            <!-- <span id="moresurvey">
+                        <li><a href="#">Accenture S.p.A</a></li>
+                        <li><a href="#">1040Tech LLC</a></li>
+                        <li><a href="#">ABB AG</a></li>
+                        <li><a href="#">Abbey National Group</a></li>
+                        <li><a href="#">Abbott</a></li>
+                        <li><a href="#">Abbott Laboratories</a></li>
+                        <li><a href="#">ABC Company</a></li>
+                        <li><a href="#">ABSA Bank Limited</a></li>
+                        <li><a href="#">ACA Pacific Technology</a></li>
+                        <li><a href="#">Accenture</a></li>
+                        <li><a href="#">Accenture S.p.A</a></li>
+                    </span> -->
+                            <button type="button" onclick="myFunctionSurvey()" id="myBTNsurvey">VIEW MORE</button>
+                        </ul>
+                    </div>
+                    <div class="plusiconsurvey" style="width: max-content;margin: auto;">
+                        <a href="<%= base_url %>createcatalog"><i class="fa fa-plus"></i></a>
+                    </div>
+                    <div class="plusiconsurvey" style="width: max-content;margin: auto;">
+                        <!-- <button type="submit" id="save1" style="color:green;cursor: pointer;text-align: center;">Apply</button> -->
+                    </div>
+                </div>
+                <div class="rightsurvey">
+                    <div id="main">
+                        <div class="submain">
+                            <button type="button" class="openbtnSurvey" onclick="openClose()" >
+                                <i class="fa-light fa-less-than" style="color: white; position: relative; left: -6px;"></i></button>
+                        </div>
+                        <div class="surveyhead">
+                            <div id="headersurvey">SURVEY TEMPLATE
+                                <div class="surveyapprove">
+                                    <button type="button" class="approvesurvey1">OVERWRITE</button>
+                                    <button type="submit" style="cursor:pointer;" class="approvesurvey2">CREATE A
+                                        COPY</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="containersurvey">
+                                <div id="contentS1">
+                                    <div class="surveyName" id="surveynamesection">
+                                        <input class="" name="title" type="text"
+                                            onchange="editFunction('title',this.value,'<%= catalog_data.catalog_key %>')"
+                                            value="<%= catalog_data.title %>">
+                                        <label id="tittleLabel">TITLE</label>
+                                        <label id="cpqLabel">CPQ</label>
+                                    </div>
+                                    <div id="headsurvey2" style="display: none;">
+                                        <a class="export" href="#">EXPORT</a>
+                                        <label for="myfile" id="file">IMPORT FROM LOCAL FILE</label>
+                                        <input type="file" id="myfile" name="myfile" display="show" hidden>
+                                        <a class="savee" href="#">SAVE</a>
+                                        <a class="resumecalc" href="#">RESUME CALCULATIONS</a>
+                                    </div>
+                                    <div class="catIcon">
+                                        <i class="fa-solid fa-clipboard-list" id="catIcon" onclick="defaultShow()"
+                                            style="margin-left: 25px; width: 20px;"></i><br>
+                                        <label for="" id="clipLabel">DEFAULTS</label>
+                                    </div>
+                                    <div class="calcIcon" id="calcId">
+                                        <i class="fa fa-table" id="calcIcon" onclick="calcShow()"
+                                            style="margin-left: 25px; width: 20px;"></i><br>
+                                        <label for="" id="calcLabel">CALC</label>
+                                        <i class="fa fa-cog" id="configIcon" style="margin-left: 25px; display: none;"
+                                            onclick="defaultShow()"></i><br>
+                                        <label for="" id="configLabel" style="display: none;">CONFIG</label>
+                                    </div>
+                                    <div class="bckbtn" id="bckbtn1" onclick="calcShow()" style="display: none;">
+                                        <button id="backk">BACK</button>
+                                        <i class="fa fa-chevron-left" id="backicon" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                                <div id="containerSA">
+                                    <div id="contentS2">
+                                        <select name="category"
+                                            onchange="editFunction('category',this.value,'<%= catalog_data.catalog_key %>')">
+                                            <option  value="<%= catalog_data.category %>">
+                                                <%= catalog_data.category %>
+                                            </option>
+                                            <option value="DBA">DBA</option>
+                                            <option value="DSOM">DSOM</option>
+                                            <option value="DEFAULT">DEFAULT</option>
+                                            <option value="EDUCATION">EDUCATION</option>
+                                            <option value="IZOT">IZOT</option>
+                                        </select>
+                                        <label>CATLALOG CATEGORY</label>
+                                    </div>
+                                    <div id="contentS3">
+                                        <select name="status"
+                                            onchange="editFunction('status',this.value,'<%= catalog_data.catalog_key %>')">
+                                            <option value="<%= catalog_data.status %>" hidden>
+                                                <%= catalog_data.status %>
+                                            </option>
+                                            <option value="IN PROCESS">IN PROCESS</option>
+                                            <option value="INACTIVE">INACTIVE</option>
+                                            <option value="PUBLISHED">PUBLISHED</option>
+                                        </select>
+                                        <label>CATLOG STATUS</label>
+                                    </div>
+                                    <div id="contentS4">
+                                        <input type="checkbox" name="globals"
+                                            onchange="editFunction('globals',this.value,'<%= catalog_data.catalog_key %>')"
+                                            value="1" <% if(catalog_data.globals !=0){ %>
+                                        <%= "checked" %>
+                                            <% } %> />
+                                                <label>GLOBALS</label>
+                                    </div>
+                                    <div id="contentS5">
+                                        <input type="checkbox" name="wide"
+                                            onchange="editFunction('wide',this.value,'<%= catalog_data.catalog_key %>')"
+                                            value="1" <% if(catalog_data.wide !=0){ %>
+                                        <%= "checked" %>
+                                            <% } %> />
+                                                <label>WIDE</label>
+                                    </div>
+                                </div>
+                                <div id="containerSB">
+                                    <div id="contentS6">
+                                        <select name="update_type"
+                                            onchange="editFunction('update_type',this.value,'<%= catalog_data.catalog_key %>')">
+                                            <option  value="<%= catalog_data.update_type %>" hidden>
+                                                <%= catalog_data.update_type %>
+                                            </option>
+                                            <option value="AUTOMATIC UPDATE">AUTOMATIC UPDATE</option>
+                                            <option value="NO UPDATE">NO UPDATE</option>
+                                            <option value="PROMPT USER">PROMPT USER</option>
+                                        </select>
+                                        <label>TEMPLATE UPDATE TYPE</label>
+                                    </div>
+                                    <div id="contentS7">
+                                        <input type="text" name="msg" id="userMesg" placeholder="Enter Your Message">
+                                        <label>UPDATE NOTIFICATION</label>
+                                    </div>
+                                </div>
+                                <p id="noSurveyQuestion">This survey has no questions. </p>
+                            </div>
+                        </div>
+                        <div id="main-section">
+
+                            <!-- ----------survey section----------- -->
+
+                            <input type="hidden" name="total_sections" id="total_sections"
+                                value="<%= sections.length %>" />
+                            <input type="hidden" name="total_questions" id="total_questions"
+                                value="<%= questions.length %>" />
+
+                            <div id="sections-container">
+                                <!-- <div class="surveysection">
+                    <div class="section-header">
+                        <h2>section title </h2>
+                        <div class="actions"> <input type="checkbox" class="hide-checkbox" />
+                            <i class="delete-icon"><i class="fa-solid fa-trash-can"></i></i>
+                        </div>
+                    </div>
+                    <div class="section-content">
+                         <p>section content goes here</p>
+                    </div>
+                </div> -->
+                                <input type="hidden" id="lengthsection" value="<%= sections.length %>" />
+                                <% sections.forEach(function(data, i){ %>
+                                    <div class="section">
+                                        <div class="sectionDiv">
+                                            <input type="hidden" name="sectioncount[<%= data.catalog_section_number %>]"
+                                                value="<%= data.catalog_section_number %>">
+                                            <p id="sectionIcon"><i class="fa fa-angle-up"> </i></p>
+                                            <h3 id="section-number">
+                                                <%= data.catalog_section_number %>
+                                            </h3>
+                                            <input id="inputField"
+                                                name="sectiontitle[<%= data.catalog_section_number %>]" type="text"
+                                                value="<%= data.catalog_section_title %>"
+                                                placeholder="Enter section title">
+                                            <span id="section-up-btn"><i class="fa-solid fa-arrow-up"></i></span>
+                                            <span id="section-down-btn"><i class="fa-solid fa-arrow-down"></i></span>
+                                            <label><input type="checkbox"
+                                                    name="sectionhide[<%= data.catalog_section_number %>]" <%
+                                                    if(data.catalog_section_status !=0){ %>
+                                                <%= "checked" %>
+                                                    <% } %>><span>Hide</span>
+                                            </label>
+                                            <button class="deletesection" type="button"><i
+                                                    class="far fa-trash-alt"></i></button>
+                                        </div>
+                                        <input type="hidden" name="sectionkey[<%= data.catalog_section_number %>]" value="<%= data.catalog_section_key %>"/>
+                                        
+                                            <div id="questionRule<%= data.catalog_section_number %>">
+                                                    <div id="qbtn">
+                                                        <button id="question" type="button"
+                                                            style="background: rgb(33, 108, 152); color: white;">QUESTION</button>
+                                                        <button id="rule" type="button"
+                                                            style="color: black;">RULES</button>
+                                                    </div>
+                                                    <div class="questions-container">
+
+                                                        <% var numk=0; questions.forEach(function(ques_data, j){
+                                                        if(data.catalog_section_key==ques_data.catalog_section_key){ const
+                                                        ques_num=ques_data.catalog_questions_num.split(".");%>
+                                                            <div class="question">
+                                                                <input type="hidden"
+                                                                    name="questionscount[<%= data.catalog_section_number %>][<%= ques_num[1] %>]"
+                                                                    value="<%= ques_data.catalog_questions_num %>">
+                                                                <span class="subSection">
+                                                                    <%= data.catalog_section_number %>.<%= ques_num[1]
+                                                                            %>
+                                                                </span>
+
+                                                                <input type="text"
+                                                                    name="questionsname[<%= data.catalog_section_number %>][<%= ques_num[1] %>]"
+                                                                    placeholder="Enter your question"
+                                                                    value="<%= ques_data.catalog_questions_name %>">
+                                                                <button type="button" class="infoicon-btn"><i
+                                                                        class="fa fa-info-circle"></i></button>
+                                                                <label>
+                                                                    <input type="checkbox"
+                                                                        name="questionsrequired[<%= data.catalog_section_number %>][<%= ques_num[1] %>]"
+                                                                        <% if(ques_data.catalog_questions_required !=0){
+                                                                        %>
+                                                                    <%= "checked" %>
+                                                                        <% } %>>
+                                                                            <span
+                                                                                style="font-size:13px;">Required</span>
+                                                                </label>
+                                                                <select class="questionSelect"
+                                                                    name="questionstoggle[<%= data.catalog_section_number %>][<%= ques_num[1] %>]">
+                                                                    <option
+                                                                        value="<%= ques_data.catalog_questions_toggle %>">
+                                                                        <%= ques_data.catalog_questions_toggle %>
+                                                                    </option>
+
+                                                                    <option value="TOGGLE">TOGGLE</option>
+                                                                    <option value="Yes/No">Yes/No</option>
+                                                                    <option value="Option 3">Option 3</option>
+                                                                </select>
+                                                                <button type="button" class="copyicon-btn"><i
+                                                                        class="far fa-copy"></i></button>
+                                                                <button type="button" class="delete-btn"><i
+                                                                        class="far fa-trash-alt"></i></button>
+                                                                <span id="section-up-btn"><i
+                                                                        class="fa-solid fa-arrow-up"></i></span>
+                                                                <span id="section-down-btn"><i
+                                                                        class="fa-solid fa-arrow-down"></i></span>
+                                                            </div>
+                                                        <% } }) %>
+                                                    </div>
+
+                                            </div>
+                                                <button class="addQuestion" type="button" id="addQuestion1">+ADD
+                                                    QUESTION</button>
+                                                <button class="addRule" type="button" id="addRule1">+ADD RULE</button>
+                                    </div>
+                                    <% }) %>
+                            </div>
+
+                            <button type="button" id="add-section-btn">+ ADD SECTION</button>
+                        </div>
+
+                        <!-- SPREAD SHEET CODE STARTS FROM HERE -->
+
+
+
+                        <div id="deletesurveysection" style="margin-bottom: 40px;">
+                            <button id="deletesurvey" type="button"
+                                onclick="window.location.href='<%= base_url %>api/catalog/delete/<%= catalog_data.catalog_key %>'"
+                                style="color:red;">DELETE SURVEY</button>
+                        </div>
+                        <!-- <div id="add-section-container">
+                        <button id="add-section" class="add-button">
+                            <label>ADD SECTION</label>
+                        </button>
+                    </div> -->
+                    </div>
+                </div>
+            </div>
+
+    </div>
+    </form>
+
+    </div>
+    <div id="mySidebar" class="sidebar" style="padding-top: 0px;">
+        <div class="navside">
+            <button class="dropdown-btn" id="sidetoggle">FILES<i class="fa fa-angle-down" style="color: black; font-size: 20px; float: right;"></i> </button>
+            <div class="dropdown-container">
+                <ul id="file-list"></ul>
+                <div class="file-upload">
+                    <input id="file-input" type="file" onchange="displayFileName()" multiple hidden />
+                    <label for="file-input" id="filePlus"><i class="fa fa-plus"></i></label>
+                </div>
+            </div>
+            </div>
+            <div class="navside"> 
+                <button class="dropdown-btn" id="sidetoggle1">NOTES <i class="fa fa-angle-down"
+                        style="color: black; font-size: 20px; float: right;"></i> </button>
+                <div class="dropdown-container">
+                    <form action=""><input type="text" name="new" id="send" placeholder="Type your Note" /><button
+                            id="sent1"><i class='fa fa-send-o blue-color' style="color: #045679;"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="navside">
+                <button class="dropdown-btn" id="sidetoggle3">TIMESTAMP <i class="fa fa-angle-down"
+                        style="color: black; font-size: 20px; float: right;"></i> </button>
+                <div class="side-container">
+                    <hr id="lhr">
+                    <span id="time">CREATED BY:</span><span id="time1"><%= user.first_name %></span><br>
+                    <hr id="lhr">
+                    <span id="time">CREATED:</span><span id="time1"><%= catalog_data.created_on %></span><br>
+                    <hr id="lhr">
+                    <span id="time">LAST MODIFIED BY:</span><span id="time1"><%= user.first_name %></span><br>
+                    <hr id="lhr">
+                    <span id="time">LAST MODIFIED</span><span id="time1"><%= catalog_data.modified_on %></span><br>
+                    <hr id="lhr">
+                    <span id="time">REVISION</span><span id="time1">${model}</span><br>
+                </div>
+            </div>
+            <div class="navside">
+                <button class="dropdown-btn" id="sidetoggle4">INTERNAL ID <i class="fa fa-angle-down"
+                        style="color: 1px solid black; font-size: 20px; float: right;"></i>
+                </button>
+                <div class="dropdown-container">
+                    <div class="txt">
+                        <p id="text-to-copy">
+                            <a id="myId" style="font-size: 13px;"
+                                target="_blank"><%= catalog_data.catalog_key %>
+                            </a>
+                        </p>
+                    </div>
+                    <div class="bnt">
+                        <button id="cpbtn" onclick="copyText()"><i class="fa fa-clone"
+                                style="font-size:15px; z-index: 2;"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="navside">
+                <button class="dropdown-btn" id="sidetoggle5">LINK
+                    <i class="fa fa-angle-down" style="color: black; font-size: 20px; float: right;"></i>
+                </button>
+                <div class="dropdown-container">
+                    <div class="txt">
+                        <p id="link-to-copy"><a href='<%= base_url+"catalog/edit/"+catalog_data.catalog_key %>' id="myLink" style="font-size: 13px;"
+                                target="_blank"><%= base_url+"catalog/edit/"+catalog_data.catalog_key %></a>
+                        </p>
+                    </div>
+                    <div class="bnt">
+                        <button id="linkbtn" onclick="copyLink()"><i class="fa fa-clone"
+                                style="font-size:15px; z-index: 2;"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<% if(catalog_data.status == "PUBLISHED"){ %>
+    <script>
+            document.getElementById('deletesurvey').disabled = true;
+
+    </script>
+
+<% } %>
+<script>
+    function editFunction(name,val,id) {
+      var data = JSON.stringify({name:name, value: val, id:id});
+      if(name == 'status')
+      {
+        if(val == "PUBLISHED")
+        {
+            document.getElementById('deletesurvey').disabled = true;
+        }else{
+            document.getElementById('deletesurvey').disabled = false;
+
+        }
+      }
+      console.log(data)
+      fetch("<%= base_url %>api/updatecatalog", {
+          method: 'post',
+          body: data,
+          headers: {
+              'Content-Type': 'application/json'
+          }
+      }).then((response) => {
+            console.log(response)
+      }).then((res) => {
+          if (res.status === 201) {
+              console.log("Post successfully created!")
+          }
+      }).catch((error) => {
+          console.log(error)
+      })
+    }
+
+    document.querySelector("body").addEventListener("change", function() {
+        // submit();
+    })
+
+    window.onbeforeunload = async function(e){
+        await submit();
+        return null;
+        // return true;
+    }
+    function submit()
+    {
+    // window.addEventListener("beforeunload", function(event) {
+        // console.log("sections :: "+document.querySelectorAll('#sections-container .section').length);
+        var section_length = document.querySelectorAll('#sections-container .section').length;
+        let sec_count = [0,]; 
+        let sec_title = [0,]; 
+        let sec_hide = [0,]; 
+        let sec_key = [0,];
+
+        var questions_count = [[0,0]];
+        var questions_name = [[0,0]];
+        var questions_required = [[0,0]];
+        var questions_toggle = [[0,0]];
+
+        for(var s=1;s<=section_length;s++)
+        {
+            console.log(document.querySelector('[name="sectioncount['+s+']"').value);
+            sec_count.push(document.querySelector('[name="sectioncount['+s+']"').value);
+            sec_title.push(document.querySelector('[name="sectiontitle['+s+']"').value);
+            if(document.querySelector('[name="sectionhide['+s+']"').checked == true){
+                sec_hide.push(document.querySelector('[name="sectionhide['+s+']"').value);
+            }else{
+                sec_hide.push(undefined);
+
+            }
+            var sec_seckey = document.querySelector('[name="sectionkey['+s+']"');
+            console.log(document.querySelector('[name="sectionkey['+s+']"'))
+            if(sec_seckey != null){
+                sec_key.push(sec_seckey.value);
+            }else{
+                sec_key.push(0);
+            }
+
+
+            var question_length = document.querySelectorAll('#questionRule'+s+' .questions-container .question').length;
+            // s=s+1;
+            var quesarr_count = [0,];
+            var quesarr_name = [0,];
+            var quesarr_required = [0,];
+            var quesarr_toggle = [0,];
+
+            for(var q=1;q<=question_length;q++)
+            {
+                console.log(s+"+"+q)
+            //   if(document.querySelector('[name="questionscount['+s+']['+q+']"') != null){
+                console.log(document.querySelector('[name="questionscount['+s+']['+q+']"').value);
+                quesarr_count.push(document.querySelector('[name="questionscount['+s+']['+q+']"').value);
+                quesarr_name.push(document.querySelector('[name="questionsname['+s+']['+q+']"').value);
+                if(document.querySelector('[name="questionsrequired['+s+']['+q+']"').checked == true){
+                    quesarr_required.push(document.querySelector('[name="questionsrequired['+s+']['+q+']"').value);
+                }else{
+                    quesarr_required.push(undefined);
+                }
+                quesarr_toggle.push(document.querySelector('[name="questionstoggle['+s+']['+q+']"').value);
+            //   }
+
+
+            }
+            questions_count.push(quesarr_count);
+            questions_name.push(quesarr_name);
+            questions_required.push(quesarr_required);
+            questions_toggle.push(quesarr_toggle);
+
+            // s=s-1;
+        }
+        var data_sec = JSON.stringify({
+            sectioncount:sec_count,
+            sectiontitle:sec_title,
+            sectionhide:sec_hide,
+            sectionkey:sec_key,
+            questionscount:questions_count,
+            questionsname:questions_name,
+            questionsrequired:questions_required,
+            questionstoggle:questions_toggle,
+
+        })
+
+        fetch("<%= base_url %>api/autoUpdateCatalog/<%= catalog_data.catalog_key %>", {
+          method: 'post',
+          body: data_sec,
+          headers: {
+              'Content-Type': 'application/json'
+          }
+        }).then((response) => {
+            console.log(response)
+        }).then((res) => {
+          if (res.status === 201) {
+              console.log("Post successfully created!")
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
+        console.log(data_sec)
+    // })
+    }
+    </script>
+
+    <script src="<%= base_url %>js/SurveyShowMore.js"></script>
+    <script src="<%= base_url %>js/Surveyflex.js"></script>
+    <script src="<%= base_url %>js/sideBar.js"></script>
+    <script src="<%= base_url %>js/Navigation.js"></script>
+    <script src="<%= base_url %>js/CatalogQuestionAndRules.js"></script>
+    </body>
+
+    </html>
