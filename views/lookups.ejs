@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/thinline.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Design</title>
+    <link rel="stylesheet" href="<%= base_url %>css/Style.css">
+    <link rel="stylesheet" href="<%= base_url %>css/Lookups.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+</head>
+
+<body>
+    <div class="navandbread">
+        <nav>
+            <div class="search">
+                <div class="icon"></div>
+                <div class="input">
+                    <input type="text" placeholder="Search..." id="mysearch">
+                </div>
+                <span class="clear" onclick="document.getElementById('mysearch').value=''"></span>
+            </div>
+            <!-- <div class="search-bar">
+        <input type="text" placeholder="search....">
+        <a href=""><li class="fas fa-search"></li></a>
+        </div>-->
+            <div class="navset">
+                <span style="margin-right: 30px;"><a href="#"><button
+                            style="padding-top: 4px;font-family: 'Courier New';font-weight: bold;">DEFAULT</button></a></span>
+                <span class="icon"><a href="#"><i class="fas fa-clock"
+                            style="font-size:20px;color: azure;margin-right: 31px;"></i></a></span>
+                <span class="icon"><a href="#"><i class="fa fa-bell"
+                            style="font-size:20px;color: azure; margin-right: 31px;"></i></a></span>
+                <div class="dropdown">
+                    <li onclick="myFunction()" class="fa fa-user"
+                        style="font-size:20px;color: azure; margin-right: 20px;"></li>
+                    <div id="myDropdown" class="dropdown-content">
+                        <a href="../Profile/MyProfile.html">My Profile</a>
+                        <a href="#">What's New?</a>
+                        <a href="#">Logout BMC Software</a>
+                    </div>
+                </div>
+        </nav>
+        <div class="bread">
+            <ul class="breadcrumbs">
+                <li class="breadcrumbs--item">
+                    <a href="../Home/Home.html" class="breadcrumbs--link breadcrumbs">HOME</a>
+                </li>
+                <li class="breadcrumbs--item">
+                    <a href="../People/People.html" class="breadcrumbs--link breadcrumbs">ADMIN</a>
+                </li>
+                <li class="breadcrumbs--item">
+                    <a href="../Lookups/Lookups.html" class="breadcrumbs--link breadcrumbs--link--active">LOOKUPS</a>
+                </li>
+
+            </ul>
+            <hr class="hr" style="height:1.5px;">
+        </div>
+    </div>
+    <div class="content-bar" style="top:64px;">
+        <ul>
+            <a href="../Home/Home.html">
+                <li>
+                    <span class="icon"><i class="fas fa-home"></i></span>
+                    <span class="item">HOME</span>
+                </li>
+            </a>
+            <a href="Company.html">
+                <li>
+                    <span class="icon"><i class="fa-solid fa-globe"></i></span>
+                    <span class="item">COMPANY</span>
+                </li>
+            </a>
+            <a href="../People/People.html">
+                <li>
+                    <span class="icon"><i class="fa-solid fa-user-group"></i></span>
+                    <span class="item">PEOPLE</span>
+                </li>
+            </a>
+            <a href="../Access/Access.html">
+                <li>
+                    <span class="icon"><i class="fa-solid fa-stamp"></i></span>
+                    <span class="item">ACCESS</span>
+                </li>
+            </a>
+            <a href="Config.html">
+                <li>
+                    <span class="icon"><i class="fa fa-cog"></i></span>
+                    <span class="item">CONFIG</span>
+                </li>
+            </a>
+            <a href="../Lookups/Lookups.html">
+                <li class="active1">
+                    <span class="icon"><i class="fa fa-eye"></i></span>
+                    <span class="item">LOOKUPS</span>
+                </li>
+            </a>
+            <a href="Security.html">
+                <li>
+                    <span class="icon"><i class="fa-solid fa-lock"></i></span>
+                    <span class="item">SECURITY</span>
+                </li>
+            </a>
+            <a href="Alerts.html">
+                <li>
+                    <span class="icon"><i class="fa-solid fa-bullhorn"></i></span>
+                    <span class="item">ALERTS</span>
+                </li>
+            </a>
+            <a href="Imports.html">
+                <li>
+                    <span class="icon"><i class="fa-solid fa-arrow-down"></i></span>
+                    <span class="item">IMPORTS</span>
+                </li>
+            </a>
+            <a href="Hooks.html">
+                <li>
+                    <span class="icon"><i class="fa-solid fa-rotate"></i></span>
+                    <span class="item">HOOKS</span>
+                </li>
+            </a>
+        </ul>
+    </div>
+    <div>
+        <div class="helpbox" style="z-index: 2;">
+            <button><a href="#divOne" class="button1"><img src="../Required/HelpIcon.png" alt="Icon"
+                        style="height:35px;width:35px;"></a></button>
+        </div>
+        <div class="overlay" id="divOne">
+            <div class="wrapper">
+                <p class="head">LOG A SUPPORT REQUEST</p><br>
+                <a href="#" class="close">&times;</a>
+                <div class="content">
+                    <div class="container1">
+                        <form>
+
+                            <label>Summary:</label>
+                            <input type="text" class="help">
+                            <label>Description:</label>
+                            <textarea rows="8" cols=""></textarea>
+                            <label>Priority(0ptional):</label><br>
+                            <select name="format" id="format">
+                                <option selected disabled>Select..</option>
+                                <option value="critical">Critical</option>
+                                <option value="high">High</option>
+                                <option value="medium">Medium</option>
+                                <option value="low">Low</option>
+                                <option value="lowest">Lowest</option>
+                            </select><br><br>
+                            <label>Attachment(optional):</label><br>
+                            <input type="file"><br><br>
+                            <label>Your contact e-mail:</label><br>
+                            <input type="email" class="em"><br><br>
+                            <input type="submit" value="Send">
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ---------------------------- -->
+
+    <div>
+        <div class="rowlookups">
+            <div class="leftlookups" style="position: fixed;">
+
+                <div class="inboxlookups">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    <input type="text" id="mySearchlookups" onkeyup="myFunction2Access()" title="type in a chategory">
+                </div>
+
+                <div class="dividelookups">
+                    <ul id="myMenulookups">
+                        <span id="dotslookups">
+                            <% if(!lookups_data || lookups_data.length==0) { %>
+                                <li><a>No Lookups found</a></li>
+                                <script>
+                                    window.location.href = "<%= base_url %>lookups/create";
+                                </script>
+                            <% } else { 
+                                    var num=0; 
+                                    lookups_data.forEach(function(data, i){ 
+                                        if(num==0){ num++;%>
+                                            <li><a
+                                            href="<%= base_url %>lookups/edit/<%= data.lookups_accesskey %>">
+                                            <%= data.class_name %>
+                                            </a></li>
+                                            <script>
+                                                window.location.href = "<%= base_url %>lookups/edit/<%= data.lookups_accesskey %>";
+                                            </script>
+                                        <% }else{ %>
+                                            
+                                        <% } 
+                                    }) 
+                                } %>
+                        </span>
+                        <span id="morelookups">
+                            <li><a href="#"></a></li>
+                            <li><a href="#"></a></li>
+                            <li><a href="#"></a></li>
+                            <li><a href="#"></a></li>
+                            <li><a href="#"></a></li>
+                            <li><a href="#"></a></li>
+                            <li><a href="#"></a></li>
+                            <li><a href="#"></a></li>
+                            <li><a href="#"></a></li>
+                            <li><a href="#"></a></li>
+                            <li><a href="#"></a></li>
+                        </span>
+                        <button onclick="myFunctionlookups()" id="myBTNlookups">VIEW MORE</button>
+                    </ul>
+                </div>
+                <!-- <div class="plusiconlookups">
+                    <a onclick="LookupsShow()"><i class="fa fa-plus"></i></a>
+                </div> -->
+            </div>
+            <div class="rightlookups">
+                <div id="LookupsShow">
+                    <div id="headerlookups"><a>LOOKUPS</a></div>
+                    <!-- -------------creating lookups------------ -->
+                   
+                    <div id="classname">
+                        <input type="text" name="class_name" id="class_name" />
+                        <label>CLASS NAME</label>
+                    </div>
+                    <div id="removeandadd" style="display:block">
+                        <button id="removelookups" type="reset" style="color:red;">CANCEL</button>
+                        <button id="addlookups" type="submit" style="color:rgb(0, 79, 128);" onclick="addLookups()">ADD</button>
+                    </div>
+                
+                </div>
+                <div id="add-lookup" style="display: none;">
+                        <div class="lookupscontainer">
+                            <div id="contentL1">
+                                <label>LOOKUPS</label>
+                            </div>
+                            <div id="contentL2">
+                                <label>CODE</label>
+                            </div>
+                            <div id="contentL3">
+                                <label>VALUE1</label>
+                            </div>
+                            <div id="contentL4">
+                                <label>VALUE2</label>
+                            </div>
+                            <div id="contentL4">
+                                <label>DISABLE</label>
+                            </div>
+                        </div>
+                    
+                    <div id="inputWrapper">
+                    </div>
+               
+                    <template id="inputSectionTemplate">
+                        <div class="inputSection">
+                            <input type="text" >
+                            <input type="text" >
+                            <input type="text" >
+                            <input type="text" >
+                            <input type="checkbox">
+                            <i class="fa-solid fa-xmark"></i>
+                            <i id="checkmark" class="uit uit-check"></i>
+                        </div>
+                    </template>
+
+                    <button id="toggleButton"><i class="fa fa-plus"></i></button>
+
+                </div>
+
+                
+            </div>
+            <input type="hidden" name="class_name_id" id="class_name_id" value="sfsdsd"/>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        document.getElementById('addlookups').addEventListener("click",function(){
+            var class_name = document.getElementById('class_name').value;
+
+            if(class_name != "")
+            {
+              fetch("<%= base_url %>api/lookups/add", {
+                method: 'post',
+                body: JSON.stringify({class_name:class_name}),
+                headers : {
+                   "Content-Type": "application/json"
+                }
+              }).then(res => res.json())
+              .then(data => {
+                if(data.status == "error"){
+                    alert("Failed to add, Try again!")
+                }
+
+                if(data.status == "success"){
+                    alert("Successfully Added")
+                    document.getElementById('class_name_id').value = data.access_key;
+                }
+                // console.log(res.body)
+                // if (res.status === 201) {
+                //     console.log("Post successfully created!")
+                // }
+                // return resolve(true);
+              }).catch((error) => {
+                console.log(error)
+                // return resolve(false);
+
+              })
+            }
+        })
+    </script>
+    <script src="<%= base_url %>js/LookupsAddSection.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+    <script src="<%= base_url %>js/Navigation.js"></script>
+    <script src="<%= base_url %>js/LookupsShow.js"></script>
+    <script src="<%= base_url %>js/LookupsFlex.js"></script>
+    <script src="<%= base_url %>js/LookupsShowMore.js"></script>
+</body>

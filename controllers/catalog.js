@@ -8,7 +8,7 @@ module.exports = {
     /**
      * `Account._add()`
      */
-     add: async function(req, res) {
+    add: async function(req, res) {
         // var users = user.get();
         if(req.user){
             var title = req.body.title;
@@ -156,9 +156,7 @@ module.exports = {
         }else{
             req.flash("error","Failed to Created! please login")
             res.redirect("/")
-
         }
-
     },
 
     get:function(user,callback){
@@ -413,7 +411,11 @@ module.exports = {
             // }
             var title = req.body.title+""+copy_text+"("+count.count+")";
             var category = req.body.category;
-            var status = req.body.status;
+            var status = "IN PROCESS";
+            if(req.body.status != "")
+            {
+                status = status;
+            }
             var globals = req.body.globals;
             if(globals == null){
                 globals=0;
@@ -630,6 +632,49 @@ module.exports = {
             // if(req.body.total_sections){
                 // var total_sections = req.body.total_sections;
                 // var total_questions = req.body.total_questions;
+
+                if(req.body.delete_section.length > 0)
+                {
+                    var userid = req.user.user_id;
+
+                    for(s=0;s<req.body.delete_section.length;s++)
+                    {
+                        console.log('DELETE FROM `catalog_section` WHERE catalog_section_key="'+req.body.delete_section[s]+'" AND user_id='+userid);
+                        await new Promise((resolve, reject) => {
+                            db.query('DELETE FROM `catalog_section` WHERE catalog_section_key="'+req.body.delete_section[s]+'" AND user_id='+userid, async (error, results)=> {
+                                if (error) {
+                                    reject(error);
+                                }
+                                console.log('DELETE FROM `catalog_questions` WHERE catalog_section_key="'+req.body.delete_section[s]+'" AND user_id='+userid)
+                                db.query('DELETE FROM `catalog_questions` WHERE catalog_section_key="'+req.body.delete_section[s]+'" AND user_id='+userid, async (error, results)=> {
+                                    if (error) {
+                                        reject(error);
+                                    }
+                                    resolve(true)
+                                });
+
+                            });
+                        })
+                    }
+                }
+
+                if(req.body.delete_questions.length > 0)
+                {
+                    var userid = req.user.user_id;
+
+                    for(s=0;s<req.body.delete_questions.length;s++)
+                    {
+                        await new Promise((resolve, reject) => {
+                            db.query('DELETE FROM `catalog_questions` WHERE catalog_section_key="'+req.body.delete_questions[s][0]+'" AND user_id='+userid+' AND catalog_questions_key="'+req.body.delete_questions[s][1]+'"', async (error, results)=> {
+                                if (error) {
+                                    reject(error);
+                                }
+                                resolve(true)
+                            });
+                        })
+                    }
+                }
+
                 for(i=1;i<=req.body.sectioncount.length;i++){
                     //console.log(req.body.sectiontitle[i]);
                     var catalog_key = req.params.id;
@@ -654,6 +699,8 @@ module.exports = {
                         catalog_section_status = 1;
                       }
                     }
+
+
                     var d = Date();
                     var a = d.toString()
                     var catalog_section_key = md5(a+""+catalog_key+""+user_id+""+catalog_section_title);

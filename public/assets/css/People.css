@@ -1,0 +1,520 @@
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+.rowpeople {
+    display: flex;
+    padding-left: 66px;
+    padding-top: 64px;
+    background-color: white;
+  }
+  /* Left column (menu) */
+.leftpeople {
+    flex: 35%;
+    background-color: white;
+    border-right: 1px solid black;
+    /* border-left: 1px solid black; */
+    width: 20%;
+    height:100%;
+  }
+  /* ----------------people plus icon-------------------- */
+.plusiconpeople {
+    padding: 15px;
+    margin-left: 40%;
+  }
+  
+  .plusiconpeople a {
+    color: #0f6b93;
+    text-decoration: none;
+  }
+  
+  /* ---------------------------- */
+  .dividepeople {
+    overflow-y: scroll;
+    height: 430px;
+  }
+/* ------------people section search box----------------- */
+.inboxpeople {
+    width: 100%;
+    height: 50px;
+    background-color: white;
+    display: flex;
+    border-radius: 0;
+    border-bottom: 1px solid black;
+    padding-top: 12px;
+    padding-left: 5px;
+  }
+  
+  .inboxpeople>i {
+    font-size: 20px;
+    color: #0f6b93;
+  }
+  
+  .inboxpeople input[type="text"] {
+    height: 20px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    font-weight: larger;
+    width: 100px;
+  }
+  
+  /* Style the navigation menu inside the left column */
+  #myMenupeople {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  #myMenupeople li a {
+    padding: 18px;
+    text-decoration: none;
+    color: black;
+    display: block;
+  }
+  
+  #myMenupeople li a:hover {
+    background-color: #045679;
+    color: white;
+    padding-left: 30px;
+  }
+  
+  /* -------------show more left section in people--------------- */
+  #morepeople {
+    display: none;
+  }
+  
+  #myBTNpeople {
+    border: none;
+    height: 40px;
+    width: 100%;
+  }  
+  /* --------rightside people---------------- */
+  .rightpeople {
+    flex: 75%;
+    width:80%;
+    margin-left: 21%;
+    background-color: white;
+    padding-right:1px;
+  }
+  .peopleprofile{
+    height: 160px;
+    border-bottom: 1px solid rgb(192, 191, 191);
+  }
+  #headerpeople {
+    /* margin-top: 5px; */
+    padding-top: 20px;
+    height: 60px;
+    width: 101%;
+    background: rgb(231, 231, 231);
+    text-align: center;
+    font-weight: bold;
+    color: rgb(9, 9, 9);
+    border: 1px solid rgb(83, 83, 83);
+    border-radius: 1px;
+  }
+  .peopleprofile{
+    height: 200px;
+  }
+  .peopleprofile i{
+    margin-top: 10px;
+   font-size: 100px;
+   color: rgb(189, 189, 189);
+   margin-left: 45%;
+  }
+  .peopleprofile p{
+    margin-top: 15px;
+    margin-left: 32%;
+    font-size: 14px;
+  }
+  .peopleprofile label{
+    color: #216c98;
+    top: -55px;
+    left: 54%;
+    font-size: small;
+    font-weight: bold;
+    font-size: 11px;
+    position: relative;
+    margin-left: -53%; 
+  }
+  .peopleprofile input[type="checkbox"]{
+    margin-left: 51%;
+    margin-top:-12%;
+    vertical-align: middle;    
+    height: 25px;
+    width: 25px;
+  }
+
+
+  /* --------PERSON AND PRACTICE DETAILS-------- */
+  .persondataleft{
+    margin-left: 5px;
+    width: 48%;
+    float: left;
+  }
+  .persondataleft p{
+    margin-top: 10px;
+    margin-left: 40%;
+    margin-bottom: 10px;
+  }
+
+  .practicedataright{
+    margin-right: 5px;
+    width: 49%;
+    float:right;
+  }
+  .practicedataright p{
+    margin-top: 10px;
+    margin-left: 40%;
+    margin-bottom: 10px;
+  }
+
+  .containerPP1,
+  .containerPP2,
+  .containerPP3,
+  .containerPP4,
+  .containerPP5,
+  .containerPP7{
+    display: grid;
+    height: 60px;
+    grid-template-columns: 1fr 1fr;
+  } 
+  .containerPP6,
+  .containerPP8{
+    display: grid;
+    height: 60px;
+    grid-template-columns: 1fr;
+  } 
+  .containerPP1 label,
+  .containerPP2 label,
+  .containerPP3 label,
+  .containerPP5 label,
+  .containerPP6 label,
+  .containerPP7 label,
+  .containerPP8 label{
+    color: #216c98;
+    top: -20px;
+    left: 5px;
+    font-size: small;
+    font-weight: bold;
+    font-size: 11px;
+    position: relative;
+   }
+   .containerPP4 label{
+    color: #216c98;
+    top: -20px;
+    left: 5px;
+    font-size: small;
+    font-weight: bold;
+    font-size: 11px;
+    position: relative;
+   }
+   
+   .containerPP1 input[type="text"],
+   .containerPP3 input[type="text"],
+   .containerPP4 input[type="text"],
+   .containerPP6 input[type="text"],
+   .containerPP7 input[type="text"],
+   .containerPP8 input[type="text"],
+   #contentPP3 input[type="text"] {
+    padding-left: 7px;
+    border: 0.1px solid rgb(218, 217, 217);
+    border-radius: 1px;
+    height: 60px;
+    width: 100%;
+    font-size: medium;
+    font-weight:lighter;
+    font-size: 14px;
+    outline-color: #216c98;   
+  }
+  #contentPP7 input[type="date"],
+  #contentPP8 input[type="date"] {
+    padding-left: 7px;
+    border: 0.1px solid rgb(218, 217, 217);
+    border-radius: 1px;
+    height: 60px;
+    width: 100%;
+    font-size: medium;
+    font-weight:lighter;
+    font-size: 14px;
+    outline-color: #216c98;   
+  }
+
+  #contentPP4 input[type="number"] {
+    padding-left: 7px;
+    border: 0.1px solid rgb(218, 217, 217);
+    border-radius: 1px;
+    height: 60px;
+    width: 100%;
+    font-size: medium;
+    font-weight:lighter;
+    font-size: 14px;
+    outline-color: #216c98;   
+  }
+  .containerPP5 select {
+    padding-left: 7px;
+    border: 0.1px solid rgb(218, 217, 217);
+    border-radius: 1px;
+    height: 60px;
+    width: 100%;
+    font-size: medium;
+    font-weight:lighter;
+    font-size: 12px;
+    outline-color: #216c98;
+    background-color: white;   
+  }
+  .avatar__image1 {
+    margin-top: 10px;
+    margin-left:33%;
+    height: 40px;
+    width: 40px;
+    border: 1px solid rgb(187, 184, 184);
+    border-radius: 20px;
+  }
+  #contentPP11 img{
+    position: absolute;
+  }
+  
+   /* ---------CONTACT AND COST DETAILS------------------- */
+   .contactdataleft{
+    margin-left: 5px;
+    width: 48%;
+    float: left;
+  }
+  .contactdataleft p{
+    margin-top: 10px;
+    margin-left: 40%;
+    margin-bottom: 10px;
+  }
+
+  .costdataright{
+    margin-right: 5px;
+    width: 49%;
+    float:right;
+  }
+  .costdataright p{
+    margin-top: 10px;
+    margin-left: 40%;
+    margin-bottom: 10px;
+  }
+  .containerPC1,
+  .containerPC5{
+    display: grid;
+    height: 60px;
+    grid-template-columns: 1fr 1fr;
+  } 
+  .containerPC2,
+  .containerPC6{
+    display: grid;
+    height: 60px;
+    grid-template-columns: 1fr;
+  } 
+  .containerPC3{
+    display: grid;
+    height: 60px;
+    grid-template-columns: 1fr 1fr 1fr;
+  } 
+  .containerPC4{
+    display: grid;
+    height: 60px;
+    grid-template-columns: 1fr 1fr;
+  } 
+  .containerPC1 label,
+  .containerPC2 label,
+  .containerPC3 label,
+  .containerPC4 label,
+  .containerPC5 label,
+  .containerPC6 label{
+    color: #216c98;
+    top: -20px;
+    left: 5px;
+    font-size: small;
+    font-weight: bold;
+    font-size: 11px;
+    position: relative;
+   }
+   #contentPC7{
+    border: 0.1px solid rgb(218, 217, 217);
+    height: 60px;
+   }
+   #contentPC7 label{
+    color: #216c98;
+    top:40px;
+    left: -45px;
+    font-size: small;
+    font-weight: bold;
+    font-size: 11px;
+    position: relative;
+   }
+   #contentPC1 input[type="email"],
+   #contentPC2 input[type="number"],
+   #contentPC10 input[type="number"],
+   #contentPC11 input[type="number"]{
+    padding-left: 7px;
+    border: 0.1px solid rgb(218, 217, 217);
+    border-radius: 1px;
+    height: 60px;
+    width: 100%;
+    font-size: medium;
+    font-weight:lighter;
+    font-size: 14px;
+    outline-color: #216c98;
+   }
+   #contentPC3 input[type="text"],
+   .containerPC3 input[type="text"],
+   .containerPC4 input[type="text"] {
+    padding-left: 7px;
+    border: 0.1px solid rgb(218, 217, 217);
+    border-radius: 1px;
+    height: 60px;
+    width: 100%;
+    font-size: medium;
+    font-weight:lighter;
+    font-size: 14px;
+    outline-color: #216c98;
+   }
+   #contentPC7 input[type="checkbox"]{
+    margin-top:3px;
+    vertical-align: middle;
+    margin-left: 25px;    
+    height: 20px;
+    width: 20px;
+   }
+   #contentPC2,
+   input[type="number"]::-webkit-outer-spin-button,
+   #contentPC2,
+   input[type="number"]::-webkit-inner-spin-button {
+     -webkit-appearance: none;
+     margin: 0;
+   }
+   .containerPC5 select {
+    padding-left: 7px;
+    border: 0.1px solid rgb(218, 217, 217);
+    border-radius: 1px;
+    height: 60px;
+    width: 100%;
+    font-size: medium;
+    font-weight:lighter;
+    font-size: 12px;
+    outline-color: #216c98;
+    background-color: white;   
+  }
+  #contentPC8 select{
+    padding-left: 7px;
+    border: 0.1px solid rgb(218, 217, 217);
+    border-radius: 1px;
+    height: 60px;
+    width: 100%;
+    font-size: medium;
+    font-weight:lighter;
+    font-size: 12px;
+    outline-color: #216c98;
+    background-color: white;   
+  }
+
+  /* People SideBar start */
+  .sidebar1 {
+    height: 100%;
+    width: 0;
+    position: absolute;
+    z-index: 1;
+    top: 68px;
+    right: 0;
+    background-color: white;
+    overflow-x: hidden;
+    transition: 0.5s;
+    border: 1px solid #216c98;
+  }
+  
+  .sidebar1 a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: rgb(15, 15, 15);
+    display: block;
+    transform: 0.3s;
+  }
+  
+  .sidebar1 a:hover {
+    color: #216c98;
+  }
+  
+  .sidebar1 .closebtn {
+    position: absolute;
+    top: 0px;
+    left: 140px;
+    color: rgb(4, 4, 4);
+    margin-left: 50px;
+  }
+  
+  .openbtn {
+    width: 14px;
+    margin-top: 250px;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #216c98;
+    color: white;
+    padding: 20px 1px;
+    opacity: 0.5;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+  }
+  
+  #main {
+    transition: 0.5s ease;
+  }
+  
+  .navside {
+    width: 100%;
+    padding-top: 0%;
+    margin-left: 0%;
+    text-decoration: none;
+    color: black;
+    border-bottom: 2px solid #216c98;
+    flex: 1;
+  }
+  
+  .navside a,
+  .dropdown-btn {
+    padding: 12px 8px 6px 23px;
+    text-decoration: none;
+    font-weight: 750;
+    font-size: 11px;
+    color: #045679;
+    display: block;
+    /* border: 1px #045679; */
+    background: white;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    height: 35px;
+    overflow: hidden;
+  }
+  
+  .dropdown-container {
+    font-size: 20px;
+    color: #045679;
+    /* outline: 2px solid #045679; */
+    display: none;
+  }
+
+  #roles{
+    margin-left: 115px;
+    outline: none;
+    border: none;
+    color: #045679;
+    background: none;
+    font-size: 15px;
+  }
+
+  #skills{
+    margin-left: 115px;
+    outline: none;
+    border: none;
+    color: #045679;
+    background: none;
+    font-size: 15px;
+  }
+  
+  

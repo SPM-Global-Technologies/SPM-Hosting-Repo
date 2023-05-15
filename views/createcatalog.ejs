@@ -144,7 +144,7 @@
                 </ul>
             </div>
             <div class="plusiconsurvey">
-                <!-- <a href="#"><i class="fa fa-plus"></i></a> -->
+                <a href="#"><i class="fa fa-plus titleSurvey" ></i></a>
             </div>
         </div>
         <div class="rightsurvey">
@@ -166,9 +166,38 @@
                 </div>
                 <div>
                     <div class="containersurvey">
+                        <template id="inputSectionTemplate">
+                            <select class="questionSelect">
+                                <option value="TOGGLE">TOGGLE</option>
+                                <option value="YES/NO">YES/NO</option>
+                                <option value="Date">Date</option>
+                                <option value="HI/MED/LO/NO">HI/MED/LO/NO</option>
+                                <option value="HI/NORM/LO">HI/NORM/LO</option>
+                                <option value="YES/NO/NOT SURE">YES/NO/NOT SURE</option>
+                                <option value="CURRENCIES">CURRENCIES</option>
+                                <option value="LANGUAGES">LANGUAGES</option>
+                                <option value="MONTHS">MONTHS</option>
+                                <option value="NUMBERS">NUMBERS</option>
+                                <option value="WHOLE NUMBERS">WHOLE NUMBERS</option>
+                                <option value="NUMERIC(0-10)">NUMERIC(0-10)</option>
+                                <option value="PERCENTAGE">PERCENTAGE</option>
+                                <option value="COUNTRIES">COUNTRIES</option>
+                                <option value="TEXT">TEXT</option>
+                              <option value="MULTI LINE TEXT">MULTI LINE TEXT</option>
+                              <option value="MONTHS">MONTHS</option>
+                              <option value="COUNTRIES">COUNTRIES</option>
+                                <% if(!lookupsdata && lookupsdata.length==0){ %>
+                                   <option value="">No Lookups</option>
+                                <% }else{ 
+                                    lookupsdata.forEach(function(data, i){ %> 
+                                        <option value="<%= data.class_name %>"><%= data.class_name %></option>
+                                    <% }) %>
+                                <% } %>
+                              </select>
+                        </template>
                         <div id="contentS1">
                             <div class="surveyName" id="surveynamesection">
-                                <input class="" type="text" name="title">
+                                <input class="inputTitle" type="text" name="title" value="*New Survey*" />
                                 <label id="tittleLabel">TITLE</label>
                                 <label id="cpqLabel">CPQ</label>
                             </div>
@@ -214,7 +243,7 @@
                                 <select name="status">
                                     <option selected disabled></option>
                                     <option value="INACTIVE">INACTIVE</option>
-                                    <option value="IN PROCESS">IN PROCESS</option>
+                                    <option value="IN PROCESS" selected>IN PROCESS</option>
                                     <option value="PUBLISHED">PUBLISHED</option>
                                 </select>
                                 <label>CATLOG STATUS</label>

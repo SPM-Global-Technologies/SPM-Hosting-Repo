@@ -10,9 +10,8 @@ let addQuestionIncrement = 0;
 let addRuleIncrement = 0;
 
 const lengthsec = document.getElementById('lengthsection').value;
-if(lengthsec != undefined){
-  if(lengthsec > 0)
-  {
+if (lengthsec != undefined) {
+  if (lengthsec > 0) {
     sectionCount = parseInt(lengthsec);
     idCounter = sectionCount;
   }
@@ -42,9 +41,9 @@ addSectionBtn.addEventListener("click", () => {
 
   const newSection = document.createElement("div");
   newSection.classList.add("section");
-  
+
   var total_sections = document.getElementById('total_sections').value
-  total_sections = parseInt(total_sections)+1;
+  total_sections = parseInt(total_sections) + 1;
   document.getElementById('total_sections').value = total_sections;
 
   const newSectionDiv = document.createElement("div");
@@ -57,12 +56,12 @@ addSectionBtn.addEventListener("click", () => {
   sectionTitle.innerHTML = `${sectionCount}`;
   const questionsContainer = document.createElement("div");
   questionsContainer.classList.add("questions-container");
-  newSectionDiv.innerHTML = `<input type="hidden" name="sectioncount[${sectionCount}]" value="${sectionCount}"/>`
+  newSectionDiv.innerHTML = `<input type="hidden" name="sectioncount[${sectionCount}]" id="inputHiddenSection_${sectionCount}" value="${sectionCount}"/>`
 
   // Add input field, checkbox, and delete icon to section
   const inputField = document.createElement("input");
   inputField.setAttribute("id", "inputField");
-  inputField.setAttribute("name","sectiontitle["+sectionCount+"]" );
+  inputField.setAttribute("name", "sectiontitle[" + sectionCount + "]");
   inputField.type = "text";
   inputField.placeholder = "Enter section title";
 
@@ -131,8 +130,19 @@ addSectionBtn.addEventListener("click", () => {
       sectionsContainer.insertBefore(newSection, prevSection);
       updateSectionNumbers();
       updateQuestionNumbers();
+      inputField.setAttribute("name", "sectiontitle[" + (sectionCount - 1) + "]");
+  
+      const inputHidden = document.getElementById('inputHiddenSection_'+sectionCount);
+      inputHidden.setAttribute("name", "sectioncount[" + (sectionCount - 1) + "]");
+      inputHidden.setAttribute("id", "inputHiddenSection_" + (sectionCount - 1));
+      sectionCount--;
+      const nextInputField = prevSection.querySelector("#inputField");
+      if (nextInputField) {
+        nextInputField.setAttribute("name", "sectiontitle[" + (sectionCount + 1) + "]");
+        inputHidden.setAttribute("name", "sectioncount[" + (sectionCount + 1) + "]");
+        inputHidden.setAttribute("id", "inputHiddenSection_" + (sectionCount + 1));
+      }
     }
-
   });
 
   const sectionDownBtn = document.createElement("span");
@@ -144,9 +154,20 @@ addSectionBtn.addEventListener("click", () => {
       sectionsContainer.insertBefore(nextSection, newSection);
       updateSectionNumbers();
       updateQuestionNumbers();
+      inputField.setAttribute("name", "sectiontitle[" + (sectionCount + 1) + "]");
+      const inputHidden = document.getElementById('inputHiddenSection_'+sectionCount);
+      inputHidden.setAttribute("name", "sectioncount[" + (sectionCount - 1) + "]");
+      inputHidden.setAttribute("id", "inputHiddenSection_" + (sectionCount - 1));
+      sectionCount++;
+      const nextInputField = nextSection.querySelector("#inputField");
+      if (nextInputField) {
+        nextInputField.setAttribute("name", "sectiontitle[" + (sectionCount - 1) + "]");
+        inputHidden.setAttribute("name", "sectioncount[" + (sectionCount - 1) + "]");
+        inputHidden.setAttribute("id", "inputHiddenSection_" + (sectionCount - 1));
+      }
     }
-
   });
+
 
   function updateSectionNumbers() {
     const sections = sectionsContainer.querySelectorAll(".section");
@@ -276,7 +297,7 @@ addSectionBtn.addEventListener("click", () => {
       ruleId.style.display = 'none';
       sectionIcon.innerHTML = `<i class="fa fa-angle-up"> </i>`;
     } else {
-      element.style.display = 'none' ;
+      element.style.display = 'none';
       addId.style.display = 'none';
       ruleId.style.display = 'none';
       sectionIcon.innerHTML = `<i class="fa fa-angle-down"> </i>`;
@@ -301,18 +322,23 @@ sectionsContainer.addEventListener("click", (event) => {
   if (event.target.tagName === "BUTTON" && event.target.innerText === "+ADD QUESTION") {
 
     var total_questions = document.getElementById('total_questions').value
-    total_questions = parseInt(total_questions)+1;
+    total_questions = parseInt(total_questions) + 1;
     document.getElementById('total_questions').value = total_questions;
 
 
     // Add question logic
     const section = event.target.parentNode;
-    const sectionIndex = Array.prototype.indexOf.call(sectionsContainer.children, section);
+    const sectionIndex = Array.prototype.indexOf.call(sectionsContainer.children, section) + 1;
     const questionsContainer = section.querySelector(".questions-container");
     const questionCount = questionsContainer.children.length;
     questionCounts[sectionIndex] = questionCount;
 
     const newQuestion = document.createElement("div");
+    var inputSectionTemplate = document.getElementById("inputSectionTemplate");
+    // inputSectionTemplate.querySelector('.questionSelect').setAttribute("name","questionstoggle["+sectionIndex+"]["+(questionCount + 1)+"]");
+    var newSection = inputSectionTemplate.innerHTML;
+    console.log(newSection);
+    // newSection.setAttribute("name","questionstoggle["+sectionIndex+"]["+(questionCount + 1)+"]")
     newQuestion.classList.add("question");
     newQuestion.innerHTML = `
     <input type="hidden" name="questionscount[${sectionIndex}][${questionCount + 1}]" value="${sectionIndex}.${questionCount + 1}"/>
@@ -324,14 +350,12 @@ sectionsContainer.addEventListener("click", (event) => {
             <input type="checkbox"  name="questionsrequired[${sectionIndex}][${questionCount + 1}]"/>
             <span style="font-size:11px;">Required</span>
           </label>
-          <select class="questionSelect" name="questionstoggle[${sectionIndex}][${questionCount + 1}]">
-            <option value="TOGGLE">TOGGLE</option>
-            <option value="Yes/No">Yes/No</option>
-            <option value="Option 3">Option 3</option>
-          </select>
+          `+newSection+`
           <button  type="button" class="copyicon-btn"><i class="far fa-copy"></i></button>
           <button  type="button" id="delbtn" class="delete-btn"><i class="far fa-trash-alt" id="qDel"></i></button>
         `;
+
+       const staticlookup = newQuestion.querySelector('select').setAttribute("name","questionstoggle["+sectionIndex+"]["+(questionCount + 1)+"]");
 
 
     document.addEventListener("click", (event) => {
@@ -412,7 +436,7 @@ sectionsContainer.addEventListener("click", (event) => {
     // Update question numbers for subsequent questions in the same section
     for (let i = questionCount; i < questionsContainer.children.length; i++) {
       const question = questionsContainer.children[i];
-      question.querySelector("span").innerText = `${sectionIndex + 1}.${i + 1}`;
+      question.querySelector("span").innerText = `${sectionIndex }.${i + 1}`;
     }
   } else if (event.target.closest(".delete-btn")) {
     const question = event.target.closest(".question");

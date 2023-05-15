@@ -7,9 +7,13 @@ const contentcatalog = require("../controllers/contentcatalog")
 const Excel = require('exceljs');
 const bid_estimation = require("../controllers/bid_estimation")
 const quotes = require("../controllers/quotes")
+const countries = require("../controllers/countries")
+const lookups = require("../controllers/lookups")
 
 const FormulaParser = require('hot-formula-parser').Parser;
 const parser = new FormulaParser();
+
+const ejs = require('ejs');
 
 function getCellResult(worksheet, cellLabel) {
     if (worksheet.getCell(cellLabel).formula) {
@@ -22,6 +26,9 @@ function getCellResult(worksheet, cellLabel) {
 
 const router = express.Router();
 var base_url = process.env.BASE_URL;
+
+
+
 router.get("/",loggedIn,(req, res) => {
     if(req.user){
         res.render("home",{status:"ok", base_url:base_url, user:req.user})
@@ -172,15 +179,17 @@ router.get("/catalog", loggedIn, (req, res) => {
     }
 })
 
-router.get("/createcatalog", loggedIn, (req, res) => {
+router.get("/createcatalog", loggedIn, async (req, res) => {
     if(req.user){
+        var lookupsdata = await lookups.getLookups_guided(req.user);
+
         catalog.get(req.user,function(err,result){
             if(err){
                 throw err;
             }
             
             //console.log(result)
-            res.render("createcatalog",{status:"ok", base_url:base_url, user:req.user, catalog:result})
+            res.render("createcatalog",{status:"ok", base_url:base_url, user:req.user, catalog:result, lookupsdata:lookupsdata})
         });
         
     }else{
@@ -193,6 +202,7 @@ router.get("/catalog/edit/:id", loggedIn, async (req, res) => {
         var template_type = req.params.id;
         var sections = await catalog.getCatalogSections(template_type,req.user);
         var questions = await catalog.getCatalogQuestions(template_type,req.user);
+        var lookupsdata = await lookups.getLookups_guided(req.user);
 
         catalog.get(req.user,function(err,result){
             if(err){
@@ -201,7 +211,7 @@ router.get("/catalog/edit/:id", loggedIn, async (req, res) => {
             catalog.getById(req.user, req.params.id, function(err,catresult){
                 //console.log(catresult);
 
-                res.render("editcatalog",{status:"ok", id:req.params.id, base_url:base_url, user:req.user, catalog:result, catalog_data:catresult, sections:sections, questions:questions})
+                res.render("editcatalog",{status:"ok", id:req.params.id, base_url:base_url, user:req.user, catalog:result, catalog_data:catresult, sections:sections, questions:questions, lookupsdata:lookupsdata})
             });
 
         });
@@ -303,11 +313,14 @@ router.get("/quotes/create/:accid/:oppid", loggedIn, async (req, res) => {
 
 router.get("/guidedsellingview/:accid/:oppid/:template_type/:quoteid", loggedIn, quotes.getById, async (req, res) => {
     var template_type = req.params.template_type;
+    var country = await countries.get();
     var sections = await catalog.getCatalogSections(template_type,req.user);
     var questions = await catalog.getCatalogQuestions(template_type,req.user);
     var accounts = await account.getAccount(req.params.accid, req.user);
     var opp_data = await opportunity.getOpportunity(req.params.accid, req.params.oppid, req.user);
     var catalog_data = await catalog.getCatalog(template_type, req.user);
+    var lookupsdata = await lookups.getLookups_guided(req.user);
+    var lookupsdata_data = await lookups.get_lookups_data(req.user);
 
     var workbook = new Excel.Workbook();
     var workval = await workbook.xlsx.readFile(__dirname+'/../excel/DD_EXCEL_CLC_ENGINE.xlsx').then(function() {
@@ -359,16 +372,17 @@ router.get("/guidedsellingview/:accid/:oppid/:template_type/:quoteid", loggedIn,
   
     });
     if(req.user){
-        catalog.get(req.user,function(err,result){
+        catalog.get(req.user,async function(err,result){
             if(err){
                 throw err;
             }
             
-            bid_estimation.get(req.user, req.params.accid, req.params.oppid, template_type, function(err,bid_estimation){
+            await bid_estimation.get(req.user, req.params.accid, req.params.oppid, template_type, async function(err,bid_estimation){
                 if(err){
                     throw err;
                 }
-                res.render("guidedselling",{status:"ok", id:req.params.id, oppid:req.params.oppid, accid:req.params.accid,base_url:base_url, user:req.user, catalog:result, quotes:req.quotes, calc_data:workval, template_type:template_type, bid_estimation:bid_estimation,sections:sections, questions:questions, accounts:accounts, opp_data:opp_data, catalog_data:catalog_data})
+                res.render("guidedselling",{status:"ok", id:req.params.id, oppid:req.params.oppid, accid:req.params.accid,base_url:base_url, user:req.user, catalog:result, quotes:req.quotes, calc_data:workval, template_type:template_type, bid_estimation:bid_estimation,sections:sections, questions:questions, accounts:accounts, opp_data:opp_data, catalog_data:catalog_data, countryandlanguages:country, lookupsdata:lookupsdata, lookupsdata_data:lookupsdata_data})
+                
             
             })
             
@@ -382,11 +396,14 @@ router.get("/guidedsellingview/:accid/:oppid/:template_type/:quoteid", loggedIn,
 
 router.post("/guidedselling/:accid/:oppid", loggedIn, quotes.add,  async (req, res) => {
     var template_type = req.body.template_type;
+    var country = await countries.get();
     var sections = await catalog.getCatalogSections(template_type,req.user);
     var questions = await catalog.getCatalogQuestions(template_type,req.user);
     var accounts = await account.getAccount(req.params.accid, req.user);
     var opp_data = await opportunity.getOpportunity(req.params.accid, req.params.oppid, req.user);
     var catalog_data = await catalog.getCatalog(template_type, req.user);
+    var lookupsdata = await lookups.getLookups_guided(req.user);
+    var lookupsdata_data = await lookups.get_lookups_data(req.user);
 
     //console.log(sections)
     var workbook = new Excel.Workbook();
@@ -448,7 +465,7 @@ router.post("/guidedselling/:accid/:oppid", loggedIn, quotes.add,  async (req, r
                 if(err){
                     throw err;
                 }
-                res.render("guidedselling",{status:"ok", id:req.params.id, oppid:req.params.oppid, accid:req.params.accid,base_url:base_url, user:req.user, catalog:result, quotes:req.quotes, calc_data:workval, template_type:template_type, bid_estimation:bid_estimation, sections:sections, questions:questions, accounts:accounts, opp_data:opp_data, catalog_data:catalog_data})
+                res.render("guidedselling",{status:"ok", id:req.params.id, oppid:req.params.oppid, accid:req.params.accid,base_url:base_url, user:req.user, catalog:result, quotes:req.quotes, calc_data:workval, template_type:template_type, bid_estimation:bid_estimation, sections:sections, questions:questions, accounts:accounts, opp_data:opp_data, catalog_data:catalog_data, countryandlanguages:country, lookupsdata:lookupsdata, lookupsdata_data:lookupsdata_data})
             
             })
             
@@ -478,6 +495,49 @@ router.get("/guidedselling/sow/:accid/:oppid/:template_type", loggedIn, async (r
         res.render("index",{status:"no", base_url:base_url, user:"nothing"})
     }
 })
+
+
+router.get("/lookups", loggedIn, async (req, res) => {
+    if(req.user){
+        var lookups_data = await lookups.get(req.user);
+
+        res.render("lookups",{status:"ok", base_url:base_url, lookups_data:lookups_data})
+    }else{
+        res.redirect("/");
+    }
+})
+
+router.get("/lookups/create", loggedIn, async (req, res) => {
+    if(req.user){
+        var lookups_data = await lookups.get(req.user);
+
+        res.render("lookups_create",{status:"ok", base_url:base_url, lookups_data:lookups_data})
+    }else{
+        res.redirect("/");
+    }
+})
+
+router.get("/lookups/edit/:id", loggedIn, async (req, res) => {
+    if(req.user){
+        var lookups_data = await lookups.get(req.user);
+        var data = await lookups.getById(req.user,req.params.id);
+        var lookups_code = await lookups.getByLookupsData(req.user,req.params.id);
+
+        res.render("lookups_edit",{status:"ok", base_url:base_url, id:req.params.id, lookups_data:lookups_data, data:data, lookups_code:lookups_code})
+    }else{
+        res.redirect("/");
+    }
+})
+
+router.get("/Admin", loggedIn, async (req, res) => {
+    if(req.user){
+        res.render("admin",{status:"ok", base_url:base_url})
+    }else{
+        res.redirect("/");
+    }
+})
+
+
 module.exports = router;
 
 

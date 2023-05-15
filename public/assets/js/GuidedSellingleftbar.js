@@ -171,14 +171,6 @@ $('#managementCircle').click(function () {
 });
 
 
-// Table constant data
-// const role =  document.querySelectorAll("#guideRole");
-// const col2 = document.querySelectorAll("#col2");
-
-// role.addEventListener("change", function(){
-//   const selectedValue = role.value;
-//   col2.textContent = selectedValue;
-// });
 
 const dropdowns = document.querySelectorAll(".guideRole");
 dropdowns.forEach(guideRole => {
@@ -189,38 +181,286 @@ dropdowns.forEach(guideRole => {
   });
 });
 
-// js for not to send data automatically without clicking submit
-// const formButton = document.getElementById('applybtnid');
-// formButton.addEventListener('submit', (event) =>{
-//   event.preventDefault();
-// });
 
 
 // Require BackEnd Functionality
 
+const inputConts = document.querySelectorAll('.dropdown-container');
+const dropBtns = document.querySelectorAll('.dropdown-btn');
+
+inputConts.forEach((inputCont, index) => {
+  const reqFields = inputCont.querySelectorAll(".billing_customer_name");
+  const dropBtn = dropBtns[index];
+  const optionLists = inputCont.querySelectorAll(".optionList");
+
+  const checkAllFilled = () => {
+    let allFilled = true;
+    reqFields.forEach((input) => {
+      if (input.value === "" && input.required) {
+        allFilled = false;
+      }
+      input.classList.toggle("filled", input.value !== "");
+    });
+    if (allFilled) {
+      dropBtn.classList.add("filled");
+    } else {
+      dropBtn.classList.remove("filled");
+    }
+  };
+
+  reqFields.forEach((reqField) => {
+    reqField.addEventListener("input", checkAllFilled);
+  });
+
+  optionLists.forEach((optionList) => {
+    optionList.addEventListener("click", checkAllFilled);
+  });
+});
+
+// ---------------------------------------------------------------------
+
 function inputControll(event) {
   const requirefield = event.target;
-  // const requireSection = document.querySelector(".dropdown-btn")
-  if (requirefield.value.trim() === "" && requirefield.required) {
-    requirefield.style.borderLeft = "3px solid red";
-    // requireSection.style.borderLeft = "3px solid red";
-    requirefield.style.outline = "none";
-  } else {
-    requirefield.style.borderLeft = "1px solid gray";
-    // requireSection.style.borderLeft = "1px solid gray";
-  }
-
-  requirefield.addEventListener("input", function () {
-    if (this.value === "" && requirefield.required) {
-      this.style.borderLeft = "3px solid red";
-      // requireSection.style.borderLeft = "3px solid red";
+  function applyBorderStyles() {
+    if (requirefield.value.trim() === "" && requirefield.required) {
+      requirefield.style.borderLeft = "3px solid red";
       requirefield.style.outline = "none";
     } else {
-      this.style.borderLeft = "1px solid gray";
-      // requireSection.style.borderLeft = "1px solid gray";
+      requirefield.style.borderLeft = "1px solid lightgray";
+    }
+  }
 
+  applyBorderStyles();
+
+  requirefield.addEventListener("input", function () {
+    applyBorderStyles();
+  });
+}
+
+
+// REQUIRE FOR WHOLE NUMBER-------------------------------------------
+
+function inputControll1(event) {
+  const wholeNum = event.target;
+  function applyBorderStyles() {
+    if (wholeNum.value.trim() === "" && wholeNum.required) {
+      wholeNum.style.borderLeft = "3px solid red";
+      wholeNum.style.outline = "none";
+    } else {
+      wholeNum.style.borderLeft = "1px solid lightgray";
+    }
+  }
+
+  applyBorderStyles();
+
+  wholeNum.addEventListener("input", function () {
+    applyBorderStyles();
+  });
+}
+
+// REQUIRE FOR PERCENTAGE-------------------------------------------
+
+function inputControll2(event) {
+  const percent = event.target;
+  function applyBorderStyles() {
+    if (percent.value.trim() === "" && percent.required) {
+      percent.style.borderLeft = "3px solid red";
+      percent.style.outline = "none";
+    } else {
+      percent.style.borderLeft = "1px solid lightgray";
+    }
+  }
+
+  applyBorderStyles();
+
+  percent.addEventListener("input", function () {
+    applyBorderStyles();
+  });
+}
+// REQUIRE FOR MULTILINE-------------------------------------------
+
+function inputControll3(event) {
+  const multiLine = event.target;
+
+  function applyBorderStyles() {
+    if (multiLine.value.trim() === "" && multiLine.required) {
+      multiLine.style.borderLeft = "3px solid red";
+      multiLine.style.outline = "none";
+    } else {
+      multiLine.style.borderLeft = "1px solid lightgray";
+    }
+  }
+
+  applyBorderStyles();
+
+  multiLine.addEventListener("input", function () {
+    applyBorderStyles();
+  });
+}
+
+// REQUIRE FOR DATE-------------------------------------------
+
+function inputControll4(event) {
+  const date = event.target;
+
+  function applyBorderStyles() {
+    if (date === 0 && date.required) {
+      date.style.borderLeft = "3px solid red";
+      date.style.outline = "none";
+    } else {
+      date.style.borderLeft = "1px solid lightgray";
+    }
+  }
+
+  applyBorderStyles();
+
+  date.addEventListener("input", function () {
+    applyBorderStyles();
+  });
+}
+
+// CUSTOM DROPDOWN--------------------------------------
+
+function toggleDropdown(event) {
+  var dropdown = event.currentTarget.closest(".custom-dropdown");
+  var dropdownOptions = dropdown.querySelector(".dropdown-options");
+  var dropdownHeader = dropdown.querySelector(".dropdown-header");
+  if (dropdownOptions.style.display === "block") {
+    hideDropdown(dropdown);
+    document.addEventListener("click", function hideDropdownOnOutsideClick(e) {
+      if (!dropdown.contains(e.target)) {
+        hideDropdown(dropdown);
+        document.removeEventListener("click", hideDropdownOnOutsideClick);
+      }
+    });
+  } else {
+    dropdownOptions.style.display = "block";
+    dropdownHeader.style.width = "100%";
+    document.addEventListener("click", function hideDropdownOnOutsideClick(e) {
+      if (!dropdown.contains(e.target)) {
+        hideDropdown(dropdown);
+        document.removeEventListener("click", hideDropdownOnOutsideClick);
+      }
+    });
+    // document.addEventListener("click", hideDropdown1);
+  }
+}
+
+function hideDropdown(dropdown) {
+  var dropdownOptions = dropdown.querySelector(".dropdown-options");
+  var dropdownHeader = dropdown.querySelector(".dropdown-header");
+  dropdownOptions.style.display = "none";
+  dropdownHeader.style.width = "";
+  document.removeEventListener("click", hideDropdown);
+}
+
+function selectOption(event) {
+  var option = event.target.textContent;
+  var dropdown = event.currentTarget.closest(".custom-dropdown");
+  var header = dropdown.querySelector(".dropdown-header");
+  var input = header.querySelector(".billing_customer_name");
+
+  input.value = option;
+  input.readOnly = true;
+  input.style.borderLeft = '1px solid lightgray';
+
+  var dropdownOptions = dropdown.querySelector(".dropdown-options");
+  dropdownOptions.style.display = "none";
+
+  input.addEventListener("click", function () {
+    input.readOnly = false;
+    dropdownOptions.style.display = "block";
+    input.focus();
+    document.addEventListener("click", function hideDropdownOnOutsideClick(e) {
+      if (!dropdown.contains(e.target)) {
+        hideDropdown(dropdown);
+        document.removeEventListener("click", hideDropdownOnOutsideClick);
+      }
+    });
+  });
+}
+
+
+
+function filterOptions(event) {
+  var input = event.target.value.toUpperCase();
+  var dropdown = event.currentTarget.closest(".custom-dropdown");
+  var options = dropdown.querySelectorAll(".dropdown-options li");
+  for (var i = 0; i < options.length; i++) {
+    var optionText = options[i].textContent.toUpperCase();
+    if (optionText.indexOf(input) > -1) {
+      options[i].style.display = "";
+    } else {
+      options[i].style.display = "none";
+    }
+  }
+}
+
+
+
+// -------------------WHOLE NUMBER JS--------------------------------------------------------------
+function checkWholeNumber(event) {
+  var input = event.target;
+  var inputBox = input.parentNode;
+  var errorMessage = inputBox.querySelector("#error-message");
+
+  if (input.value % 1 !== 0 || input.value < 0) {
+    inputBox.style.border = "1px solid red";
+    errorMessage.innerHTML = "Please enter a whole number";
+    errorMessage.style.color = "red";
+  } else {
+    inputBox.style.border = "1px solid lightgray";
+    errorMessage.innerHTML = "";
+  }
+}
+
+var inputs = document.querySelectorAll('.quantity');
+for (var i = 0; i < inputs.length; i++) {
+  inputs[i].addEventListener('blur', checkWholeNumber);
+}
+
+
+// ----------------PERCENTAGE--------------------------
+
+const percentageInputs = document.querySelectorAll(".percentage-input");
+
+percentageInputs.forEach((percentageInput) => {
+  percentageInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      formatPercentage(percentageInput);
     }
   });
 
+  percentageInput.addEventListener("blur", () => {
+    formatPercentage(percentageInput);
+  });
+});
+
+function formatPercentage(input) {
+  const value = input.value.trim();
+  if (value && !isNaN(value)) {
+    const formattedValue = parseFloat(value).toFixed(2) + "%";
+    input.value = formattedValue;
+  }
 }
+
+//  ---------MULTILINE TEXT----------------------------
+// var textarea = document.querySelector('#multiText');
+// textarea.addEventListener('input', function () {
+//   //  this.style.height = 'auto';
+//   this.style.height = this.scrollHeight + 'px';
+// });
+
+// var textarea = document.querySelector('#multiText');
+// textarea.addEventListener('input', function () {
+//   var initHeight = this.style.height;
+//   this.style.height = 'auto';
+//   var height = this.scrollHeight;
+//   if (height > parseInt(initHeight)) {
+//     this.style.height = height + 'px';
+//   } else {
+//     this.style.height = initHeight;
+//   }
+//   this.scrollTop = this.scrollHeight;
+// });
 

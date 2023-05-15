@@ -27,11 +27,34 @@ module.exports = {
                         throw error;
                     }
                     var count = 1;
-                    if(result.length >0){
-                        // if(parseInt(result[0].quotes_name)){
-                            count = result.length+1;
-                        // }
-                    }
+if(result.length >0){
+    count = parseInt(result.length+1);
+}
+if(count < 10){
+    count = "00" + count;
+}
+if(count >= 10 && count < 100){
+    count = "0" + count;
+}
+if(count >= 100 && count < 1000){
+    count = ""+count;
+}
+
+                    // var count = 1;
+                    // if(result.length >0){
+                    //     // if(parseInt(result[0].quotes_name)){
+                    //         count = parseInt(result.length+1);
+                    //     // }
+                    // }
+                    // if(count > 0 && count < 10){
+                    //     count = 0+""+0+""+0+""+count
+                    // }
+                    // if(count >= 10 && count < 100){
+                    //     count = 0+""+0+""+count
+                    // }
+                    // if(count >= 100 && count < 999){
+                    //     count = 0+""+count
+                    // }
                     
                     db.query('INSERT INTO quotes SET ?',{template_type:template_type, user_id:user_id, account_id:account_id, opportunity_id:opportunity_id, quotes_name:count}, (error, results)=> {
                         if (error) {

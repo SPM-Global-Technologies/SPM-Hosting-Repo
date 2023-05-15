@@ -118,3 +118,14 @@ function displayFileName() {
 }
 
 
+let titleCounter = 1;
+const plusIcon = document.querySelector('.titleSurvey');
+
+plusIcon.addEventListener('click', () => {
+    const inputTitle = document.querySelector('.inputTitle');
+    inputTitle.value = `*New Survey*(${titleCounter})`;
+    titleCounter++;
+});
+
+
+

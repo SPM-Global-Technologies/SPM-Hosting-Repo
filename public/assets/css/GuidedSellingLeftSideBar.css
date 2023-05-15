@@ -151,7 +151,7 @@
     width: 100%;
     height: 40px;
     font-size: 15px;
-    overflow-y: hidden;
+    overflow-y: visible;
     text-overflow: ellipsis;
     display: grid;
     grid-template-columns: 2fr 6fr 4fr;
@@ -288,7 +288,7 @@
     display: none;
 }
 
-#guidedFieldsQuote{
+#guidedFieldsQuote {
     padding-left: 10px;
     font-size: 14px;
     padding-top: 10px;
@@ -512,8 +512,142 @@ td {
 }
 
 
+/* ---------------- CUSTOM DROPDOWN CSS--------- */
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+
+.dropdown-header:hover {
+    background-color: #e6e6e6;
+}
+
+
+.dropdown-header {
+    height: 40px;
+    cursor: pointer;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+
+}
+
+.dropdown-options {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+
+
+#optionList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    z-index: 2;
+    background: white;
+    overflow-x: hidden;
+}
+
+
+.dropdown-options li {
+    padding: 10px;
+    cursor: pointer;
+
+}
+
+
+.dropdown-options li:hover {
+    background-color: #045679;
+    color: white;
+}
+
+#optionSelect {
+    height: 100%;
+    text-align: center;
+    font-size: 15px;
+    color: #045679;
+}
+
+#optionSelectJs {
+    text-align: center;
+    height: 40px;
+    color: #045679;
+}
+
+.optionSelectJs {
+    text-align: center;
+    height: 40px;
+    color: #045679;
+}
+
+#spanOption {
+    top: 10px;
+    position: relative;
+}
+
+
+/*-------------------------- WHOLE NUMBER CSS ----------------------*/
+#error-message {
+   position: relative;
+   padding-left: 5px;
+   top: -18.5px;
+   font-size: 8px;
+}
+
+#inputbox {
+    width: 100%;
+    height: 40px;
+}
+
+.quantity::-webkit-outer-spin-button,
+.quantity::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.quantity {
+    border: none;
+   outline: none;
+   width: 100%;
+   height: 40px;
+
+}
+
+
+/* ------------MULTILINE TEXT---------- */
+
+#multiText{
+    height: 40px;
+    border-radius: 0%;
+    outline: #045679;
+    /* overflow-y: hidden; */
+    resize: none;
+    max-height: 200px;
+    margin-bottom: 5px;
+    overflow-y: visible;
+    /* position: fixed; */
+}
+
+#multiText::-webkit-scrollbar {
+    display: none;
+}
+
+/* --------PERCENTAGE------------------ */
+.percentage-input{
+    height: 40px;
+    width: 100%;
+    /* border-left: 2px solid lightgray; */
+}
+
 /* APPLY BUTTON CSS */
-.guideApply{
+.guideApply {
     border: 2px solid #0aa7eb;
     background: none;
     color: #0aa7eb;
@@ -525,3 +659,27 @@ td {
     font-size: 12px;
     margin-top: 20px;
 }
+
+.billing_customer_name{
+    height: 40px;
+    font-size: 15px;
+    text-align: center;
+}
+
+.billing_customer_name:required{
+    height: 40px;
+    border-left: 3px solid red;
+}
+
+
+
+.dropdown-btn.filled{
+    border-left: 1px solid lightgray;
+    height: 40px;
+}
+
+.filled{
+    border-left: 1px solid lightgray;
+    height: 40px;
+}
+

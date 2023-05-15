@@ -10,7 +10,8 @@ const quotes = require("./quotes")
 
 const account = require("./account")
 
-const logout = require("./logout")
+const logout = require("./logout");
+const lookups = require("./lookups");
 const router = express.Router();
 
 router.post("/register", register) 
@@ -37,6 +38,12 @@ router.post("/updatecatalogcontent", loggedIn, contentcatalog.updatecatalogconte
 
 // Bid Estimation Calc
 router.post("/bid_estimation_calc", loggedIn, bid_estimation.calculation);
+
+// lookups
+router.post("/lookups/add", loggedIn, lookups.add);
+router.post("/lookups/add_lookups_data", loggedIn, lookups.add_lookups_data);
+router.post("/lookups/delete_lookups_data", loggedIn, lookups.delete_lookups_data);
+router.post("/lookups/updatelookups", loggedIn, lookups.updatelookups);
 
 
 module.exports = router;

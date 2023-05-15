@@ -3,6 +3,45 @@
     <link rel="stylesheet" href="<%= base_url %>css/GuidedSelling.css">
     <link rel="stylesheet" href="<%= base_url %>css/GuidedSellingLeftSideBar.css">
     <link rel="stylesheet" href="<%= base_url %>css/GuideSellingQuestion.css">
+    <style>
+         input[type="number"]{
+            padding: 5px;
+            height: 40px;
+            border-radius: 1px;
+            font-size: small;
+            font-size: 11px;
+            background-color: white;
+            position: relative;
+            border: 0.5px solid rgb(218, 217, 217);
+            color: black;
+            outline-color: #216c98;
+        }
+
+        input[type="text"]{
+            padding: 5px;
+            height: 40px;
+            border-radius: 1px;
+            font-size: small;
+            font-size: 11px;
+            background-color: white;
+            position: relative;
+            border: 0.5px solid rgb(218, 217, 217);
+            color: black;
+            outline-color: #216c98;
+        }
+        select{
+            padding: 5px;
+            height: 40px;
+            border-radius: 1px;
+            font-size: small;
+            font-size: 11px;
+            background-color: white;
+            position: relative;
+            border: 0.5px solid rgb(218, 217, 217);
+            color: black;
+            outline-color: #216c98;
+        }
+    </style>
 
     <div class="bread">
         <ul class="breadcrumbs" style="padding: 9px;">
@@ -116,10 +155,10 @@
             </div>
             <!-- <form action=""> -->
             <div id="hideOnExpand">
-                <% sections.forEach(function(data, i){ if(data.catalog_section_status !=1){ %>
+                <% sections.forEach(async function(data, i){ if(data.catalog_section_status !=1){ %>
                     <div class="navside">
 
-                        <button class="dropdown-btn redBtn<%= i %>" id="sidetoggle4">
+                        <button class="dropdown-btn redBtn<%= i %>" id="sidetoggle4" data-section="<%= data.catalog_section_number %>">
                             <%= data.catalog_section_number %>. <%= data.catalog_section_title %><i
                                         class="fa fa-angle-down"
                                         style="color: 1px solid black; font-size: 20px; float: right;"></i>
@@ -132,54 +171,327 @@
                 </div> -->
 
                             <% questions.forEach(function(questionsdata, i){
-                                if(data.catalog_section_key==questionsdata.catalog_section_key){ const
-                                ques_num=questionsdata.catalog_questions_num.split(".");%>
+                                if(data.catalog_section_key==questionsdata.catalog_section_key){ 
+                                    const ques_num=questionsdata.catalog_questions_num.split(".");%>
+                                    <div class="txt">
+                                        <p id="text-to-copy">
+                                            <%= data.catalog_section_number %>.<%= ques_num[1] %>
+                                        </p>
+                                        <p id="guidedFields">
+                                            <%= questionsdata.catalog_questions_name %>
+                                        </p>
 
-                                <div class="txt">
-                                    <p id="text-to-copy">
-                                        <%= data.catalog_section_number %>.<%= ques_num[1] %>
-                                    </p>
-                                    <p id="guidedFields">
-                                        <%= questionsdata.catalog_questions_name %>
-                                    </p>
-                                    <input id="billingCustomer<%= data.catalog_section_number %>.<%= ques_num[1] %>"
-                                        class="billing_customer_name" type="text"
-                                        name="billing_customer_name<%= ques_num[1] %>" onclick="inputControll(event)"
-                                        value="" <% if(questionsdata.catalog_questions_required==1){ %>style =
-                                    "border-left: 3px
-                                    solid red;" required <% } %> >
+                                        <% 
+                                        var toogle_questions = questionsdata.catalog_questions_toggle;
+                                        var user_id = user.user_id;
+                                        var options = null;
+                                        %>
 
-                                        <% if(questionsdata.catalog_questions_required==1){ %>
-                                            <style>
-                                                .redBtn<%=i %> {
-                                                    border-left: 3px solid red;
-                                                }
-                                            </style>
-                                            <script>
+                                        <script>
+                                            var selectList = document.createElement("select")
+                                            selectList.id = "mySelect"
+                                        </script>
+                                         <% lookupsdata.forEach(function(looks, looks_j){ 
+                                            if(looks.class_name == toogle_questions)
+                                            {
+                                                lookupsdata_data.forEach(function(looksdata, looks_k){
+                                                    if(looks.lookups_accesskey == looksdata.lookups_accesskey)
+                                                    { 
+                                                        if(options == null){
+                                                            options = '<options value="'+looksdata.lookups_name+'">'+looksdata.lookups_name+'</options>';
+                                                        }else{
+                                                            options += '<options value="'+looksdata.lookups_name+'">'+looksdata.lookups_name+'</options>';
+                                                        }%>
+                                                        <script>
+                                                            var option = document.createElement("option");
+                                                            option.value = "<%= looksdata.lookups_name %>";
+                                                            option.text = "<%= looksdata.lookups_name %>";
+                                                            selectList.appendChild(option)
+                                                        </script>
+                                                        
+                                                    <% }
 
-                                                if (document.getElementById('billingCustomer<%= data.catalog_section_number %>.<%= ques_num[1] %>').value.trim() === '' && document.getElementById('billingCustomer<%= data.catalog_section_number %>.<%= ques_num[1] %>').required) {
-                                                    document.querySelector('.redBtn<%= i %>').style.borderLeft = '3px solid red';
-                                                } else {
-                                                    // document.getElementById('billingCustomer<%= data.catalog_section_number %>.<%= ques_num[1] %>').style.borderLeft = "1px solid gray";
-                                                    document.querySelector('.redBtn<%= i %>').style.borderLeft = "1px solid gray";
-                                                }
+                                                })
 
-                                                document.getElementById('billingCustomer<%= data.catalog_section_number %>.<%= ques_num[1] %>').addEventListener("input", function () {
-                                                    if (document.getElementById('billingCustomer<%= data.catalog_section_number %>.<%= ques_num[1] %>').value.trim() === "" && document.getElementById('billingCustomer<%= data.catalog_section_number %>.<%= ques_num[1] %>').required) {
-                                                        // this.style.borderLeft = "3px solid red";
-                                                        document.querySelector('.redBtn<%= i %>').style.borderLeft = "3px solid red";
-                                                        // requirefield.style.outline = "none";
-                                                    } else {
-                                                        // this.style.borderLeft = "1px solid gray";
-                                                        document.querySelector('.redBtn<%= i %>').style.borderLeft = "1px solid gray";
+                                            }
 
+                                        }) 
+                                        
+                                        console.log("Length :: "+options)
+                                        if(options != null)
+                                        { %>
+                                            <!-- <div class="dropdown-options" id="dropdownOptions">
+                                                <ul id="optionList" class="optionList" onclick="selectOption(event)"> -->
+                                                <div id="setOptionsbyId<%= data.catalog_section_number %>.<%= ques_num[1] %>">
+                                                    
+                                                </div>
+                                                <script>
+                                                    // selectList[0].remove();
+                                                    // console.log(selectList)
+                                                    // console.log(document.querySelectorAll('#setOptionsbyId select').length)
+                                                    // if(document.querySelectorAll('#setOptionsbyId<%= data.catalog_section_number %>.<%= ques_num[1] %> select').length == 0){
+                                                       document.getElementById('setOptionsbyId<%= data.catalog_section_number %>.<%= ques_num[1] %>').appendChild(selectList)
+                                                    // }
+                                                </script>
+                                                
+                                                <!-- </ul>
+                                            </div> -->
+
+                                        
+
+                                        <% }else if(questionsdata.catalog_questions_toggle == "TOGGLE"){%>
+                                            <input type="checkbox" class="billing_customer_name1" name="toggle" required/>
+                                            
+                                        <% }else if(questionsdata.catalog_questions_toggle == "Date"){%>
+                                            <input
+                                            id="billingCustomer<%= data.catalog_section_number %>.<%= ques_num[1] %>"
+                                            class="billing_customer_name" type="date" onclick="inputControll4(event)"
+                                            name="billing_customer_name<%= ques_num[1] %>"
+                                             value=""  <%
+                                            if(questionsdata.catalog_questions_required==1){ %>style =
+                                        "border-left: 3px
+                                        solid red;border-right: none;border-top:none; border-bottom: none; height:40px"
+                                        required <% } %> placeholder=""/>
+                                        <% }else if(questionsdata.catalog_questions_toggle == "YES/NO"){ %>
+                                            <div class="custom-dropdown">
+                                                <div class="dropdown-header">
+                                                    <input type="text" id="optionSelect" class="billing_customer_name"
+                                                        onclick="toggleDropdown(event)"
+                                                        onkeyup="filterOptions(event)" <% if(questionsdata.catalog_questions_required==1){ %>style =
+                                                            "border-left: 3px
+                                                            solid red;"
+                                                            required <% } %>>
+                                                </div> 
+                                                <div class="dropdown-options" id="dropdownOptions">
+                                                    <ul id="optionList" onclick="selectOption(event)" class="optionList" >
+                                                        <li  value="YES">YES</li>
+                                                        <li  value="NO">NO</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        <% }else if(questionsdata.catalog_questions_toggle == "YES/NO/NOT SURE"){ %>
+                                            <div class="custom-dropdown">
+                                                <div class="dropdown-header">
+                                                    <input type="text" id="optionSelect" class="billing_customer_name"
+                                                        onclick="toggleDropdown(event)"
+                                                        onkeyup="filterOptions(event)" <% if(questionsdata.catalog_questions_required==1){ %>style =
+                                                            "border-left: 3px
+                                                            solid red;"
+                                                            required <% } %>>
+                                                </div>
+                                                <div class="dropdown-options" id="dropdownOptions">
+                                                    <ul id="optionList" class="optionList" onclick="selectOption(event)">
+                                                        <li  value="NONE">YES</li>
+                                                        <li  value="LOW">NO</li>
+                                                        <li  value="NOT SURE">NOT SURE</li>
+                                                        
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        <% }else if(questionsdata.catalog_questions_toggle == "HI/MED/LO/NO"){ %>
+                                            <div class="custom-dropdown">
+                                                <div class="dropdown-header">
+                                                    <input type="text" id="optionSelect" class="billing_customer_name"
+                                                        onclick="toggleDropdown(event)"
+                                                        onkeyup="filterOptions(event)"<% if(questionsdata.catalog_questions_required==1){ %>style =
+                                                            "border-left: 3px
+                                                            solid red;"
+                                                            required <% } %>>
+                                                </div>
+                                                <div class="dropdown-options" id="dropdownOptions">
+                                                    <ul id="optionList" class="optionList" onclick="selectOption(event)">
+                                                        <li  value="NONE">NONE</li>
+                                                        <li  value="LOW">LOW</li>
+                                                        <li  value="MEDIUM">MEDIUM</li>
+                                                        <li  value="HIGH">HIGH</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        <% }else if(questionsdata.catalog_questions_toggle == "HI/NORM/LO"){ %>
+                                            <div class="custom-dropdown">
+                                                <div class="dropdown-header">
+                                                    <input type="text" id="optionSelect" class="billing_customer_name"
+                                                        onclick="toggleDropdown(event)"
+                                                        onkeyup="filterOptions(event)" <% if(questionsdata.catalog_questions_required==1){ %>style =
+                                                            "border-left: 3px
+                                                            solid red;"
+                                                            required <% } %>>
+                                                </div>
+                                                <div class="dropdown-options" id="dropdownOptions">
+                                                    <ul id="optionList" class="optionList" onclick="selectOption(event)">
+                                                        <li  value="LOW">LOW</li>
+                                                        <li  value="NORMAL">NORMAL</li>
+                                                        <li  value="HIGH">HIGH</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+    
+                                        <% }else if(questionsdata.catalog_questions_toggle == "CURRENCIES"){ %>
+                                            <div class="custom-dropdown">
+                                                <div class="dropdown-header">
+                                                    <input type="text" id="optionSelect" class="billing_customer_name"
+                                                        onclick="toggleDropdown(event)"
+                                                        onkeyup="filterOptions(event)" <% if(questionsdata.catalog_questions_required==1){ %>style =
+                                                            "border-left: 3px
+                                                            solid red;"
+                                                            required <% } %>>
+                                                </div>
+                                                <div class="dropdown-options" id="dropdownOptions">
+                                                    <ul id="optionList" class="optionList" onclick="selectOption(event)">
+                                                        <% countryandlanguages.forEach(function(country, i){ %>
+                                                        <li  value="<%= country.currency %>"><%= country.currency %></li>
+                                                        <% }); %>
+                                                    </ul>     
+                                                </div>    
+                                            </div>     
+                                        <% }else if(questionsdata.catalog_questions_toggle == "LANGUAGES"){ %>
+                                            <div class="custom-dropdown">
+                                                <div class="dropdown-header">
+                                                    <input type="text" id="optionSelect" class="billing_customer_name"
+                                                        onclick="toggleDropdown(event)"
+                                                        onkeyup="filterOptions(event)" <% if(questionsdata.catalog_questions_required==1){ %>style =
+                                                            "border-left: 3px
+                                                            solid red;"
+                                                            required <% } %>>
+                                                </div>
+                                                <div class="dropdown-options" id="dropdownOptions">
+                                                    <ul id="optionList" class="optionList" onclick="selectOption(event)">
+                                                        <% countryandlanguages.forEach(function(country, i){ %>
+                                                        <li  value="<%= country.language %>"><%= country.language %></li>
+                                                        <% }); %>
+                                                    </ul>     
+                                                </div>    
+                                            </div>   
+    
+                                        <% }else if(questionsdata.catalog_questions_toggle == "COUNTRIES"){ %>
+                                            <div class="custom-dropdown">
+                                                <div class="dropdown-header">
+                                                    <input type="text" id="optionSelect" class="billing_customer_name"
+                                                        onclick="toggleDropdown(event)"
+                                                        onkeyup="filterOptions(event)" <% if(questionsdata.catalog_questions_required==1){ %>style =
+                                                            "border-left: 3px
+                                                            solid red;"
+                                                            required <% } %>>
+                                                </div>
+                                                <div class="dropdown-options" id="dropdownOptions">
+                                                    <ul id="optionList" class="optionList" onclick="selectOption(event)">
+                                                        <% countryandlanguages.forEach(function(country, i){ %>
+                                                        <li  value="<%= country.country %>"><%= country.country %></li>
+                                                        <% }); %>
+                                                    </ul>     
+                                                </div>    
+                                            </div>
+                                            
+                                        <% }else if(questionsdata.catalog_questions_toggle == "NUMBERS"){ %>
+                                            <input id="billingCustomer<%= data.catalog_section_number %>.<%= ques_num[1] %>"
+                                            class="billing_customer_name" type="number" onclick="inputControll(event)"
+                                            name="billing_customer_name<%= ques_num[1] %>" 
+                                            value="" <% if(questionsdata.catalog_questions_required==1){ %>style =
+                                              "border-left: 3px solid red;" required <% } %> />
+    
+                                        <% }else if(questionsdata.catalog_questions_toggle == "WHOLE NUMBERS"){ %>
+                                            <div id="inputbox">
+                                                <input type="number" step="1" min="0" name="quantity" class="quantity billing_customer_name" id="billingCustomer<%= data.catalog_section_number %>.<%= ques_num[1] %>"                                     
+                                                onclick="inputControll1(event)" data-section-fields="billingCustomer<%= data.catalog_section_number %>.<%= ques_num[1] %>"  oninput="checkWholeNumber(event)"<% if(questionsdata.catalog_questions_required==1){ %>style =
+                                                    "border-left: 3px
+                                                    solid red;"
+                                                    required <% } %>>
+                                                <span id="error-message"></span>
+                                              </div>
+    
+                                        <% }else if(questionsdata.catalog_questions_toggle == "PERCENTAGE"){ %>
+                                            <input type="text" class="percentage-input billing_customer_name" onclick="inputControll2(event)" id="billingCustomer<%= data.catalog_section_number %>.<%= ques_num[1] %>"  data-section-fields="billingCustomer<%= data.catalog_section_number %>.<%= ques_num[1] %>" <% if(questionsdata.catalog_questions_required==1){ %>style =
+                                                "border-left: 3px
+                                                solid red;"
+                                                required <% } %>>
+                                        
+    
+                                        <% }else
+                                        if(questionsdata.catalog_questions_toggle=="MONTHS"
+                                        ){ %>
+                                            <div class="custom-dropdown">
+                                                <div class="dropdown-header">
+                                                    <input type="text" id="optionSelect" class="billing_customer_name"
+                                                        onclick="toggleDropdown(event)"
+                                                        onkeyup="filterOptions(event)" <% if(questionsdata.catalog_questions_required==1){ %>style =
+                                                            "border-left: 3px
+                                                            solid red;"
+                                                            required <% } %>>
+                                                </div>
+                                                <div class="dropdown-options" id="dropdownOptions">
+                                                    <ul id="optionList" class="optionList" onclick="selectOption(event)">
+                                                        <li  value="JAN">01-JAN</li>
+                                                        <li  value="FEB">02-FEB</li>
+                                                        <li  value="MAR">03-MAR</li>
+                                                        <li  value="APR">04-APR</li>
+                                                        <li  value="MAY">05-MAY</li>
+                                                        <li  value="JUN">06-JUN</li>
+                                                        <li  value="JUL">07-JUL</li>
+                                                        <li  value="AUG">08-AUG</li>
+                                                        <li  value="SEPT">09-SEPT</li>
+                                                        <li  value="OCT">10-OCT</li>
+                                                        <li  value="NOV">11-NOV</li>
+                                                        <li  value="DEC">12-DEC</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        <% }else
+                                        if(questionsdata.catalog_questions_toggle=="NUMERIC(0-10)"
+                                        ){ %>
+                                            <div class="custom-dropdown">
+                                                <div class="dropdown-header">
+                                                    <input type="text" id="optionSelect" class="billing_customer_name"
+                                                        onclick="toggleDropdown(event)"
+                                                        onkeyup="filterOptions(event)" <% if(questionsdata.catalog_questions_required==1){ %>style =
+                                                            "border-left: 3px
+                                                            solid red;"
+                                                            required <% } %>>
+                                                </div>
+                                                <div class="dropdown-options" id="dropdownOptions">
+                                                    <ul id="optionList" class="optionList" onclick="selectOption(event)">
+                                                        <li  value="0">0</li>
+                                                        <li  value="1">1</li>
+                                                        <li  value="2">2</li>
+                                                        <li  value="3">3</li>
+                                                        <li  value="4">4</li>
+                                                        <li  value="5">5</li>
+                                                        <li  value="6">6</li>
+                                                        <li  value="7">7</li>
+                                                        <li  value="8">8</li>
+                                                        <li  value="9">9</li>
+                                                        <li  value="10">10</li>
+                                           
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        <% }else if(questionsdata.catalog_questions_toggle=="MULTI LINE TEXT" ){ %>
+                                                                        <textarea name="" id="multiText" class="billing_customer_name" onclick="inputControll3(event)" data-section-fields="billingCustomer<%= data.catalog_section_number %>.<%= ques_num[1] %>" cols="10" rows="5"<% if(questionsdata.catalog_questions_required==1){ %>style =
+                                                                         "border-left: 3px
+                                                                         solid red;"
+                                                                         required <% } %>></textarea>
+                                                                         <% }else{ %>
+                                                                            <input
+                                                                            id="billingCustomer<%= data.catalog_section_number %>.<%= ques_num[1] %>"
+                                                                            class="billing_customer_name" type="text" data-section-fields="billingCustomer<%= data.catalog_section_number %>.<%= ques_num[1] %>"
+                                                                            onclick="inputControll1(event)"  name="billing_customer_name<%= ques_num[1] %>"
+                                                                             style="height: 40px;"   value="" <%
+                                                                            if(questionsdata.catalog_questions_required==1){
+                                                                            %>required <% } %> >
+                                                                            <% } %>
+    
+    
+                                            <% if(questionsdata.catalog_questions_required==1){ %>
+                                                <style>
+                                                    .redBtn<%=i %> {
+                                                        border-left: 3px solid red;
                                                     }
-                                                });
-                                            </script>
-                                            <% } %>
-
-                                </div>
-                                <% } }) %>
+                                                </style>
+                                                <% } %>
+    
+                                    </div>
+                                
+                                <% } 
+                            }); %>
                                     <!-- <div class="txt">
                     <p id="text-to-copy">1.3</p>
                     <p id="guidedFields">End Customer Name</p>
@@ -354,7 +666,7 @@
                         </div>
                     </div>
 
-                    <% } }) %>
+                    <% } }); %>
                         <!-- END OF CUSTOMER DETAILS -->
                         <!-- START OF QUOTE DETAILS -->
                         <!-- <div class="navside">

@@ -1,0 +1,50 @@
+    
+    <% var sec_num = 1;
+    sections.forEach(async function(data, i){ %>
+        <script>
+
+        document.querySelector('[name="sectiontitle['+<%= i+1 %>+']"').value = "<%= data.catalog_section_title %>";
+        document.querySelector('#section_delete<%= i+1 %>').setAttribute('data-id',"<%= data.catalog_section_key %>");
+        // console.log("sec :: "+<%= i+1 %>)
+       </script>
+        
+        <% if(data.catalog_section_status == 1){%>
+        <script>
+
+            document.querySelector('[name="sectionhide['+<%= i+1 %>+']"').click()
+        </script>
+        <% } %>
+        <% var ques_num = 1;
+
+        await questions.forEach(async function(ques_data, j){ 
+           if(data.catalog_section_key==ques_data.catalog_section_key){ %>
+
+            
+            <script>
+
+            //    console.log("ques :: "+<%= i+1 %>+"."+<%= ques_num %>)
+
+               document.querySelector('[name="questionsname['+<%= i+1 %>+']['+<%= ques_num %>+']"').value = "<%= ques_data.catalog_questions_name %>";
+               document.querySelector('[name="questionstoggle['+<%= i+1 %>+']['+<%= ques_num %>+']"').value = "<%= ques_data.catalog_questions_toggle %>";
+
+            //    console.log(document.querySelector('.delete_question<%= i+1 %>_<%= ques_num %>'));
+               document.querySelector('.delete_question<%= i+1 %>_<%= ques_num %>').setAttribute('data-id',"<%= ques_data.catalog_section_key %>");
+               document.querySelector('.delete_question<%= i+1 %>_<%= ques_num %>').setAttribute('data-quesid',"<%= ques_data.catalog_questions_key %>");
+
+            </script>
+            <% if(ques_data.catalog_questions_required == 1){%>
+                <script>
+            
+                        document.querySelector('[name="questionsrequired['+<%= i+1 %>+']['+<%= ques_num %>+']"').click()
+                </script>
+            <% } %>
+
+
+        <%  ques_num = ques_num+1;
+            }
+        }) %>
+
+        
+
+    <% sec_num = sec_num+1;
+    }) %>

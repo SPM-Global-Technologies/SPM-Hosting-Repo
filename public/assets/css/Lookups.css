@@ -1,0 +1,230 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+.rowlookups {
+    display: flex;
+    padding-left: 66px;
+    padding-top: 64px;
+    background-color: white;
+  }
+  /* Left column (menu) */
+.leftlookups {
+    flex: 25%;
+    background-color: white;
+    border-right: 1px solid black;
+    /* border-left: 1px solid black; */
+    width: 20%;
+    height: 100%;
+  }
+  /* ----------------lookups plus icon-------------------- */
+.plusiconlookups {
+    padding: 15px;
+    margin-left: 40%;
+  }
+  
+  .plusiconlookups a {
+    color: #0f6b93;
+    text-decoration: none;
+  }
+  
+  /* ---------------------------- */
+  .dividelookups {
+    overflow-y: scroll;
+    height: 430px;
+  }
+/* ------------lookups section search box----------------- */
+.inboxlookups {
+    width: 100%;
+    height: 50px;
+    background-color: white;
+    display: flex;
+    border-radius: 0;
+    border-bottom: 1px solid black;
+    padding-top: 12px;
+    padding-left: 5px;
+  }
+  
+  .inboxlookups>i {
+    font-size: 20px;
+    color: #0f6b93;
+  }
+  
+  .inboxlookups input[type="text"] {
+    height: 20px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    font-weight: larger;
+    width: 98px;
+  }
+  
+  /* Style the navigation menu inside the left column */
+  #myMenulookups {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  #myMenulookups li a {
+    padding: 18px;
+    text-decoration: none;
+    color: black;
+    display: block;
+  }
+  
+  #myMenulookups li a:hover {
+    background-color: #045679;
+    color: white;
+    padding-left: 30px;
+  }
+  
+  /* -------------show more left section in lookups--------------- */
+  #morelookups {
+    display: none;
+  }
+  
+  #myBTNlookups {
+    border: none;
+    height: 40px;
+    width: 100%;
+  } 
+/* --------rightside lookups---------------- */
+
+  .rightlookups {
+    flex: 75%;
+    width:80%;
+    padding-left: 21.2%;
+    background-color: white;
+    padding-right:1px;
+
+  }
+
+  #headerlookups {
+    margin-top: 2px;
+    padding-top: 15px;
+    height: 50px;
+    width: 100%;
+    background: rgb(231, 231, 231);
+    text-align: center;
+    font-weight: bold;
+    color: rgb(9, 9, 9);
+    border: 1px solid rgb(83, 83, 83);
+    border-radius: 1px;
+  }
+  #classname label{
+    color: #216c98;
+    top: -20px;
+    left:46%;
+    font-size: small;
+    font-weight: bold;
+    font-size: 11px;
+    position: relative;
+   }
+   #classname input[type="text"]{
+    padding-left: 45%;
+    border: 0.1px solid rgb(218, 217, 217);
+    border-radius: 1px;
+    height: 60px;
+    width: 100%;
+    font-size: medium;
+    font-weight:lighter;
+    font-size: 17px;
+    outline-color: #216c98;   
+  }
+
+  #removeandadd {
+    margin-top: 1%;
+    margin-left: 43%;
+    height: 100px;
+  }
+  
+  #removelookups {
+    width: 70px;
+    padding: 6px;
+    color: maroon;
+    border-radius: 20px;
+    border-color: red;
+    font-size: 11px;
+  }
+  
+  #addlookups {
+    margin-left: 10px;
+    width: 60px;
+    padding: 6px;
+    color: rgb(34, 145, 164);
+    border-radius: 20px;
+    border-color: rgb(0, 109, 128);
+    font-size: 11px;
+  }
+  .lookupscontainer{
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1fr 1fr 1fr 0.2fr 0.2fr;
+    height: 30px; 
+    margin-left: 2px; 
+    border: 1px solid rgb(200, 200, 200);
+    text-align: center;
+  }
+  .lookupscontainer label{
+    margin-top: 10px;
+    color: #216c98;
+    font-size: small;
+    font-weight: bold;
+    font-size: 11px;
+    position: relative;
+    text-align: center;
+  }
+  /* --------creating lookups and add sections-------- */
+  #inputWrapper {
+    /* display: flex; */
+    /* flex-direction: column; */
+    width: 100%;
+}
+
+.inputSection {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1fr 1fr 1fr 0.2fr 0.2fr;
+    height: 30px;
+    margin-left: 2px;
+    border: 1px solid rgb(208, 207, 207);
+    border-top: none;
+}
+
+.inputSection input[type="text"] {
+    height: 28px;
+    width: 98%;
+    border-radius: 0%;
+    border: none;
+    outline-color: #216c98;
+}
+
+.inputSection i {
+    font-size: 15px;
+    color: #ff0000;
+    cursor: pointer;
+    margin-top: 8px;
+    margin-right: 16px;
+}
+
+.inputSection input[type="checkbox"] {
+    height: 15px;
+    width: 15px;
+    margin-left: 71px;
+    margin-top: 7px;
+}
+
+#checkmark {
+    font-size: 20px;
+    color: #069856;
+    cursor: pointer;
+    margin-top: 4px;
+    margin-right: 5px;
+}
+#toggleButton{
+    font-size: 15px;
+margin-left: 49%;
+margin-top: 4px;
+border: none;
+background-color: white;
+color: #216c98;
+}
