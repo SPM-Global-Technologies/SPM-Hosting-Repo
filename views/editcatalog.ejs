@@ -1,14 +1,41 @@
-<%- include('header') %>
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Design</title>
+    <link rel="stylesheet" href="<%= base_url %>css/Style.css">
+    <link rel="stylesheet" href="<%= base_url %>css/home.css">
+    <!-- <link rel="stylesheet" href="<%= base_url %>css/rightside.css"> -->
+   
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="<%= base_url %>css/Catalog.css">
     <link rel="stylesheet" href="<%= base_url %>css/CatalogQuestionAndRules.css">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body style="overflow: hidden;">
     <style>
         .rightsurvey {
             height: 600px;
             overflow-y: scroll;
         }
+        input{
+            border: none;
+            outline: none;
+        }
+        .dropdisplayblock{
+            display: block!important;
+        }
     </style>
+    <% if(flasherror){
+        if(flasherror.length > 0){%>
+        <script>
+            alert("<%= flasherror %>");
+        </script>
+    <% }} %>
     <div class="bread">
         <ul class="breadcrumbs">
             <li class="breadcrumbs--item">
@@ -112,9 +139,7 @@
 
                                 <% if(!catalog || catalog.length==0) { %>
                                     <li><a>No catalogs found</a></li>
-                                    <% } else { 
-                                        var num=0; 
-                                        catalog.forEach(function(data, i){ if(num==0){ num++;%>
+                                    <% } else { var num=0; catalog.forEach(function(data, i){ if(num==0){ num++;%>
                                         <li><a class="<% if(data.catalog_key == id){%> <%= 'active' %> <% } %>"
                                                 href="<%= base_url %>catalog/edit/<%= data.catalog_key %>">
                                                 <%= data.title %>
@@ -141,7 +166,7 @@
                         <li><a href="#">Accenture</a></li>
                         <li><a href="#">Accenture S.p.A</a></li>
                     </span> -->
-                            <button type="button" onclick="myFunctionSurvey()" id="myBTNsurvey">VIEW MORE</button>
+                            <button type="button" type="reset" onclick="myFunctionSurvey()" id="myBTNsurvey">VIEW MORE</button>
                         </ul>
                     </div>
                     <div class="plusiconsurvey" style="width: max-content;margin: auto;">
@@ -154,8 +179,9 @@
                 <div class="rightsurvey">
                     <div id="main">
                         <div class="submain">
-                            <button type="button" class="openbtnSurvey" onclick="openClose()" >
-                                <i class="fa-light fa-less-than" style="color: white; position: relative; left: -6px;"></i></button>
+                            <button type="button" class="openbtnSurvey" onclick="openClose()">
+                                <i class="fa-light fa-less-than"
+                                    style="color: white; position: relative; left: -6px;"></i></button>
                         </div>
                         <div class="surveyhead">
                             <div id="headersurvey">SURVEY TEMPLATE
@@ -172,11 +198,12 @@
                                     <select class="questionSelect">
                                         <% if(!lookupsdata && lookupsdata.length==0){ %>
                                             <option value="">No Lookups</option>
-                                        <% }else{ 
-                                            lookupsdata.forEach(function(data, i){ %> 
-                                                <option value="<%= data.lookups_accesskey %>"><%= data.class_name %></option>
-                                            <% }) %>
-                                        <% } %>
+                                            <% }else{ lookupsdata.forEach(function(data, i){ %>
+                                                <option value="<%= data.lookups_accesskey %>">
+                                                    <%= data.class_name %>
+                                                </option>
+                                                <% }) %>
+                                                    <% } %>
                                     </select>
                                 </template>
                                 <div id="contentS1">
@@ -207,16 +234,17 @@
                                             onclick="defaultShow()"></i><br>
                                         <label for="" id="configLabel" style="display: none;">CONFIG</label>
                                     </div>
-                                    <div class="bckbtn" id="bckbtn1" onclick="calcShow()" style="display: none;">
-                                        <button id="backk">BACK</button>
-                                        <i class="fa fa-chevron-left" id="backicon" aria-hidden="true"></i>
+                                    <div class="bckbtn" id="bckbtn1" style="display: none;">
+                                        <button  type="reset" id="backk">BACK</button>
+                                        <i class="fa fa-chevron-left" onclick="calcShow()" id="backicon"
+                                            aria-hidden="true"></i>
                                     </div>
                                 </div>
                                 <div id="containerSA">
                                     <div id="contentS2">
                                         <select name="category"
                                             onchange="editFunction('category',this.value,'<%= catalog_data.catalog_key %>')">
-                                            <option  value="<%= catalog_data.category %>">
+                                            <option value="<%= catalog_data.category %>">
                                                 <%= catalog_data.category %>
                                             </option>
                                             <option value="DBA">DBA</option>
@@ -260,7 +288,7 @@
                                     <div id="contentS6">
                                         <select name="update_type"
                                             onchange="editFunction('update_type',this.value,'<%= catalog_data.catalog_key %>')">
-                                            <option  value="<%= catalog_data.update_type %>" hidden>
+                                            <option value="<%= catalog_data.update_type %>" hidden>
                                                 <%= catalog_data.update_type %>
                                             </option>
                                             <option value="AUTOMATIC UPDATE">AUTOMATIC UPDATE</option>
@@ -285,11 +313,11 @@
                                 value="<%= sections.length %>" />
                             <input type="hidden" name="total_questions" id="total_questions"
                                 value="<%= questions.length %>" />
-                                <input type="hidden" id="lengthsection" value="<%= sections.length %>" />
+                            <input type="hidden" id="lengthsection" value="<%= sections.length %>" />
 
                             <div id="sections-container">
-                               
-                              <!--   <% sections.forEach(function(data, i){ %>
+
+                                <!--   <% sections.forEach(function(data, i){ %>
                                     <div class="section">
                                         <div class="sectionDiv">
                                             <input type="hidden" name="sectioncount[<%= data.catalog_section_number %>]"
@@ -381,12 +409,28 @@
                                                 <button class="addRule" type="button" id="addRule1">+ADD RULE</button>
                                     </div>
                                     <% }) %>-->
-                            </div> 
+                            </div>
 
                             <button type="button" id="add-section-btn">+ ADD SECTION</button>
-                        </div>
+                            
+                        <!-- </div> -->
 
                         <!-- SPREAD SHEET CODE STARTS FROM HERE -->
+                        <!-- <div id="calc-container" style="display: none;"> -->
+                            <!-- <iframe id="myfile" width="100%" height="400vh" frameborder="4" scrolling="no" -->
+                                <!-- src="https://onedrive.live.com/embed?resid=6C685993F809A9F8%212757&authkey=%21AABR6KgqMF_ImYs&em=2&wdAllowInteractivity=False&AllowTyping=True&wdDownloadButton=True&wdInConfigurator=True&wdInConfigurator=True&edesNext=true&ejss=false"></iframe> -->
+                            <!-- <div id="myExcelDiv" style="width: 402px; height: 346px;"></div> -->
+                            <!-- * This code uses the Microsoft Office Excel Javascript object model to programmatically insert the
+                                                         * Excel Web App into a div with id=myExcelDiv. The full API is documented at
+                                                         * https://msdn.microsoft.com/en-US/library/hh315812.aspx. There you can find out how to programmatically get
+                                                         * values from your Excel file and how to use the rest of the object model. -->
+                            <!-- <script type="text/javascript" -->
+                                <!-- src="https://onedrive.live.com/embed?resid=6C685993F809A9F8%212757&authkey=%21AABR6KgqMF_ImYs&em=3&wdDivId=%22myExcelDiv%22&wdDownloadButton=1&wdAllowInteractivity=0&wdAllowTyping=1" -->
+                                <!-- multiple onchange="updateList()"></script> -->
+                            <!-- <div id="myExcelDiv1" style="width: 100%; height: 400px"></div> -->
+                            <!-- <script type="text/javascript" src="https://onedrive.live.com/embed?resid=6C685993F809A9F8%212757&authkey=%21AABR6KgqMF_ImYs&em=3&wdDivId=%22myExcelDiv1%22&wdDownloadButton=1&wdAllowInteractivity=1&wdAllowTyping=1" async></script> -->
+                    
+                        <!-- </div> -->
 
 
 
@@ -396,21 +440,77 @@
                                 style="color:red;">DELETE SURVEY</button>
                         </div>
                         <!-- <div id="add-section-container">
-                        <button id="add-section" class="add-button">
-                            <label>ADD SECTION</label>
+                        <button id="add-section" onclick="submit()" class="add-button">
+                            <label>Submit</label>
                         </button>
                     </div> -->
                     </div>
                 </div>
             </div>
 
+            <!-- POPUP SCREEN FOR OVERWRITE -->
+    <div id="overwriteContainer">
+        <i class="fas fa-xmark" id="hidesec" style="float:right; margin-right: -5px; margin-top:-17px; color: #2698ca;"
+            onclick="closePopup()"></i>
+        <p style="color: #2698ca; margin-left: -20px;">SURVEY SEARCH</p><br>
+        <div>
+            <i class="fa fa-search" style="position: relative; left:-33px; color: #2698ca; top: -18px; z-index: 1; "
+                aria-hidden="true"></i>
+            <input type="text" id="mySearchpopupsurvey" onkeyup="myFunctionpopupSurvey1()"
+                title="type in a chategory" />
+        </div>
+        <p id="info">A survey overwrite will replace your current survey's rules, options, and calcsheet with the
+            selected survey</p>
+        <div id="surveyNameAndStatus">
+            <p style="color: #2698ca; margin-top: 10px;">Survey Name</p>
+            <p style="color: #2698ca;margin-top: 10px;">Survey Status</p>
+        </div>
+        <div id="surveyns">
+            <div id="surveyName">
+                <span id="dotspopupsurvey">
+                    <li><a href="#">Abbott Laboratories</a></li>
+                    <li><a href="#">ABC Company</a></li>
+                    <li><a href="#">ABSA Bank Limited</a></li>
+                    <li><a href="#">ACA Pacific Technology</a></li>
+                    <li><a href="#">Accenture</a></li>
+                    <li><a href="#">Accenture S.p.A</a></li>
+                    <li><a href="#">1040Tech LLC</a></li>
+                    <li><a href="#">ABB AG</a></li>
+                    <li><a href="#">Abbey National Group</a></li>
+                    <li><a href="#">Abbott</a></li>
+                </span>
+                <span id="morepopupsurvey">
+                    <li><a href="#">Accenture S.p.A</a></li>
+                    <li><a href="#">1040Tech LLC</a></li>
+                    <li><a href="#">ABB AG</a></li>
+                    <li><a href="#">Abbey National Group</a></li>
+                    <li><a href="#">Abbott</a></li>
+                    <li><a href="#">Abbott Laboratories</a></li>
+                    <li><a href="#">ABC Company</a></li>
+                    <li><a href="#">ABSA Bank Limited</a></li>
+                    <li><a href="#">ACA Pacific Technology</a></li>
+                    <li><a href="#">Accenture</a></li>
+                    <li><a href="#">Accenture S.p.A</a></li>
+                </span>
+                <button onclick="myFunctionpopupSurvey()" id="myBTNpopupsurvey">SHOW MORE</button>
+            </div>
+        </div>
+        <button id="overwrite" disabled>OVERWRITE</button>
+    </div>
+
+
+    
+
     </div>
     </form>
+
+
 
     </div>
     <div id="mySidebar" class="sidebar" style="padding-top: 0px;">
         <div class="navside">
-            <button class="dropdown-btn" id="sidetoggle">FILES<i class="fa fa-angle-down" style="color: black; font-size: 20px; float: right;"></i> </button>
+            <button class="dropdown-btn" id="sidetoggle">FILES<i class="fa fa-angle-down"
+                    style="color: black; font-size: 20px; float: right;"></i> </button>
             <div class="dropdown-container">
                 <ul id="file-list"></ul>
                 <div class="file-upload">
@@ -418,293 +518,315 @@
                     <label for="file-input" id="filePlus"><i class="fa fa-plus"></i></label>
                 </div>
             </div>
+        </div>
+        <div class="navside">
+            <button class="dropdown-btn" id="sidetoggle1">NOTES <i class="fa fa-angle-down"
+                    style="color: black; font-size: 20px; float: right;"></i> </button>
+            <div class="dropdown-container">
+                <form action=""><input type="text" name="new" id="send" placeholder="Type your Note" /><button
+                        id="sent1"><i class='fa fa-send-o blue-color' style="color: #045679;"></i></button>
+                </form>
             </div>
-            <div class="navside"> 
-                <button class="dropdown-btn" id="sidetoggle1">NOTES <i class="fa fa-angle-down"
-                        style="color: black; font-size: 20px; float: right;"></i> </button>
-                <div class="dropdown-container">
-                    <form action=""><input type="text" name="new" id="send" placeholder="Type your Note" /><button
-                            id="sent1"><i class='fa fa-send-o blue-color' style="color: #045679;"></i></button>
-                    </form>
+        </div>
+        <div class="navside">
+            <button class="dropdown-btn" id="sidetoggle3">TIMESTAMP <i class="fa fa-angle-down"
+                    style="color: black; font-size: 20px; float: right;"></i> </button>
+            <div class="side-container">
+                <hr id="lhr">
+                <span id="time">CREATED BY:</span><span id="time1">
+                    <%= user.first_name %>
+                </span><br>
+                <hr id="lhr">
+                <span id="time">CREATED:</span><span id="time1">
+                    <%= catalog_data.created_on %>
+                </span><br>
+                <hr id="lhr">
+                <span id="time">LAST MODIFIED BY:</span><span id="time1">
+                    <%= user.first_name %>
+                </span><br>
+                <hr id="lhr">
+                <span id="time">LAST MODIFIED</span><span id="time1">
+                    <%= catalog_data.modified_on %>
+                </span><br>
+                <hr id="lhr">
+                <span id="time">REVISION</span><span id="time1">${model}</span><br>
+            </div>
+        </div>
+        <div class="navside">
+            <button class="dropdown-btn" id="sidetoggle4">INTERNAL ID <i class="fa fa-angle-down"
+                    style="color: 1px solid black; font-size: 20px; float: right;"></i>
+            </button>
+            <div class="dropdown-container">
+                <div class="txt">
+                    <p id="text-to-copy">
+                        <a id="myId" style="font-size: 13px;" target="_blank">
+                            <%= catalog_data.catalog_key %>
+                        </a>
+                    </p>
                 </div>
-            </div>
-            <div class="navside">
-                <button class="dropdown-btn" id="sidetoggle3">TIMESTAMP <i class="fa fa-angle-down"
-                        style="color: black; font-size: 20px; float: right;"></i> </button>
-                <div class="side-container">
-                    <hr id="lhr">
-                    <span id="time">CREATED BY:</span><span id="time1"><%= user.first_name %></span><br>
-                    <hr id="lhr">
-                    <span id="time">CREATED:</span><span id="time1"><%= catalog_data.created_on %></span><br>
-                    <hr id="lhr">
-                    <span id="time">LAST MODIFIED BY:</span><span id="time1"><%= user.first_name %></span><br>
-                    <hr id="lhr">
-                    <span id="time">LAST MODIFIED</span><span id="time1"><%= catalog_data.modified_on %></span><br>
-                    <hr id="lhr">
-                    <span id="time">REVISION</span><span id="time1">${model}</span><br>
-                </div>
-            </div>
-            <div class="navside">
-                <button class="dropdown-btn" id="sidetoggle4">INTERNAL ID <i class="fa fa-angle-down"
-                        style="color: 1px solid black; font-size: 20px; float: right;"></i>
-                </button>
-                <div class="dropdown-container">
-                    <div class="txt">
-                        <p id="text-to-copy">
-                            <a id="myId" style="font-size: 13px;"
-                                target="_blank"><%= catalog_data.catalog_key %>
-                            </a>
-                        </p>
-                    </div>
-                    <div class="bnt">
-                        <button id="cpbtn" onclick="copyText()"><i class="fa fa-clone"
-                                style="font-size:15px; z-index: 2;"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="navside">
-                <button class="dropdown-btn" id="sidetoggle5">LINK
-                    <i class="fa fa-angle-down" style="color: black; font-size: 20px; float: right;"></i>
-                </button>
-                <div class="dropdown-container">
-                    <div class="txt">
-                        <p id="link-to-copy"><a href='<%= base_url+"catalog/edit/"+catalog_data.catalog_key %>' id="myLink" style="font-size: 13px;"
-                                target="_blank"><%= base_url+"catalog/edit/"+catalog_data.catalog_key %></a>
-                        </p>
-                    </div>
-                    <div class="bnt">
-                        <button id="linkbtn" onclick="copyLink()"><i class="fa fa-clone"
-                                style="font-size:15px; z-index: 2;"></i></button>
-                    </div>
+                <div class="bnt">
+                    <button id="cpbtn" onclick="copyText()"><i class="fa fa-clone"
+                            style="font-size:15px; z-index: 2;"></i>
+                    </button>
                 </div>
             </div>
         </div>
+        <div class="navside">
+            <button class="dropdown-btn" id="sidetoggle5">LINK
+                <i class="fa fa-angle-down" style="color: black; font-size: 20px; float: right;"></i>
+            </button>
+            <div class="dropdown-container">
+                <div class="txt">
+                    <p id="link-to-copy"><a href='<%= base_url+"catalog/edit/"+catalog_data.catalog_key %>' id="myLink"
+                            style="font-size: 13px;" target="_blank">
+                            <%= base_url+"catalog/edit/"+catalog_data.catalog_key %>
+                        </a>
+                    </p>
+                </div>
+                <div class="bnt">
+                    <button id="linkbtn" onclick="copyLink()"><i class="fa fa-clone"
+                            style="font-size:15px; z-index: 2;"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<% if(catalog_data.status == "PUBLISHED"){ %>
-    <script>
+    <% if(catalog_data.status=="PUBLISHED" ){ %>
+        <script>
             document.getElementById('deletesurvey').disabled = true;
 
-    </script>
+        </script>
 
-<% } %>
-<script>
-    function editFunction(name,val,id) {
-      var data = JSON.stringify({name:name, value: val, id:id});
-      if(name == 'status')
-      {
-        if(val == "PUBLISHED")
-        {
-            document.getElementById('deletesurvey').disabled = true;
-        }else{
-            document.getElementById('deletesurvey').disabled = false;
+        <% } %>
+            <script>
+                function editFunction(name, val, id) {
+                    var data = JSON.stringify({ name: name, value: val, id: id });
+                    if (name == 'status') {
+                        if (val == "PUBLISHED") {
+                            document.getElementById('deletesurvey').disabled = true;
+                        } else {
+                            document.getElementById('deletesurvey').disabled = false;
 
-        }
-      }
-      console.log(data)
-      fetch("<%= base_url %>api/updatecatalog", {
-          method: 'post',
-          body: data,
-          headers: {
-              'Content-Type': 'application/json'
-          }
-      }).then((response) => {
-            console.log(response)
-      }).then((res) => {
-          if (res.status === 201) {
-              console.log("Post successfully created!")
-          }
-      }).catch((error) => {
-          console.log(error)
-      })
-    }
-
-    document.querySelector("body").addEventListener("change", function() {
-        // submit();
-    })
-
-    </script>
-
-    <script src="<%= base_url %>js/SurveyShowMore.js"></script>
-    <script src="<%= base_url %>js/Surveyflex.js"></script>
-    <script src="<%= base_url %>js/sideBar.js"></script>
-    <script src="<%= base_url %>js/Navigation.js"></script>
-    <%- include('CatalogQuestionAndRulesEdit') %>
-    <%- include('CatalogQuestionsData') %>
-
-    <script>
-        
-    
-    
-    var delete_section = [];
-    let isDeleteIconHighlighted = false;
-    var delete_button_sec = document.querySelectorAll('.deletesection')
-    for(var i=0; i<delete_button_sec.length; i++){
-        delete_button_sec[i].addEventListener('click', function(e){
-          if (!isDeleteIconHighlighted) {
-              isDeleteIconHighlighted = true;
-
-          }else{
-            var data_id = e.target.parentNode.getAttribute("data-id");
-            if(data_id == null){
-                data_id = e.target.getAttribute("data-id");
-            }
-            delete_section.push(data_id)
-            isDeleteIconHighlighted = false;
-          }
-          console.log(delete_section)
-        })
-    }
-
-    var delete_questions = [];
-    let isDeleteIconHighlighted2 = false;
-    var delete_button_ques = document.querySelectorAll('#delbtn')
-    for(var i=0; i<delete_button_ques.length; i++){
-        delete_button_ques[i].addEventListener('click', function(e){
-          if (!isDeleteIconHighlighted2) {
-            isDeleteIconHighlighted2 = true;
-          }else{
-            var data_id = e.target.parentNode.getAttribute("data-id");
-            var data_quesid = e.target.parentNode.getAttribute("data-quesid");
-            if(data_id == null){
-                data_id = e.target.getAttribute("data-id");
-                data_quesid = e.target.getAttribute("data-quesid");
-
-            }
-            var new_arr = [];
-            new_arr.push(data_id);
-            new_arr.push(data_quesid);
-
-            delete_questions.push(new_arr);
-
-            isDeleteIconHighlighted2 = false;
-          }
-          console.log(delete_questions)
-
-        })
-    }
-
-    window.onbeforeunload = function(e) {
-        // (async ()=>{
-        var submit_data = submit();
-        // e = e || window.event;
-        console.log("++++++++++++++++++++++++++++++++++++++++++++++++"+submit_data)
-        if(submit_data){
-            // var s = "changes"
-            // event.returnValue = s;
-           return undefined;
-        }
-        
-    };
-
-    function submit()
-    {
-    // window.addEventListener("beforeunload", function(event) {
-        // console.log("sections :: "+document.querySelectorAll('#sections-container .section').length);
-        
-        var section_length = document.querySelectorAll('#sections-container .section').length;
-        let sec_count = [0,]; 
-        let sec_title = [0,]; 
-        let sec_hide = [0,]; 
-        let sec_key = [0,];
-
-        var questions_count = [[0,0]];
-        var questions_name = [[0,0]];
-        var questions_required = [[0,0]];
-        var questions_toggle = [[0,0]];
-
-        for(var s=1;s<=section_length;s++)
-        {
-          if(document.querySelector('[name="sectioncount['+s+']"') != null){  
-            // console.log(document.querySelector('[name="sectioncount['+s+']"').value);
-            sec_count.push(document.querySelector('[name="sectioncount['+s+']"').value);
-            sec_title.push(document.querySelector('[name="sectiontitle['+s+']"').value);
-            if(document.querySelector('[name="sectionhide['+s+']"').checked == true){
-                sec_hide.push(document.querySelector('[name="sectionhide['+s+']"').value);
-            }else{
-                sec_hide.push(undefined);
-            }
-            var sec_seckey = document.querySelector('[name="sectionkey['+s+']"');
-            console.log(document.querySelector('[name="sectionkey['+s+']"'))
-            if(sec_seckey != null){
-                sec_key.push(sec_seckey.value);
-            }else{
-                sec_key.push(0);
-            }
-
-
-            var question_length = document.querySelectorAll('#questionRule'+s+' .questions-container .question').length;
-            // s=s+1;
-            var quesarr_count = [0,];
-            var quesarr_name = [0,];
-            var quesarr_required = [0,];
-            var quesarr_toggle = [0,];
-
-            for(var q=1;q<=question_length;q++)
-            {
-                // console.log(s+"+"+q)
-              if(document.querySelector('[name="questionscount['+s+']['+q+']"') != null){
-                // console.log(document.querySelector('[name="questionscount['+s+']['+q+']"').value);
-                quesarr_count.push(document.querySelector('[name="questionscount['+s+']['+q+']"').value);
-                quesarr_name.push(document.querySelector('[name="questionsname['+s+']['+q+']"').value);
-                if(document.querySelector('[name="questionsrequired['+s+']['+q+']"').checked == true){
-                    quesarr_required.push(document.querySelector('[name="questionsrequired['+s+']['+q+']"').value);
-                }else{
-                    quesarr_required.push(undefined);
+                        }
+                    }
+                    console.log(data)
+                    fetch("<%= base_url %>api/updatecatalog", {
+                        method: 'post',
+                        body: data,
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }).then((response) => {
+                        console.log(response)
+                    }).then((res) => {
+                        if (res.status === 201) {
+                            console.log("Post successfully created!")
+                        }
+                    }).catch((error) => {
+                        console.log(error)
+                    })
                 }
-                quesarr_toggle.push(document.querySelector('[name="questionstoggle['+s+']['+q+']"').value);
-              }
 
-            }
-            questions_count.push(quesarr_count);
-            questions_name.push(quesarr_name);
-            questions_required.push(quesarr_required);
-            questions_toggle.push(quesarr_toggle);
-          }
-            // s=s-1;
-        }
-        
-        
-        var data_sec = JSON.stringify({
-            sectioncount:sec_count,
-            sectiontitle:sec_title,
-            sectionhide:sec_hide,
-            sectionkey:sec_key,
-            questionscount:questions_count,
-            questionsname:questions_name,
-            questionsrequired:questions_required,
-            questionstoggle:questions_toggle,
-            delete_section:delete_section,
-            delete_questions:delete_questions,
-        })
-        return new Promise((resolve, reject) => {
-          fetch("<%= base_url %>api/autoUpdateCatalog/<%= catalog_data.catalog_key %>", {
-            method: 'post',
-            body: data_sec,
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          }).then((response) => {
-            console.log(response)
-            // return resolve(true);
-          }).then((res) => {
-            if (res.status === 201) {
-              console.log("Post successfully created!")
-            }
-            return resolve(true);
-          }).catch((error) => {
-             console.log(error)
-             return resolve(false);
+                document.querySelector("body").addEventListener("change", function () {
+                    // submit();
+                })
 
-           })
-        })
-        // console.log(data_sec)
-        //    return false;
+            </script>
 
-    // })
-    }
-    </script>
-    <!-- <script src="<%= base_url %>js/CatalogQuestionAndRulesEdit.js"></script> -->
-    </body>
+<script src="<%= base_url %>js/SurveyShowMore.js"></script>
+<script src="<%= base_url %>js/Surveyflex.js"></script>
+<script src="<%= base_url %>js/sideBar.js"></script>
+<script src="<%= base_url %>js/Navigation.js"></script>
+            <%- include('CatalogQuestionAndRulesEdit') %>
+                <%- include('CatalogQuestionsData') %>
 
-    </html>
+                    <script>
+
+
+
+                        var delete_section = [];
+                        let isDeleteIconHighlighted = false;
+                        var delete_button_sec = document.querySelectorAll('.deletesection')
+                        for (var i = 0; i < delete_button_sec.length; i++) {
+                            delete_button_sec[i].addEventListener('click', function (e) {
+                                if (!isDeleteIconHighlighted) {
+                                    isDeleteIconHighlighted = true;
+
+                                } else {
+                                    var data_id = e.target.parentNode.getAttribute("data-id");
+                                    if (data_id == null) {
+                                        data_id = e.target.getAttribute("data-id");
+                                    }
+                                    delete_section.push(data_id)
+                                    isDeleteIconHighlighted = false;
+                                }
+                                console.log(delete_section)
+                            })
+                        }
+
+                        var delete_questions = [];
+                        let isDeleteIconHighlighted2 = false;
+                        var delete_button_ques = document.querySelectorAll('#delbtn')
+                        for (var i = 0; i < delete_button_ques.length; i++) {
+                            delete_button_ques[i].addEventListener('click', function (e) {
+                                if (!isDeleteIconHighlighted2) {
+                                    isDeleteIconHighlighted2 = true;
+                                } else {
+                                    var data_id = e.target.parentNode.getAttribute("data-id");
+                                    var data_quesid = e.target.parentNode.getAttribute("data-quesid");
+                                    if (data_id == null) {
+                                        data_id = e.target.getAttribute("data-id");
+                                        data_quesid = e.target.getAttribute("data-quesid");
+
+                                    }
+                                    var new_arr = [];
+                                    new_arr.push(data_id);
+                                    new_arr.push(data_quesid);
+
+                                    delete_questions.push(new_arr);
+
+                                    isDeleteIconHighlighted2 = false;
+                                }
+                                console.log(delete_questions)
+
+                            })
+                        }
+
+                        window.onbeforeunload = function (e) {
+                            // (async ()=>{
+                                e.preventDefault();
+                            var submit_data = submit();
+                            // e = e || window.event;
+                            console.log("++++++++++++++++++++++++++++++++++++++++++++++++" + submit_data)
+                            if (submit_data) {
+                                // var s = "changes"
+                                // event.returnValue = s;
+                                return undefined;
+                            }
+
+                        };
+
+                        async function submit() {
+                            // window.addEventListener("beforeunload", function(event) {
+                            // console.log("sections :: "+document.querySelectorAll('#sections-container .section').length);
+
+                            var section_length = document.querySelectorAll('#sections-container .section').length;
+                            let sec_count = [0,];
+                            let sec_title = [0,];
+                            let sec_hide = [0,];
+                            let sec_key = [0,];
+
+                            var questions_count = [[0, 0]];
+                            var questions_name = [[0, 0]];
+                            var questions_required = [[0, 0]];
+                            var questions_toggle = [[0, 0]];
+
+                            for (var s = 1; s <= section_length; s++) {
+                                if (document.querySelector('[name="sectioncount[' + s + ']"') != null) {
+                                    // console.log(document.querySelector('[name="sectioncount['+s+']"').value);
+                                    sec_count.push(document.querySelector('[name="sectioncount[' + s + ']"').value);
+                                    sec_title.push(document.querySelector('[name="sectiontitle[' + s + ']"').value);
+                                    if (document.querySelector('[name="sectionhide[' + s + ']"').checked == true) {
+                                        sec_hide.push(document.querySelector('[name="sectionhide[' + s + ']"').value);
+                                    } else {
+                                        sec_hide.push(undefined);
+                                    }
+                                    var sec_seckey = document.querySelector('[name="sectionkey[' + s + ']"');
+                                    console.log(document.querySelector('[name="sectionkey[' + s + ']"'))
+                                    if (sec_seckey != null) {
+                                        sec_key.push(sec_seckey.value);
+                                    } else {
+                                        sec_key.push(0);
+                                    }
+
+
+                                    var question_length = document.querySelectorAll('#questionRule' + s + ' .questions-container .question').length;
+                                    // s=s+1;
+                                    var quesarr_count = [0,];
+                                    var quesarr_name = [0,];
+                                    var quesarr_required = [0,];
+                                    var quesarr_toggle = [0,];
+
+                                    for (var q = 1; q <= question_length; q++) {
+                                        // console.log(s+"+"+q)
+                                        if (document.querySelector('[name="questionscount[' + s + '][' + q + ']"') != null) {
+                                            // console.log(document.querySelector('[name="questionscount['+s+']['+q+']"').value);
+                                            quesarr_count.push(document.querySelector('[name="questionscount[' + s + '][' + q + ']"').value);
+                                            quesarr_name.push(document.querySelector('[name="questionsname[' + s + '][' + q + ']"').value);
+                                            if (document.querySelector('[name="questionsrequired[' + s + '][' + q + ']"').checked == true) {
+                                                quesarr_required.push(document.querySelector('[name="questionsrequired[' + s + '][' + q + ']"').value);
+                                            } else {
+                                                quesarr_required.push(undefined);
+                                            }
+                                            quesarr_toggle.push(document.querySelector('[name="questionstoggle[' + s + '][' + q + ']"').value);
+                                        }
+
+                                    }
+                                    questions_count.push(quesarr_count);
+                                    questions_name.push(quesarr_name);
+                                    questions_required.push(quesarr_required);
+                                    questions_toggle.push(quesarr_toggle);
+                                }
+                                // s=s-1;
+                            }
+
+
+                            var data_sec = JSON.stringify({
+                                sectioncount: sec_count,
+                                sectiontitle: sec_title,
+                                sectionhide: sec_hide,
+                                sectionkey: sec_key,
+                                questionscount: questions_count,
+                                questionsname: questions_name,
+                                questionsrequired: questions_required,
+                                questionstoggle: questions_toggle,
+                                delete_section: delete_section,
+                                delete_questions: delete_questions,
+                            })
+
+                            // const request = new XMLHttpRequest();
+                            // // open(method, url, async)
+                            // request.open('POST', '<%= base_url %>api/autoUpdateCatalog/<%= catalog_data.catalog_key %>', true);
+                            // request.setRequestHeader('Content-type', 'application/json')
+                            // request.send(data_sec);
+                            // request.onload = function() {
+                            //     // Do whatever with response
+                            //     alert(http.responseText)
+                            // }
+                            var blob= new Blob([data_sec], {type : 'application/json; charset=UTF-8'}); // the blob
+                            await navigator.sendBeacon('<%= base_url %>api/autoUpdateCatalog/<%= catalog_data.catalog_key %>',blob);
+                            window.location.replace('<%= base_url %>catalog');
+                            // return new Promise((resolve, reject) => {
+                            //     fetch("<%= base_url %>api/autoUpdateCatalog/<%= catalog_data.catalog_key %>", {
+                            //         method: 'post',
+                            //         body: data_sec,
+                            //         headers: {
+                            //             'Content-Type': 'application/json'
+                            //         }
+                            //     }).then((response) => {
+                            //         console.log(response)
+                            //         // return resolve(true);
+                            //     }).then((res) => {
+                            //         if (res.status === 201) {
+                            //             console.log("Post successfully created!")
+                            //         }
+                            //         return resolve(true);
+                            //     }).catch((error) => {
+                            //         console.log(error)
+                            //         return resolve(false);
+
+                            //     })
+                            // })
+                            
+                            
+                            
+                            // console.log(data_sec)
+                            //    return false;
+
+                            // })
+                        }
+                    </script>
+                    <!-- <script src="<%= base_url %>js/CatalogQuestionAndRulesEdit.js"></script> -->
+                    </body>
+
+                    </html>

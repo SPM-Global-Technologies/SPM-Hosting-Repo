@@ -221,18 +221,33 @@
             </div>
             <div class="rightlookups">
                 <div id="LookupsShow">
+                    <div id="lookupsradio">
+                        <input type="radio" id="all" name="a" value="" >
+                        <label for="all">ALL</label>
+                        <input type="radio" id="enabled" name="a" value="" >
+                        <label for="enabled">ENABLED</label>
+                        <input type="radio" id="disabled" name="a" value="" >
+                        <label for="disabled">DISABLED</label>
+                       </div>
                     <div id="headerlookups"><a>LOOKUPS</a></div>
                     <!-- -------------creating lookups------------ -->
                    
                     <div id="classname">
                         <input type="text" name="class_name" id="class_name" />
                         <label>CLASS NAME</label>
+                        
                     </div>
                     <div id="removeandadd" style="display:block">
                         <button id="removelookups" type="reset" style="color:red;">CANCEL</button>
                         <button id="addlookups" type="submit" style="color:rgb(0, 79, 128);" onclick="addLookups()">ADD</button>
                     </div>
-                
+                    <div id="parentlookupc">
+                        <select id="parentlk">
+                            <option selected disabled></option>
+                            <option></option>
+                        </select>
+                        <label>PARENT LOOKUP</label>
+                        </div>
                 </div>
                 <div id="add-lookup" style="display: none;">
                         <div class="lookupscontainer">
@@ -248,7 +263,10 @@
                             <div id="contentL4">
                                 <label>VALUE2</label>
                             </div>
-                            <div id="contentL4">
+                            <div id="contentL5">
+                                <label>PARENT LOOKUP</label>
+                            </div>
+                            <div id="contentL6">
                                 <label>DISABLE</label>
                             </div>
                         </div>
@@ -262,6 +280,10 @@
                             <input type="text" >
                             <input type="text" >
                             <input type="text" >
+                            <select name="parentlookup" id="parentlook">
+                                <option selected></option>
+                                <option value="1">Hotels</option>
+                            </select>
                             <input type="checkbox">
                             <i class="fa-solid fa-xmark"></i>
                             <i id="checkmark" class="uit uit-check"></i>

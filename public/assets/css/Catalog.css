@@ -130,6 +130,9 @@
   float: right;
   margin-right: 20px;
 }
+.approvesurvey1:hover{
+  background-color: #016894;
+}
 
 .approvesurvey2 {
   padding: 6px;
@@ -143,6 +146,9 @@
   float: right;
   margin-right: 10px;
 }
+.approvesurvey2:hover{
+  background-color: #016894;
+}
 
 .containersurvey {
   height: 59px;
@@ -152,7 +158,6 @@
   z-index: -1;
   position: absolute;
 }
-
 #contentS1 {
   height: 59px;
   width: 100%;
@@ -587,12 +592,6 @@
   border-radius: 20px;
   border-color: red;
   font-size: 11px;
-  cursor: pointer;
-}
-
-#deletesurvey:disabled{
-  cursor: not-allowed;
-  opacity: 0.2;
 }
 
 /* New css Of Side-bar With Transition */
@@ -679,6 +678,11 @@
   padding-left: 120px;
 }
 
+/* #fileList {
+  font-size: 13px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  list-style: none;
+} */
 
 /* file upload in rightside bar */
 
@@ -713,6 +717,7 @@
 }
 
 #filePlus {
+  /* margin-top: 200px; */
   display: flex;
   flex-direction: column;
   font-size: 15px;
@@ -736,6 +741,10 @@
 }
 
 /* end of files upload files sidebar */
+.side-container {
+  margin-bottom: 3px;
+  display: none;
+}
 
 #time {
   font-size: 9px;
@@ -822,7 +831,7 @@
   height: 100%;
   width: 0;
   position: fixed;
-  z-index: 2;
+  z-index: 1;
   top: 69px;
   right: 0;
   overflow-x: hidden;
@@ -846,15 +855,13 @@
   opacity: 0.5;
   color: white;
   padding: 5px 7px;
-  border-top-left-radius: 6px;
-  border-bottom-left-radius: 6px;
+  border-radius: 7px;
   border: none;
   float: right;
   z-index: 1;
   position: relative;
-  height: 67px;
+  height: 80px;
   top: 270px;
-  width: 15px;
 }
 
 .openbtn:hover {
@@ -961,8 +968,6 @@
   border: 1px solid #216c98;
   height: 75vh;
   width: 50vw;
-  /* margin-left: 475px; */
-  /* padding-left: 55px; */
   text-align: -webkit-center;
   padding-top: 30px;
 
@@ -1048,7 +1053,7 @@
 }
 
 #overwrite[disabled] {
-  opacity: 0.5;
+  opacity: 0.3;
   cursor: not-allowed;
 }
 

@@ -70,7 +70,7 @@ module.exports = {
     getLookups_guided: async function(user){
         
         return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM lookups where user_id = '+user.user_id+' AND lookups_status=0' , (error, results)=> {
+            db.query('SELECT * FROM lookups where user_id = '+user.user_id , (error, results)=> {
                 //console.log('SELECT * FROM catalog_section WHERE user_id='+user_id+' and catalog_key="'+catalog_key+'"')
                 if (error) {
                     throw error;
@@ -84,7 +84,7 @@ module.exports = {
     get_lookups_data: async function(user){
         
         return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM lookups_data where user_id = '+user.user_id+' AND disable=0 ORDER BY `value1` ASC' , (error, results)=> {
+            db.query('SELECT * FROM lookups_data where user_id = '+user.user_id+' AND disable=1 ORDER BY `value1` ASC' , (error, results)=> {
                 //console.log('SELECT * FROM catalog_section WHERE user_id='+user_id+' and catalog_key="'+catalog_key+'"')
                 if (error) {
                     throw error;
@@ -121,6 +121,8 @@ module.exports = {
             var value2 = req.body.value2;
             var disable = req.body.disable;
             var value2 = req.body.value2;
+            var parent_lookups_data = req.body.parentlookup;
+            console.log(parent_lookups_data)
           
 
             var d = Date();
@@ -132,7 +134,7 @@ module.exports = {
 
             if(access_key_id == ""){
 
-                db.query('INSERT INTO lookups_data SET ?', {user_id:user_id, lookups_data_accesskey:access_key, lookups_accesskey:lookups_accesskey, lookups_name:lookups, code:code, value1:value1, value2:value2, disable:disable},(error, result)=>{
+                var c = db.query('INSERT INTO lookups_data SET ?', {user_id:user_id, lookups_data_accesskey:access_key, lookups_accesskey:lookups_accesskey, lookups_name:lookups, code:code, value1:value1, value2:value2, disable:disable, parent_lookups_data:parent_lookups_data},(error, result)=>{
                     if(error){
                         return res.json({status: "error"});
                         
@@ -146,7 +148,7 @@ module.exports = {
                 })
             }else{
 
-                db.query('UPDATE `lookups_data` SET lookups_name="'+lookups+'", code="'+code+'", value1="'+value1+'", value2="'+value2+'", disable='+disable+' WHERE user_id='+user_id+' AND lookups_data_accesskey="'+access_key_id+'" AND lookups_accesskey="'+lookups_accesskey+'"',(error, result)=>{
+                db.query('UPDATE `lookups_data` SET lookups_name="'+lookups+'", code="'+code+'", value1="'+value1+'", value2="'+value2+'", disable='+disable+', parent_lookups_data="'+parent_lookups_data+'" WHERE user_id='+user_id+' AND lookups_data_accesskey="'+access_key_id+'" AND lookups_accesskey="'+lookups_accesskey+'"',(error, result)=>{
                     if(error){
                         return res.json({status: "error"});
                         
@@ -213,12 +215,43 @@ module.exports = {
             var lookups_accesskey = req.body.lookups_accesskey;
             var disable = req.body.disable;
 
-            db.query('UPDATE `lookups` SET lookups_status="'+disable+'" WHERE user_id='+user_id+' AND lookups_accesskey="'+lookups_accesskey+'"' , (error, results)=> {
+            if(req.body.parentlookups_accesskey){
+                var parent_lookups_key = req.body.parentlookups_accesskey;
+                db.query('UPDATE `lookups` SET lookups_status="'+disable+'", parent_lookups_key="'+parent_lookups_key+'" WHERE user_id='+user_id+' AND lookups_accesskey="'+lookups_accesskey+'"' , (error, results)=> {
+                    //console.log('SELECT * FROM catalog_section WHERE user_id='+user_id+' and catalog_key="'+catalog_key+'"')
+                    if (error) {
+                        return res.json({status: "error"});
+                    }
+                    return res.json({status: "success"});
+        
+                })
+
+            }else{
+              db.query('UPDATE `lookups` SET lookups_status="'+disable+'" WHERE user_id='+user_id+' AND lookups_accesskey="'+lookups_accesskey+'"' , (error, results)=> {
                 //console.log('SELECT * FROM catalog_section WHERE user_id='+user_id+' and catalog_key="'+catalog_key+'"')
                 if (error) {
                     return res.json({status: "error"});
                 }
                 return res.json({status: "success"});
+    
+              })
+            }
+        }
+    },
+
+    getParentLookupsData: function (req, res){
+        //var users = user.get();
+        if(req.user){
+            console.log(req.body)
+            var user_id = req.user.user_id;
+            var lookups_accesskey = req.body.lookups_accesskey;
+            
+            db.query('select lookups_data_accesskey as data_accesskey, code as code from `lookups_data` WHERE user_id='+user_id+' AND lookups_accesskey="'+lookups_accesskey+'"' , (error, results)=> {
+                //console.log('SELECT * FROM catalog_section WHERE user_id='+user_id+' and catalog_key="'+catalog_key+'"')
+                if (error) {
+                    return res.json({status: "error"});
+                }
+                return res.json({status: "success", results:results});
     
             })
         }

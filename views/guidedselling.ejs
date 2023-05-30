@@ -174,10 +174,10 @@
                                 if(data.catalog_section_key==questionsdata.catalog_section_key){ 
                                     const ques_num=questionsdata.catalog_questions_num.split(".");%>
                                     <div class="txt">
-                                        <p id="text-to-copy">
+                                        <p id="text-to-copy" class="textToCopy<%= i %>">
                                             <%= data.catalog_section_number %>.<%= ques_num[1] %>
                                         </p>
-                                        <p id="guidedFields">
+                                        <p id="guidedFields" class="guidedFields<%= i %>">
                                             <%= questionsdata.catalog_questions_name %>
                                         </p>
 
@@ -190,25 +190,30 @@
                                         <script>
                                             var selectList = document.createElement("select")
                                             selectList.id = "mySelect"
+                                            selectList.innerHTML = `<option hidden></option>`;
                                         </script>
                                          <% lookupsdata.forEach(function(looks, looks_j){ 
                                             if(looks.class_name == toogle_questions)
                                             {
                                                 lookupsdata_data.forEach(function(looksdata, looks_k){
+
                                                     if(looks.lookups_accesskey == looksdata.lookups_accesskey)
                                                     { 
+                                                      
                                                         if(options == null){
-                                                            options = '<options value="'+looksdata.lookups_name+'">'+looksdata.lookups_name+'</options>';
+                                                           options = '<options value="'+looksdata.lookups_name+'">'+looksdata.lookups_name+'</options>';
                                                         }else{
-                                                            options += '<options value="'+looksdata.lookups_name+'">'+looksdata.lookups_name+'</options>';
-                                                        }%>
+                                                           options += '<options value="'+looksdata.lookups_name+'">'+looksdata.lookups_name+'</options>';
+                                                        } %>
+                                                      
+                                                      
                                                         <script>
                                                             var option = document.createElement("option");
                                                             option.value = "<%= looksdata.lookups_name %>";
                                                             option.text = "<%= looksdata.lookups_name %>";
                                                             selectList.appendChild(option)
                                                         </script>
-                                                        
+                                                      
                                                     <% }
 
                                                 })
@@ -343,7 +348,20 @@
                                                         <% }); %>
                                                     </ul>     
                                                 </div>    
-                                            </div>     
+                                            </div>   
+
+                                            <% }else if(questionsdata.catalog_questions_toggle == "USER MESSAGE"){ %>
+                                               <input type="text" readonly class="billing_customer_name" hidden/>
+                                               <style>
+                                                 .textToCopy<%= i %>{
+                                                opacity: 0;
+                                                 }
+                                                 .guidedFields<%= i %>{
+                                                color: red;
+                                                justify-self: center;
+                                                 }
+                                               </style>
+                                    
                                         <% }else if(questionsdata.catalog_questions_toggle == "LANGUAGES"){ %>
                                             <div class="custom-dropdown">
                                                 <div class="dropdown-header">

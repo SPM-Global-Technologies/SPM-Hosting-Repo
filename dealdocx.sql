@@ -26,28 +26,28 @@ SET time_zone = "+00:00";
 -- Table structure for table `accounts`
 --
 
-CREATE TABLE `accounts` (
-  `account_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `accounts` varchar(255) DEFAULT NULL,
-  `owner` varchar(255) DEFAULT NULL,
-  `parent_account` varchar(255) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `region` varchar(255) DEFAULT NULL,
-  `industry` varchar(255) DEFAULT NULL,
-  `vertical` varchar(255) DEFAULT NULL,
-  `type` varchar(255) DEFAULT NULL,
-  `created_on` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified_on` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+-- CREATE TABLE `accounts` (
+--   `account_id` int(11) NOT NULL,
+--   `user_id` int(11) NOT NULL,
+--   `accounts` varchar(255) DEFAULT NULL,
+--   `owner` varchar(255) DEFAULT NULL,
+--   `parent_account` varchar(255) DEFAULT NULL,
+--   `description` varchar(255) DEFAULT NULL,
+--   `region` varchar(255) DEFAULT NULL,
+--   `industry` varchar(255) DEFAULT NULL,
+--   `vertical` varchar(255) DEFAULT NULL,
+--   `type` varchar(255) DEFAULT NULL,
+--   `created_on` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+--   `modified_on` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+-- ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `accounts`
 --
 
-INSERT INTO `accounts` (`account_id`, `user_id`, `accounts`, `owner`, `parent_account`, `description`, `region`, `industry`, `vertical`, `type`, `created_on`, `modified_on`) VALUES
-(1, 1, 'hii', '', '', '', NULL, NULL, NULL, NULL, '2023-02-20 08:29:00', '2023-02-20 08:29:00'),
-(2, 1, 'hii', '', '', '', NULL, NULL, NULL, NULL, '2023-02-20 08:29:51', '2023-02-20 08:29:51');
+-- INSERT INTO `accounts` (`account_id`, `user_id`, `accounts`, `owner`, `parent_account`, `description`, `region`, `industry`, `vertical`, `type`, `created_on`, `modified_on`) VALUES
+-- (1, 1, 'hii', '', '', '', NULL, NULL, NULL, NULL, '2023-02-20 08:29:00', '2023-02-20 08:29:00'),
+-- (2, 1, 'hii', '', '', '', NULL, NULL, NULL, NULL, '2023-02-20 08:29:51', '2023-02-20 08:29:51');
 
 -- --------------------------------------------------------
 

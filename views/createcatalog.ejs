@@ -1,14 +1,37 @@
-<%- include('header') %>
-<link rel="stylesheet" href="<%= base_url %>css/Catalog.css">
-<link rel="stylesheet" href="<%= base_url %>css/CatalogQuestionAndRules.css">
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Design</title>
+    <link rel="stylesheet" href="<%= base_url %>css/Style.css">
+    <link rel="stylesheet" href="<%= base_url %>css/home.css">
+    <!-- <link rel="stylesheet" href="<%= base_url %>css/rightside.css"> -->
+   
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<%= base_url %>css/Catalog.css">
+    <link rel="stylesheet" href="<%= base_url %>css/CatalogQuestionAndRules.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body style="overflow: hidden;">
 <style>
     .rightsurvey {
     height: 600px;
     overflow-y: scroll;
 }
+.dropdisplayblock{
+            display: block!important;
+        }
 </style>
-
+<% if(flasherror){
+    if(flasherror.length > 0){%>
+    <script>
+        alert("<%= flasherror %>");
+    </script>
+<% }} %>
 <div class="bread">
     <ul class="breadcrumbs">
         <li class="breadcrumbs--item">
@@ -148,12 +171,12 @@
             </div>
         </div>
         <div class="rightsurvey">
-            <form method="post" action="<%= base_url %>api/createcatalog">
+            <form method="post" id="catalogForm" action="<%= base_url %>api/createcatalog">
 
             <div id="main">
 
                 <div class="submain">
-                    <button class="openbtnSurvey" onclick="openNav()" onmouseover="closeNav()">
+                    <button class="openbtnSurvey" type="reset" onclick="openNav()" onmouseover="closeNav()">
                         <i class="fa-light fa-less-than" style="color: white;"></i></button>
                 </div>
                 <div class="surveyhead">
@@ -169,6 +192,7 @@
                         <template id="inputSectionTemplate">
                             <select class="questionSelect">
                                 <option value="TOGGLE">TOGGLE</option>
+                                <option value="childLookup">Child lookup</option>
                                 <option value="YES/NO">YES/NO</option>
                                 <option value="Date">Date</option>
                                 <option value="HI/MED/LO/NO">HI/MED/LO/NO</option>
@@ -185,7 +209,8 @@
                                 <option value="TEXT">TEXT</option>
                               <option value="MULTI LINE TEXT">MULTI LINE TEXT</option>
                               <option value="MONTHS">MONTHS</option>
-                              <option value="COUNTRIES">COUNTRIES</option>
+                              <option value="COUNTRIES">COUNTRIES</option>USER MESSAGE
+                              <option value="USER MESSAGE">USER MESSAGE</option>
                                 <% if(!lookupsdata && lookupsdata.length==0){ %>
                                    <option value="">No Lookups</option>
                                 <% }else{ 
@@ -222,7 +247,7 @@
                                 <label for="" id="configLabel" style="display: none;">CONFIG</label>
                             </div>
                             <!--  -->
-                            <div class="bckbtn" id="bckbtn1" onclick="calcShow()" style="display: none;">
+                            <div class="bckbtn" type="reset" id="bckbtn1" onclick="calcShow()" style="display: none;">
                                 <button id="backk">BACK</button>
                                 <i class="fa fa-chevron-left" id="backicon" aria-hidden="true"></i>
                             </div>
@@ -277,7 +302,7 @@
 
                 <div id="main-section">
                     <div id="sections-container"></div>
-                    <button id="add-section-btn" type="button">+ ADD SECTION</button>
+                    <button type="reset" id="add-section-btn" type="button">+ ADD SECTION</button>
                 </div>
                 <!-- SPREAD SHEET CODE STARTS FROM HERE -->
 
@@ -287,7 +312,7 @@
 
                 <div class="saveandcancel">
                     <button id="reset1" type="reset" style="color:red;">CANCEL</button>
-                    <button id="save1" type="submit" style="color:green;cursor: pointer;">SAVE</button>
+                    <!-- <button id="save1" type="submit" style="color:green;cursor: pointer;">SAVE</button> -->
                 </div>
             </div>
             </form>
@@ -352,11 +377,49 @@
         </div>
     </div>
 </div>
+<script>
+    window.onbeforeunload = function (e) {
+        e.preventDefault();
+        // console.log(true)
+        // document.getElementById("catalogForm").submit();
+        var formcatalogElement = document.querySelector("#catalogForm");
+        // var formData = JSON.stringify(Object.fromEntries(new FormData(formcatalogElement).entries()));
+        // console.log(formData)
+        // var blob= new Blob([formData], {type : 'application/json; charset=UTF-8'}); // the blob
+        var formData = new URLSearchParams(new FormData(formcatalogElement));
+
+        navigator.sendBeacon('<%= base_url %>api/createcatalog',formData);
+
+        return undefined;
+    }
+
+    // var saveBeforeUnload = false;
+    // setInterval(function() {
+    //     console.log(saveBeforeUnload)
+    //     if (saveBeforeUnload) {
+    //         saveBeforeUnload = false;
+    //         document.getElementById("catalogForm").submit();
+    //     }
+    // }, 500);
+
+    // window.onbeforeunload = function() {
+    //     console.log(true)
+
+    //     if (saveBeforeUnload == false) {
+    //         saveBeforeUnload = true;
+    //         return undefined;
+    //     }
+    // };
+
+</script>
 <script src="<%= base_url %>js/SurveyShowMore.js"></script>
 <script src="<%= base_url %>js/Surveyflex.js"></script>
 <script src="<%= base_url %>js/sideBar.js"></script>
 <script src="<%= base_url %>js/Navigation.js"></script>
 <script src="<%= base_url %>js/CatalogQuestionAndRules.js"></script>
+<script src="<%= base_url %>js/surveypopupshowmore.js"></script>
+
+
 </body>
 
 </html>

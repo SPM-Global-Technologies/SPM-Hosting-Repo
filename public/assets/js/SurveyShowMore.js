@@ -16,6 +16,15 @@ function myFunctionSurvey() {
 }
 
 
+function openNav() {
+    document.getElementById("mySidebar").style.width = "250px";
+    document.getElementById("main").style.marginRight = "250px";
+}
+function closeNav() {
+    document.getElementById("mySidebar").style.width = "0";
+    document.getElementById("main").style.marginRight = "0";
+}
+
 // <!-- js for dropdown -->
 /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
 var dropdown = document.getElementsByClassName("dropdown-btn");
@@ -33,18 +42,7 @@ for (i = 0; i < dropdown.length; i++) {
     });
 }
 
-function openClose(){
-    var sidebar = document.getElementById("mySidebar");
-    var main = document.getElementById("main");
-  
-    if(sidebar.style.width === "250px"){
-      sidebar.style.width = "0";
-      main.style.marginRight = "0px";
-    }else{
-      sidebar.style.width = "250px";
-      main.style.marginRight = "250px";
-    }
-  }
+
 
 // files upload in sidebar files section
 
@@ -116,16 +114,5 @@ function displayFileName() {
         fileInput.value = '';
     }
 }
-
-
-let titleCounter = 1;
-const plusIcon = document.querySelector('.titleSurvey');
-
-plusIcon.addEventListener('click', () => {
-    const inputTitle = document.querySelector('.inputTitle');
-    inputTitle.value = `*New Survey*(${titleCounter})`;
-    titleCounter++;
-});
-
 
 

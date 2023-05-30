@@ -5,6 +5,8 @@
 
         document.querySelector('[name="sectiontitle['+<%= i+1 %>+']"').value = "<%= data.catalog_section_title %>";
         document.querySelector('#section_delete<%= i+1 %>').setAttribute('data-id',"<%= data.catalog_section_key %>");
+        document.querySelector('[name="sectionkey['+<%= i+1 %>+']"').value = "<%= data.catalog_section_key %>";
+
         // console.log("sec :: "+<%= i+1 %>)
        </script>
         

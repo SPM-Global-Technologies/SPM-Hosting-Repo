@@ -14,6 +14,7 @@ const FormulaParser = require('hot-formula-parser').Parser;
 const parser = new FormulaParser();
 
 const ejs = require('ejs');
+const sessionStorage = require('node-sessionstorage')
 
 function getCellResult(worksheet, cellLabel) {
     if (worksheet.getCell(cellLabel).formula) {
@@ -189,7 +190,7 @@ router.get("/createcatalog", loggedIn, async (req, res) => {
             }
             
             //console.log(result)
-            res.render("createcatalog",{status:"ok", base_url:base_url, user:req.user, catalog:result, lookupsdata:lookupsdata})
+            res.render("createcatalog",{status:"ok", base_url:base_url, user:req.user, catalog:result, lookupsdata:lookupsdata, flasherror:sessionStorage.getItem("error")})
         });
         
     }else{
@@ -211,7 +212,7 @@ router.get("/catalog/edit/:id", loggedIn, async (req, res) => {
             catalog.getById(req.user, req.params.id, function(err,catresult){
                 //console.log(catresult);
 
-                res.render("editcatalog",{status:"ok", id:req.params.id, base_url:base_url, user:req.user, catalog:result, catalog_data:catresult, sections:sections, questions:questions, lookupsdata:lookupsdata})
+                res.render("editcatalog",{status:"ok", id:req.params.id, base_url:base_url, user:req.user, catalog:result, catalog_data:catresult, sections:sections, questions:questions, lookupsdata:lookupsdata, flasherror:sessionStorage.getItem("error")})
             });
 
         });
@@ -522,8 +523,10 @@ router.get("/lookups/edit/:id", loggedIn, async (req, res) => {
         var lookups_data = await lookups.get(req.user);
         var data = await lookups.getById(req.user,req.params.id);
         var lookups_code = await lookups.getByLookupsData(req.user,req.params.id);
+        var parentlookups_data = await lookups.getByLookupsData(req.user,data.parent_lookups_key);
 
-        res.render("lookups_edit",{status:"ok", base_url:base_url, id:req.params.id, lookups_data:lookups_data, data:data, lookups_code:lookups_code})
+        res.render("lookups_edit",{status:"ok", base_url:base_url, id:req.params.id, lookups_data:lookups_data, data:data, lookups_code:lookups_code, parentlookups_data:parentlookups_data})
+        
     }else{
         res.redirect("/");
     }

@@ -44,6 +44,7 @@ router.post("/lookups/add", loggedIn, lookups.add);
 router.post("/lookups/add_lookups_data", loggedIn, lookups.add_lookups_data);
 router.post("/lookups/delete_lookups_data", loggedIn, lookups.delete_lookups_data);
 router.post("/lookups/updatelookups", loggedIn, lookups.updatelookups);
+router.post("/lookups/getParentLookupsData", loggedIn, lookups.getParentLookupsData);
 
 
 module.exports = router;

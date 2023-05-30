@@ -124,9 +124,10 @@ function calcShow() {
   const hide11 = document.getElementById("deletesurveysection");
   const hide12 = document.getElementById("calc-container");
   const contents7 = document.getElementById("contentS7");
+  const hide13 = document.querySelector(".saveandcancel")
 
-  const selectTag = document.getElementById('tempUpdate');
-  var selectedValue = selectTag.options[selectTag.selectedIndex].value;
+  // const selectTag = document.getElementById('tempUpdate');
+  // var selectedValue = selectTag.options[selectTag.selectedIndex].value;
 
   if (hide1.style.display === 'none') {
     hide1.style.display = 'block';
@@ -144,6 +145,8 @@ function calcShow() {
     hide10.style.display = 'block';
     hide11.style.display = 'block';
     hide12.style.display = 'none';
+    hide13.style.display = 'none';
+    
     if (selectedValue != "promptuser")
       contents7.style.display = "none";
     else
@@ -161,6 +164,7 @@ function calcShow() {
     hide9.style.display = 'block';
     hide10.style.display = 'none';
     hide11.style.display = 'none';
+    hide12.style.display = 'block';
     hide12.style.display = 'block';
     contents7.style.display = "none";
   }

@@ -15,6 +15,7 @@
 </head>
 
 <body>
+    
     <div class="navandbread">
         <nav>
             <div class="search">
@@ -173,7 +174,6 @@
                     <i class="fa fa-search" aria-hidden="true"></i>
                     <input type="text" id="mySearchlookups" onkeyup="myFunction2Access()" title="type in a chategory">
                 </div>
-
                 <div class="dividelookups">
                     <ul id="myMenulookups">
                         <span id="dotslookups">
@@ -208,13 +208,42 @@
                     <a  href='<%= base_url %>lookups/create'><i class="fa fa-plus"></i></a>
                 </div>
             </div>
+            <template id="inputSectionTemplate">
+                <div class="inputSection">
+                    <input type="text" name="lookups"/>
+                    <input type="text" name="code"/>
+                    <input type="text" name="value1"/>
+                    <input type="text" name="value2">
+                    <select name="parentlookup" id="parentlookup">
+                    </select>
+                    <input type="checkbox" name="disable" value="1"/>
+                    <span id="deletebtn" data-id="" onclick="deleteFunction(event)"><i class="fa-solid fa-xmark"></i></span>
+                    <span id="rightSubmit" data-id="" onclick="submitFunction(event)"><i id="checkmark" class="uit uit-check"></i></span>
+                </div>
+            </template>
+            <select name="copyparentlookup" id="copyparentlookup" style="display: none;">
+                <option value="">Clear</option>
+                <% parentlookups_data.forEach(function(looksdataoptions, k){ 
+                    %>
+                    <option value="<%= looksdataoptions.lookups_data_accesskey %>"><%= looksdataoptions.lookups_name %></option>
+                    
+                <% }) %>
+            </select>
             <div class="rightlookups">
                 <div id="LookupsShow">
+                    <div id="lookupsradio">
+                        <input type="radio" id="all" name="a" value="0" <%= data.lookups_status ==0 ? "checked" : "" %> required>
+                        <label for="all">ALL</label>
+                        <input type="radio" id="enabled" name="a" value="1" <%= data.lookups_status ==1 ? "checked" : "" %> required>
+                        <label for="enabled">ENABLED</label>
+                        <input type="radio" id="disabled" name="a" value="2" <%= data.lookups_status ==2 ? "checked" : "" %> required>
+                        <label for="disabled">DISABLED</label>
+                       </div>
                     <div id="headerlookups">
-                        <label style="float: left;margin-left:20px;">
+                        <!-- <label style="float: left;margin-left:20px;">
                             <input type="checkbox" id="lookups_disable" name="lookups_disable" <%= data.class_name ==1 ? "checked" : "" %>  value="1"/>
                             <span>Disable</span>
-                         </label>
+                         </label> -->
                          <a style="margin-left: -70px;">LOOKUPS</a>
                     </div>
                     <!-- -------------creating lookups------------ -->
@@ -222,12 +251,35 @@
                     <div id="classname">
                         <input type="text" name="class_name" value="<%= data.class_name %>" />
                         <label>CLASS NAME</label>
+                        
                     </div>
                     <!-- <div id="removeandadd" style="display:block">
                         <button id="removelookups" type="reset" style="color:red;">CANCEL</button>
                         <button id="addlookups" type="submit" style="color:rgb(0, 79, 128);" onclick="addLookups()">ADD</button>
                     </div> -->
-                
+                    <div id="parentlookupc">
+                    <select id="parentlk" name="parentlk" onchange="getParentLookups(this)">
+                        <% if(!lookups_data || lookups_data.length==0) { %>
+                            <option value="" selected>No Lookups Found</option>
+                        <% } else { %>
+                            <% if(data.parent_lookups_key == null){ %>
+                                <option value="" >select</option>
+                            <% }else{ %>
+                                <% lookups_data.forEach(function(lookdata, i){ 
+                                    if(data.parent_lookups_key == lookdata.lookups_accesskey){ %>
+                                    <option value="<%= lookdata.lookups_accesskey %>"><%= lookdata.class_name %></option>
+                                <%  }
+                                }) %>
+                            <% } %>
+                                <% lookups_data.forEach(function(lookdata, i){ 
+                                    if(data.lookups_accesskey != lookdata.lookups_accesskey && data.parent_lookups_key != lookdata.lookups_accesskey){ %>
+                                    <option value="<%= lookdata.lookups_accesskey %>"><%= lookdata.class_name %></option>
+                                <%  }
+                                }) %>
+                        <% } %>
+                    </select>
+                    <label>PARENT LOOKUP</label>
+                    </div>
                 </div>
                 <div id="add-lookup" style="display: block;margin-top: 40px;">
                         <div class="lookupscontainer">
@@ -243,7 +295,10 @@
                             <div id="contentL4">
                                 <label>VALUE2</label>
                             </div>
-                            <div id="contentL4">
+                            <div id="contentL5">
+                                <label>PARENT LOOKUP</label>
+                            </div>
+                            <div id="contentL6">
                                 <label>DISABLE</label>
                             </div>
                         </div>
@@ -252,31 +307,66 @@
                         <% if(!lookups_code || lookups_code.length==0) { %>
                             <li><a>No Lookups found</a></li>
                         <% }else{ %>
-                            <% lookups_code.forEach(function(data, i){ %>
+                            <% lookups_code.forEach(function(looksdata, i){ 
+                                if(data.lookups_status > 0){
+                                if(data.lookups_status == looksdata.disable){ %>
                                 <div class="inputSection">
-                                    <input type="text" name="lookups" value="<%= data.lookups_name %>" />
-                                    <input type="text" name="code" value="<%= data.code %>" />
-                                    <input type="text" name="value1" value="<%= data.value1 %>" />
-                                    <input type="text" name="value2" value="<%= data.value2 %>" />
-                                    <input type="checkbox" name="disable" value="1" <% if(data.disable != 0){ %>checked<% } %>>
-                                    <span id="deletebtn" data-id="<%= data.lookups_data_accesskey %>" onclick="deleteFunction(event)"><i class="fa-solid fa-xmark"></i></span>
-                                    <span id="rightSubmit" data-id="<%= data.lookups_data_accesskey %>" onclick="submitFunction(event)"><i id="checkmark" class="uit uit-check"></i></span>
+                                    <input type="text" name="lookups" value="<%= looksdata.lookups_name %>" />
+                                    <input type="text" name="code" value="<%= looksdata.code %>" />
+                                    <input type="text" name="value1" value="<%= looksdata.value1 %>" />
+                                    <input type="text" name="value2" value="<%= looksdata.value2 %>" />
+                                    <select name="parentlookup" id="parentlookup">
+                                        <% parentlookups_data.forEach(function(looksdataoptions, k){ 
+                                            if(looksdata.parent_lookups_data == looksdataoptions.lookups_data_accesskey){ %>
+                                                <option value="<%= looksdataoptions.lookups_data_accesskey %>"><%= looksdataoptions.lookups_name %></option>
+                                            <% } %>
+                                           
+                                        <% }) %>
+                                        <option value="">Clear</option>
+                                        <% parentlookups_data.forEach(function(looksdataoptions, k){ 
+                                            %>
+                                            <% if(looksdata.parent_lookups_data != looksdataoptions.lookups_data_accesskey){ %>
+                                                <option value="<%= looksdataoptions.lookups_data_accesskey %>"><%= looksdataoptions.lookups_name %></option>
+                                            <% } %>
+                                        <% }) %>
+                                    </select>
+                                    <input type="checkbox" name="disable" value="1" <% if(looksdata.disable == 2){ %>checked<% } %>>
+                                    <span id="deletebtn" data-id="<%= looksdata.lookups_data_accesskey %>" onclick="deleteFunction(event)"><i class="fa-solid fa-xmark"></i></span>
+                                    <span id="rightSubmit" data-id="<%= looksdata.lookups_data_accesskey %>" onclick="submitFunction(event)"><i id="checkmark" class="uit uit-check"></i></span>
                                 </div>
+                                <% }
+                                }else{ %>
+                                    <div class="inputSection">
+                                        <input type="text" name="lookups" value="<%= looksdata.lookups_name %>" />
+                                        <input type="text" name="code" value="<%= looksdata.code %>" />
+                                        <input type="text" name="value1" value="<%= looksdata.value1 %>" />
+                                        <input type="text" name="value2" value="<%= looksdata.value2 %>" />
+                                        <select name="parentlookup" id="parentlookup">
+                                            <% parentlookups_data.forEach(function(looksdataoptions, k){ 
+                                                if(looksdata.parent_lookups_data == looksdataoptions.lookups_data_accesskey){ %>
+                                                    <option value="<%= looksdataoptions.lookups_data_accesskey %>"><%= looksdataoptions.lookups_name %></option>
+                                                <% } %>
+                                               
+                                            <% }) %>
+                                            <option value="">Clear</option>
+                                            <% parentlookups_data.forEach(function(looksdataoptions, k){ 
+                                                %>
+                                                <% if(looksdata.parent_lookups_data != looksdataoptions.lookups_data_accesskey){ %>
+                                                    <option value="<%= looksdataoptions.lookups_data_accesskey %>"><%= looksdataoptions.lookups_name %></option>
+                                                <% } %>
+                                            <% }) %>
+                                        </select>
+                                        <input type="checkbox" name="disable" value="1" <% if(looksdata.disable == 2){ %>checked<% } %>>
+                                        <span id="deletebtn" data-id="<%= looksdata.lookups_data_accesskey %>" onclick="deleteFunction(event)"><i class="fa-solid fa-xmark"></i></span>
+                                        <span id="rightSubmit" data-id="<%= looksdata.lookups_data_accesskey %>" onclick="submitFunction(event)"><i id="checkmark" class="uit uit-check"></i></span>
+                                    </div>
+                                <% } %>
+
                             <% }) %>
                         <% } %>
                     </div>
                
-                    <template id="inputSectionTemplate">
-                        <div class="inputSection">
-                            <input type="text" name="lookups"/>
-                            <input type="text" name="code"/>
-                            <input type="text" name="value1"/>
-                            <input type="text" name="value2">
-                            <input type="checkbox" name="disable" value="1"/>
-                            <span id="deletebtn" data-id="" onclick="deleteFunction(event)"><i class="fa-solid fa-xmark"></i></span>
-                            <span id="rightSubmit" data-id="" onclick="submitFunction(event)"><i id="checkmark" class="uit uit-check"></i></span>
-                        </div>
-                    </template>
+                    
 
                     <button id="toggleButton"><i class="fa fa-plus"></i></button>
 
@@ -302,14 +392,21 @@
         var node = event.currentTarget.parentNode;
         var lookups = node.querySelector('input[name="lookups"]').value;
         var code = node.querySelector('input[name="code"]').value;
+        if(code.length <= 3)
+        {
+            alert("Code Length should be atleast 3 characters.")
+            return
+        }
         var value1 = node.querySelector('input[name="value1"]').value;
         var value2 = node.querySelector('input[name="value2"]').value;
         var lookups_accesskey = document.getElementById('class_name_id').value;
         var access_key_id = event.currentTarget.getAttribute("data-id");
-        var disable = 0;
+        var parentlookup = node.querySelector('select[name="parentlookup"]').value;
+
+        var disable = 1;
         if(node.querySelector('input[name="disable"]').checked == true)
         {
-            disable = 1;
+            disable = 2;
         }
         var lookups_data = {
             lookups:lookups,
@@ -318,7 +415,8 @@
             value2:value2,
             disable:disable,
             lookups_accesskey:lookups_accesskey,
-            access_key_id:access_key_id
+            access_key_id:access_key_id,
+            parentlookup:parentlookup
         }
             fetch("<%= base_url %>api/lookups/add_lookups_data", {
                 method: 'post',
@@ -394,16 +492,17 @@
     //   }
     }
 
-    var checkbox = document.querySelector("input[name=lookups_disable]");
+    var radio = document.querySelectorAll("input[type=radio]");
+    for(var i=0; i<radio.length; i++){
+         radio[i].addEventListener('change', function (e) {
 
-        checkbox.addEventListener('change', function() {
             var lookups_accesskey = document.getElementById('class_name_id').value;
 
             if (this.checked) {
                 console.log("Checkbox is checked..");
                 if(lookups_accesskey != "")
                 {
-                    var disable = 1;
+                    var disable = this.value;
                     fetch("<%= base_url %>api/lookups/updatelookups", {
                         method: 'post',
                         body: JSON.stringify({lookups_accesskey:lookups_accesskey, disable:disable}),
@@ -411,7 +510,9 @@
                             "Content-Type": "application/json"
                         }
                     }).then(res => res.json())
-                    .then(data => {})
+                    .then(data => {
+                        window.location.reload();
+                    })
                     .catch((error) => {
                         console.log(error)
                     })
@@ -428,13 +529,87 @@
                             "Content-Type": "application/json"
                         }
                     }).then(res => res.json())
-                    .then(data => {})
+                    .then(data => {
+                        window.location.reload();
+                    })
                     .catch((error) => {
                         console.log(error)
                     })
                 }
             }
         });
+    }
+
+        function getParentLookups(e)
+        {
+            var lookupsaccesskey = document.getElementById('class_name_id').value;
+            var parentlookups_accesskey = e.value;
+            if(lookupsaccesskey != '')
+            {
+                fetch("<%= base_url %>api/lookups/updatelookups", {
+                        method: 'post',
+                        body: JSON.stringify({lookups_accesskey:lookupsaccesskey, parentlookups_accesskey:parentlookups_accesskey}),
+                        headers : {
+                            "Content-Type": "application/json"
+                        }
+                    }).then(res => res.json())
+                    .then(data => {})
+                    .catch((error) => {
+                        console.log(error)
+                    })
+            }
+
+            fetch("<%= base_url %>api/lookups/getParentLookupsData", {
+                method: 'post',
+                body: JSON.stringify({lookups_accesskey:parentlookups_accesskey}),
+                headers : {
+                    "Content-Type": "application/json"
+                }
+            }).then(res => res.json())
+            .then(data => {
+                if(data.status == "error"){
+                    alert("Failed to get, Try again Later!")
+                }
+
+                if(data.status == "success"){
+                    console.log(data.results)
+                    // var options = '<option value="">Select</option>'
+                    var copy_select = document.querySelectorAll('#copyparentlookup')
+                    for (let k = 0; k < copy_select.length; k++) {
+                        copy_select[k].remove(k);
+                    }
+                    for (let j = 0; j < copy_select.length; j++) {
+                      for(var i=0; i<data.results.length;i++)
+                      {
+                        var option = document.createElement("option");
+                        option.text = data.results[i].code;
+                        option.value = data.results[i].data_accesskey;
+                        copy_select[j].appendChild(option);
+                        // options += '<option value="'+data.results[i].lookups_data_accesskey+'">'+data.results[i].code+'</option>'
+                      }
+                    }
+                
+
+                    var select = document.querySelectorAll('#parentlookup')
+                    for (let k = 0; k < select.length; k++) {
+                        select[k].remove(k);
+                    }
+                    for (let j = 0; j < select.length; j++) {
+                      for(var i=0; i<data.results.length;i++)
+                      {
+                        var option = document.createElement("option");
+                        option.text = data.results[i].code;
+                        option.value = data.results[i].data_accesskey;
+                        select[j].appendChild(option);
+                        // options += '<option value="'+data.results[i].lookups_data_accesskey+'">'+data.results[i].code+'</option>'
+                      }
+                    }
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+        }
     
     </script>
 </body>

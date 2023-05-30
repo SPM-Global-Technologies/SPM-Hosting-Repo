@@ -12,6 +12,8 @@ function addNewSection() {
     sectionCount++;
     const newSection = inputSectionTemplate.content.cloneNode(true);
     newSection.querySelector("input[type='text']").value = '';
+    var copy_select = document.querySelector('#copyparentlookup')
+    newSection.querySelector("#parentlookup").innerHTML = copy_select.innerHTML;
     inputWrapper.appendChild(newSection);
 
     const deleteBtn = newSection.querySelector("i");

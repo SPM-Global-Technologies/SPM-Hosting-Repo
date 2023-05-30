@@ -17,6 +17,25 @@ body {
     width: 20%;
     height: 100%;
   }
+
+
+
+  #lookupsradio {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    height: 30px;
+    padding-left: 8px;
+  }
+  
+  #lookupsradio label {
+    color: #216c98;
+    font-weight: bold;
+    font-size: 13px;
+    padding-right: 5px;
+  }
+
+  
+  
   /* ----------------lookups plus icon-------------------- */
 .plusiconlookups {
     padding: 15px;
@@ -159,7 +178,7 @@ body {
   }
   .lookupscontainer{
     display: grid;
-    grid-template-columns: 2fr 1.5fr 1fr 1fr 1fr 0.2fr 0.2fr;
+    grid-template-columns: 1.8fr 1.5fr 1fr 1fr 1fr 0.5fr 0.2fr 0.2fr;
     height: 30px; 
     margin-left: 2px; 
     border: 1px solid rgb(200, 200, 200);
@@ -183,7 +202,7 @@ body {
 
 .inputSection {
     display: grid;
-    grid-template-columns: 2fr 1.5fr 1fr 1fr 1fr 0.2fr 0.2fr;
+    grid-template-columns: 1.8fr 1.5fr 1fr 1fr 1fr 0.5fr 0.2fr 0.2fr;
     height: 30px;
     margin-left: 2px;
     border: 1px solid rgb(208, 207, 207);
@@ -198,6 +217,14 @@ body {
     outline-color: #216c98;
 }
 
+.inputSection select {
+  height: 28px;
+  width: 98%;
+  border-radius: 0%;
+  border: none;
+  outline-color: #216c98;
+}
+
 .inputSection i {
     font-size: 15px;
     color: #ff0000;
@@ -209,7 +236,6 @@ body {
 .inputSection input[type="checkbox"] {
     height: 15px;
     width: 15px;
-    margin-left: 71px;
     margin-top: 7px;
 }
 
@@ -227,4 +253,33 @@ margin-top: 4px;
 border: none;
 background-color: white;
 color: #216c98;
+}
+
+#parentlook{
+  height: 29px;
+  width: 100px;
+  background: white;
+  border: none;
+  outline: #216c98;
+}
+
+#parentlk{
+  width: 25%;
+  float: right;
+  height: 45px;
+  border: 1px solid #ccc;
+  background: white;
+}
+#classname{
+  margin-bottom: 1px;
+  height: 60px;
+}
+#parentlookupc label{
+  color: #216c98;
+  top: 25px;
+  left: 76%;
+  font-size: small;
+  font-weight: bold;
+  font-size: 11px;
+  position: relative;
 }
